@@ -1,4 +1,5 @@
-public class UserSettingsDAO {
+package dao;
+public class UsersDAO {
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
 

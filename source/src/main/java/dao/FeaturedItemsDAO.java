@@ -1,4 +1,5 @@
-public class StoresDAO {
+package dao;
+public class FeaturedItemsDAO {
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
 
