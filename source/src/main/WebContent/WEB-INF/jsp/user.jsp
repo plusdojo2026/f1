@@ -32,7 +32,6 @@
           	都道府県<br>
           	<select class="box">
             	<option value="">選択してください</option>
-            	<option value="hokkaido">北海道</option>
           	</select><br>
           	<input type="submit" name="submit" value="位置情報で店舗を検索する" class="box"><br>
 			<input type="submit" name="submit" value="登録" class="box">
