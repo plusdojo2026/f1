@@ -5,12 +5,12 @@ import java.io.Serializable;
 public class UserSettingDTO implements Serializable {
 
 	private int user_id;			//ユーザーID
-	private String prefecture_id;	//都道府県ID
+	private int prefecture_id;		//都道府県ID
 	private int favorite_store_id;	//店舗ID
 	private String memo;			//メモ
 	
 	//コンストラクタ
-	public UserSettingDTO(int user_id, String prefecture_id, int favorite_store_id, String memo) {
+	public UserSettingDTO(int user_id, int prefecture_id, int favorite_store_id, String memo) {
 		super();
 		this.user_id = user_id;
 		this.prefecture_id = prefecture_id;
@@ -22,7 +22,7 @@ public class UserSettingDTO implements Serializable {
 	public UserSettingDTO() {
 		super();
 		this.user_id = 0;
-		this.prefecture_id = "";
+		this.prefecture_id = 0;
 		this.favorite_store_id = 0;
 		this.memo = "";
 	}
@@ -33,10 +33,10 @@ public class UserSettingDTO implements Serializable {
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
-	public String getPrefecture_id() {
+	public int getPrefecture_id() {
 		return prefecture_id;
 	}
-	public void setPrefecture_id(String prefecture_id) {
+	public void setPrefecture_id(int prefecture_id) {
 		this.prefecture_id = prefecture_id;
 	}
 	public int getFavorite_store_id() {
