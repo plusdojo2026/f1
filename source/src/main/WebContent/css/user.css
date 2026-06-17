@@ -1,1 +1,74 @@
 @charset "UTF-8";
+
+html{
+    font-size: 16px;
+    font-family: sans-serif;
+    background-color: rgb(255, 255, 255);
+    margin: 0 auto 0 auto;	/* 中央揃え */
+    background-position: center; /* 中央に配置 */
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    height: 100%;
+    margin: 0 0 0 0;
+}
+
+main{
+    margin: 0px auto 0px auto;
+    max-width: 2000px;
+    padding: 0 4% 0 4%;
+    min-height: 75vh; 		/*最低表示のサイズ(表示画面75%のサイズでmainを表示)*/
+}
+
+img{
+    max-width: 100%;
+}
+
+.hedder-logo{
+  text-align: center;
+}
+
+.nav{
+  text-align: center;
+  border-bottom: 5px solid #ffd501;
+  
+}
+
+/*main内*/
+.box{
+  border-radius: 4px;
+  border-color: #ffd501;
+  background-color: #fffdce;
+}
+
+/*フッター*/
+/*ページ上部に飛ぶ*/
+.gotop{
+    text-align:right;
+    position: fixed;    /*右下へ*/
+    bottom: 20px; 
+    right: 20px;  
+    width: 60px;
+    cursor: pointer;
+    z-index: 999;       /* 他の要素の下に隠れないようにする(Z軸 奥行操作) */
+}
+.copyright{
+    margin-top: 20px;
+    margin-bottom: 0;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: #ffd501;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-size: 14px;
+}
+
+
+/* モバイル対応 */
+@media(max-width:767px){
+
+}
