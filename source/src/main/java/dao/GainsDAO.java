@@ -1,7 +1,56 @@
 package dao;
-public class GainsDAO {
-	public static void main(String[] args) {
-		// TODO 自動生成されたメソッド・スタブ
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import dto.GainsDTO;
+
+public class GainsDAO {
+	public boolean insert(GainsDTO gain) {
+		Connection conn = null;
+		boolean result = false;
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			// SQL文を準備する
+			String sql = "INSERT INTO users VALUES (0, 0, ?, 0, 0)";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			// SQL文を完成させる
+			if (gain.getRecord_date() != null) {
+				pStmt.setString(1, gain.getRecord_date());
+			} else {
+				pStmt.setString(1, "");
+			}
+			// SQL文を実行する
+			if (pStmt.executeUpdate() == 1) {		//1レコード更新できた-->true
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		// 結果を返す
+		return result;
 	}
 }
