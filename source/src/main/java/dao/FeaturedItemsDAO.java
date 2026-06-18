@@ -27,46 +27,25 @@ public class FeaturedItemsDAO {
 					"f1", "xVyQPJuerzK8LB4G");
 			
 			// 検索SQL文を準備する
-			String sql = "SELECT featured_item_id, store_id, price, featured_item_name, start_date, end_date, ap_date FROM featured_items"
-					+ "WHERE (featured_item_id = ? OR ? = 0) AND (store_id = ? OR ? = 0) AND (price = ? OR ? = 0) AND featured_item_name LIKE ? AND start_date <= ? AND end_date >= ? AND ap_name LIKE ? ORDER BY featured_item_id";
+			String sql = "SELECT featured_item_id, store_id, price, featured_item_name, start_date, end_date, ap_name FROM featured_items "
+					+ "WHERE (featured_item_id = ? OR ?=0) AND (store_id = ? OR ?=0) ORDER BY featured_item_id";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
-			if (featuredItems.getFeatured_item_id() != 0) {
-				pStmt.setInt(1, featuredItems.getFeatured_item_id());
-			} else {
-				pStmt.setInt(1, 0);
-			}
-			if (featuredItems.getStore_id() != 0) {
-				pStmt.setInt(2, featuredItems.getStore_id());
-			} else {
-				pStmt.setInt(2, 0);
-			}
-			if (featuredItems.getPrice() != 0) {
-				pStmt.setInt(3, featuredItems.getPrice());
-			} else {
-				pStmt.setInt(3, 0);
-			}
+			pStmt.setInt(1, featuredItems.getFeatured_item_id());
+			
+			pStmt.setInt(2, featuredItems.getStore_id());
+			
 			//LIKEは部分一致なので、%入力した文字%になるようにif文を作る
-			if (featuredItems.getFeatured_item_name() != null) {
-				pStmt.setString(4, "%" + featuredItems.getFeatured_item_name() + "%");
-			} else {
-				pStmt.setString(4, "%");
-			}
 			if (featuredItems.getStart_date() != null) {
-				pStmt.setString(5, "%" + featuredItems.getStart_date().toString() + "%");
+				pStmt.setString(3, "%" + featuredItems.getStart_date().toString() + "%");
 			} else {
-				pStmt.setString(5, "%");
+				pStmt.setString(3, "%");
 			}
 			if (featuredItems.getEnd_date() != null) {
-				pStmt.setString(6, "%" + featuredItems.getEnd_date().toString() + "%");
+				pStmt.setString(4, "%" + featuredItems.getEnd_date().toString() + "%");
 			} else {
-				pStmt.setString(6, "%");
-			}
-			if (featuredItems.getAp_name() != null) {
-				pStmt.setString(7, featuredItems.getAp_name());
-			} else {
-				pStmt.setString(7, "");
+				pStmt.setString(4, "%");
 			}
 			
 			// SQL文を実行し、結果表を取得する
@@ -113,20 +92,13 @@ public class FeaturedItemsDAO {
 					"f1", "xVyQPJuerzK8LB4G");
 
 			// SQL文を準備する
-			String sql = "UPDATE FeaturedItemsDTO SET ap_name=? WHERE featured_item_id=?";
+			String sql = "UPDATE featured_items SET ap_name=? WHERE featured_item_id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			if (featuredItems.getAp_name() != null) {
-				pStmt.setString(1, "%" + featuredItems.getAp_name() + "%");
-			} else {
-				pStmt.setString(1, "%");
-			}
-			if (featuredItems.getFeatured_item_id() != 0) {
-				pStmt.setInt(2, featuredItems.getFeatured_item_id());
-			} else {
-				pStmt.setInt(2, 0);
-			}
+			pStmt.setString(1, featuredItems.getAp_name());
+			pStmt.setInt(2, featuredItems.getFeatured_item_id());
+			
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
 				result = true;
