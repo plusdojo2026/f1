@@ -13,7 +13,7 @@ import dto.RegistStoresDTO;
 
 public class RegistStoresDAO {
 	// regist_storesに登録する
-	public boolean insert(RegistStoresDTO dto) {
+	public boolean insert(RegistStoresDTO regist) {
 		Connection conn = null;
 		boolean registResult = false;
 
@@ -31,8 +31,8 @@ public class RegistStoresDAO {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			pStmt.setInt(1, dto.getUser_id());
-			pStmt.setInt(2, dto.getStore_id());
+			pStmt.setInt(1, regist.getUser_id());
+			pStmt.setInt(2, regist.getStore_id());
 
 			// SQL文を実行する
 			if(pStmt.executeUpdate() ==1) {
@@ -57,7 +57,7 @@ public class RegistStoresDAO {
 	}
 
 	//regist_storesから削除する
-	public boolean delete(RegistStoresDTO dto) {
+	public boolean delete(RegistStoresDTO regist) {
 		Connection conn = null;
 		boolean registResult = false;
 
@@ -75,8 +75,8 @@ public class RegistStoresDAO {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			pStmt.setInt(1, dto.getUser_id());
-			pStmt.setInt(2, dto.getStore_id());
+			pStmt.setInt(1, regist.getUser_id());
+			pStmt.setInt(2, regist.getStore_id());
 
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
