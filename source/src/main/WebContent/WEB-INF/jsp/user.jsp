@@ -24,16 +24,19 @@
     <main>
       <div class="">
         <p class="user">
-        <form method="POST" action="/webContent/UserServlet" class="" id="regist_form">
+        <form method="POST" action="" class="" id="regist_form">
         <span style="color: red;" id="error_message"></span><br>
 			<div class="email">メールアドレス</div>
-          	<input type="text" name="address"  placeholder="Email" class="box" id= "address"><br>
+          	<input type="text" name="address"  placeholder="Email" class="box" id= "address" ><br>
 			<div class="pass">パスワード</div>
           	<input type="text" name="passwprd" placeholder="32文字以内" class="box"  name="pw" id= "pw"><br>
           	<span style="color: red;" id="prefecture_error"></span><br>
-          	<div class="prefecture">都道府県</div>
+          	<div class="prefecture">都道府県(対応地域は順次拡大予定)</div>
           	<select class="box" name="prefecture" id="prefectureBox">
             	<option value="">選択してください</option>
+            	<option value="新潟県">新潟県</option>
+            	<option value="香川県">香川県</option>
+            	<option value="熊本県">熊本県</option>
             	<c:forEach var="prefecture" items="${prefectureList}">
                 	<option value="${prefecture}">${prefecture}</option>
             	</c:forEach>
@@ -54,8 +57,8 @@
     </footer>
     <!--フッターここまで-->
     <script>
-    'use strict';
-
+    'use strict';    	
+    
 		/* HTML要素をオブジェクトとして取得する */
 		let formObj = document.getElementById('regist_form');
 		let errorMessageObj = document.getElementById('error_message');
@@ -82,9 +85,12 @@
 		    pw.style.backgroundColor = '#FACAC8';
 		    event.preventDefault();
 		  }else{}
+		  /*(都道府県)*/
 		  if (formObj.prefecture.value === ''){
 			  prefecture_errorMessageObj.textContent = '※都道府県を選択してください！';
-		}else{}
+		}else{
+			prefecture_errorMessageObj.textContent ="";
+		}
 		};
     
     </script>
