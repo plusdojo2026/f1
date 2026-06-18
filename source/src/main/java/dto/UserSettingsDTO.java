@@ -2,7 +2,7 @@ package dto;
 
 import java.io.Serializable;
 
-public class UserSettingDTO implements Serializable {
+public class UserSettingsDTO implements Serializable {
 
 	private int user_id;			//ユーザーID
 	private int prefecture_id;		//都道府県ID
@@ -10,7 +10,7 @@ public class UserSettingDTO implements Serializable {
 	private String memo;			//メモ
 	
 	//コンストラクタ
-	public UserSettingDTO(int user_id, int prefecture_id, int favorite_store_id, String memo) {
+	public UserSettingsDTO(int user_id, int prefecture_id, int favorite_store_id, String memo) {
 		super();
 		this.user_id = user_id;
 		this.prefecture_id = prefecture_id;
@@ -19,7 +19,7 @@ public class UserSettingDTO implements Serializable {
 	}
 	
 	//デフォルトコンストラクタ
-	public UserSettingDTO() {
+	public UserSettingsDTO() {
 		super();
 		this.user_id = 0;
 		this.prefecture_id = 0;
