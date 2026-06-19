@@ -3,58 +3,58 @@ package dto;
 import java.io.Serializable;
 
 public class RecipesDTO implements Serializable {
-	private int recipi_id; 		//レシピID
-	private int store_id; 		//店舗ID
-	private String recipi_name;	//料理名
-	private String recipi;		//レシピ
+	private int recipe_id; 		//レシピID
+	private String phone_number; //電話番号
+	private String recipe_name;	//料理名
+	private String recipe;		//レシピ
 
 	//ｺﾝｽﾄﾗｸﾀ
-	public RecipesDTO(int recipi_id, int store_id, String recipi_name, String recipi) {
+	public RecipesDTO(int recipe_id, String phone_number, String recipe_name, String recipe) {
 	super();
-	this.recipi_id = recipi_id;
-	this.store_id = store_id;
-	this.recipi_name = recipi_name;
-	this.recipi = recipi;
+	this.recipe_id = recipe_id;
+	this.phone_number = phone_number;
+	this.recipe_name = recipe_name;
+	this.recipe = recipe;
 	}
 
 	//引数無しのｺﾝｽﾄﾗｸﾀ
 	public RecipesDTO() {
-		this.recipi_id = 0;
-		this.store_id = 0;
-		this.recipi_name = "";
-		this.recipi = "";
+		this.recipe_id = 0;
+		this.phone_number = "";
+		this.recipe_name = "";
+		this.recipe = "";
 		}
 
-	public int getRecipi_id() {
-		return recipi_id;
+	public int getRecipe_id() {
+		return recipe_id;
 	}
 
-	public void setRecipi_id(int recipi_id) {
-		this.recipi_id = recipi_id;
+	public void setRecipe_id(int recipe_id) {
+		this.recipe_id = recipe_id;
 	}
 
-	public int getStore_id() {
-		return store_id;
+	public String getPhone_number() {
+		return phone_number;
 	}
 
-	public void setStore_id(int store_id) {
-		this.store_id = store_id;
+	public void setPhone_number(String phone_number) {
+		this.phone_number = phone_number;
 	}
 
-	public String getRecipi_name() {
-		return recipi_name;
+	public String getRecipe_name() {
+		return recipe_name;
 	}
 
-	public void setRecipi_name(String recipi_name) {
-		this.recipi_name = recipi_name;
+	public void setRecipe_name(String recipe_name) {
+		this.recipe_name = recipe_name;
 	}
 
-	public String getRecipi() {
-		return recipi;
+	public String getRecipe() {
+		return recipe;
 	}
 
-	public void setRecipi(String recipi) {
-		this.recipi = recipi;
+	public void setRecipe(String recipe) {
+		this.recipe = recipe;
 	}
 	
 }
