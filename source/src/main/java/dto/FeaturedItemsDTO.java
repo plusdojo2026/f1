@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class FeaturedItemsDTO implements Serializable {
 	private int featured_item_id;		//目玉商品ID
-	private int store_id;				//店舗ID
+	private String store_id;			//店舗ID
 	private int price;					//目玉商品価格
 	private String featured_item_name;	//目玉商品名
 	private String start_date;			//目玉商品開始日
@@ -12,7 +12,7 @@ public class FeaturedItemsDTO implements Serializable {
 	private String ap_name;				//代替商品名
 	
 	//コンストラクタ
-	public FeaturedItemsDTO(int featured_item_id, int store_id, int price, String featured_name, String start_date,
+	public FeaturedItemsDTO(int featured_item_id, String store_id, int price, String featured_name, String start_date,
 			String end_date, String ap_name) {
 		super();
 		this.featured_item_id = featured_item_id;
@@ -28,7 +28,7 @@ public class FeaturedItemsDTO implements Serializable {
 	public FeaturedItemsDTO() {
 		super();
 		this.featured_item_id = 0;
-		this.store_id = 0;
+		this.store_id = "";
 		this.price = 0;
 		this.featured_item_name = "";
 		this.start_date = "";
@@ -44,11 +44,11 @@ public class FeaturedItemsDTO implements Serializable {
 		this.featured_item_id = featured_item_id;
 	}
 
-	public int getStore_id() {
+	public String getStore_id() {
 		return store_id;
 	}
 
-	public void setStore_id(int store_id) {
+	public void setStore_id(String store_id) {
 		this.store_id = store_id;
 	}
 
