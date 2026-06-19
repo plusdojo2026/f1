@@ -58,10 +58,10 @@ public class UserServlet extends HttpServlet {
 		String address = request.getParameter("address");
 		String password = request.getParameter("password");
 		String prefecture_name = request.getParameter("prefecture");
-		String store_name = request.getParameter("store_name");
+		String phone_number = request.getParameter("phone_number");
 		// 登録処理(メールアドレス・パスワード)
 		UsersDAO userDao = new UsersDAO();
-		if (userDao.insert(new UsersDTO(0, address, password, prefecture_name, store_name, ""))) { // 登録成功
+		if (userDao.insert(new UsersDTO(0, address, password, prefecture_name, phone_number, ""))) { // 登録成功
 			request.setAttribute("result", new ResultDTO("登録成功！", "レコードを登録しました。", "/WebContent/LoginServlet"));
 		} else { // 登録失敗
 			request.setAttribute("result", new ResultDTO("登録失敗！", "レコードを登録できませんでした。", "/WebContent/LoginServlet"));
