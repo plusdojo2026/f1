@@ -32,7 +32,7 @@ public class HomeServlet extends HttpServlet{
 
 		RegistStoresDAO storeDao = new RegistStoresDAO();
 
-		List<RegistStoresDTO> storeList = storeDao.selectAll();
+		List<RegistStoresDTO> storeList = storeDao.select(new RegistStoresDTO(0,""));
 
 		// 検索結果をリクエストスコープに格納する
 		request.setAttribute("storeList", storeList);
