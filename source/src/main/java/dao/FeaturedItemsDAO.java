@@ -33,27 +33,17 @@ public class FeaturedItemsDAO {
 			
 			// SQL文を完成させる
 			pStmt.setInt(1, featuredItems.getFeatured_item_id());
+			pStmt.setInt(2, featuredItems.getFeatured_item_id());
 			
-			pStmt.setInt(2, featuredItems.getStore_id());
-			
-			//LIKEは部分一致なので、%入力した文字%になるようにif文を作る
-			if (featuredItems.getStart_date() != null) {
-				pStmt.setString(3, "%" + featuredItems.getStart_date().toString() + "%");
-			} else {
-				pStmt.setString(3, "%");
-			}
-			if (featuredItems.getEnd_date() != null) {
-				pStmt.setString(4, "%" + featuredItems.getEnd_date().toString() + "%");
-			} else {
-				pStmt.setString(4, "%");
-			}
+			pStmt.setString(3, featuredItems.getStore_id());
+			pStmt.setString(4, featuredItems.getStore_id());
 			
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 			
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
-				FeaturedItemsDTO fi = new FeaturedItemsDTO (rs.getInt("featured_item_id"), rs.getInt("store_id"),
+				FeaturedItemsDTO fi = new FeaturedItemsDTO (rs.getInt("featured_item_id"), rs.getString("store_id"),
 									  rs.getInt("price"), rs.getString("featured_item_name"), rs.getString("start_date"), rs.getString("end_date"), rs.getString("ap_name"));
 				itemList.add(fi);
 			}
