@@ -19,9 +19,9 @@ public class IdPwDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp1?"
-					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
+					+ "useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
+					"f1", "xVyQPJuerzK8LB4G");
 
 			// SELECT文を準備する
 			String sql = "SELECT count(*) FROM UsersDTO WHERE address=? AND password=?";
