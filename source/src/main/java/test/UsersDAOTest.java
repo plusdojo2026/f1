@@ -11,7 +11,7 @@ public class UsersDAOTest {
 			System.out.println("メールアドレス：" + user.getAddress());
 			System.out.println("パスワード：" + user.getPassword());
 			System.out.println("都道府県名：" + user.getPrefecture_name());
-			System.out.println("店舗名：" + user.getStore_name());
+			System.out.println("電話番号：" + user.getPhone_number());
 			System.out.println("メモ：" + user.getMemo());
 			System.out.println();
 		}
