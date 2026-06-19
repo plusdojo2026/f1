@@ -4,18 +4,18 @@ import java.io.Serializable;
 
 public class RegistStoresDTO implements Serializable {
 	private int user_id; 		//ユーザーID
-	private int store_id;		//店舗ID
+	private String phone_number;		//電話番号
 	
 	//ｺﾝｽﾄﾗｸﾀ
-	public RegistStoresDTO(int user_id, int store_id) {
+	public RegistStoresDTO(int user_id, String phone_number) {
 	super();
 	this.user_id = user_id;
-	this.store_id = store_id;
+	this.phone_number = phone_number;
 	}
 	
 	public RegistStoresDTO() {
 	this.user_id = 0;
-	this.store_id = 0;		
+	this.phone_number = "";		
 	}
 
 	public int getUser_id() {
@@ -26,12 +26,12 @@ public class RegistStoresDTO implements Serializable {
 		this.user_id = user_id;
 	}
 
-	public int getStore_id() {
-		return store_id;
+	public String getPhone_number() {
+		return phone_number;
 	}
 
-	public void setStore_id(int store_id) {
-		this.store_id = store_id;
+	public void setPhone_number(String phone_number) {
+		this.phone_number = phone_number;
 	}
 	
 }
