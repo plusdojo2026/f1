@@ -29,7 +29,7 @@
 			<div class="email">メールアドレス</div>
           	<input type="text" name="address"  placeholder="Email" class="box" id= "address" ><br>
 			<div class="pass">パスワード</div>
-          	<input type="text" name="passwprd" placeholder="32文字以内" class="box"  name="pw" id= "pw"><br>
+          	<input type="password" name="passwprd" placeholder="32文字以内" class="box"  name="pw" id= "pw"><br>
           	<span style="color: red;" id="prefecture_error"></span><br>
           	<div class="prefecture">都道府県(対応地域は順次拡大予定)</div>
           	<select class="box" name="prefecture" id="prefectureBox">

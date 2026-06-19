@@ -15,7 +15,7 @@ public class UsersDAO {
 	// 引数card指定された項目で検索して、取得されたデータのリストを返す
 	public List<UsersDTO> select(UsersDTO user) {
 		Connection conn = null;
-		List<UsersDTO> cardList = new ArrayList<UsersDTO>();
+		List<UsersDTO> userList = new ArrayList<UsersDTO>();
 
 		try {
 			// JDBCドライバを読み込む
@@ -70,14 +70,14 @@ public class UsersDAO {
 						rs.getString("prefecture_name"), 
 						rs.getString("store_name"), 
 						rs.getString("meomo"));
-				cardList.add(UsersDTO);
+				userList.add(UsersDTO);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			cardList = null;
+			userList = null;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			cardList = null;
+			userList = null;
 		} finally {
 			// データベースを切断
 			if (conn != null) {
@@ -85,13 +85,13 @@ public class UsersDAO {
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
-					cardList = null;
+					userList = null;
 				}
 			}
 		}
 
 		// 結果を返す
-		return cardList;
+		return userList;
 	}
 
 	
