@@ -27,7 +27,7 @@ public class UsersDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT user_id, address, password, prefecture_name, store_name, memo FROM users "
+			String sql = "SELECT user_id, address, password, prefecture_name, phone_number, memo FROM users "
 					+ "WHERE address LIKE ? AND password LIKE ? AND prefecture_name LIKE ? "
 					+ "AND store_name LIKE ? AND memo LIKE ? ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -48,8 +48,8 @@ public class UsersDAO {
 			} else {
 				pStmt.setString(3, "%");
 			}
-			if (user.getStore_name() != null) {
-				pStmt.setString(4, "%" + user.getStore_name() + "%");
+			if (user.getPhone_number() != null) {
+				pStmt.setString(4, "%" + user.getPhone_number() + "%");
 			} else {
 				pStmt.setString(4, "%");
 			}
@@ -68,7 +68,7 @@ public class UsersDAO {
 						rs.getString("address"), 
 						rs.getString("password"), 
 						rs.getString("prefecture_name"), 
-						rs.getString("store_name"), 
+						rs.getString("phone_number"), 
 						rs.getString("meomo"));
 				userList.add(UsersDTO);
 			}
@@ -129,8 +129,8 @@ public class UsersDAO {
 			} else {
 				pStmt.setString(3, "");
 			}
-			if (user.getStore_name() != null) {
-				pStmt.setString(4, user.getStore_name());
+			if (user.getPhone_number() != null) {
+				pStmt.setString(4, user.getPhone_number());
 			} else {
 				pStmt.setString(4, "");
 			}
@@ -180,7 +180,7 @@ public class UsersDAO {
 
 			// SQL文を準備する
 			String sql = "UPDATE users SET address=?, password=?, prefecture_name=?,"
-					+ "store_name=?, memo=?";
+					+ "phone_number=?, memo=?";
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
@@ -200,8 +200,8 @@ public class UsersDAO {
 			} else {
 				pStmt.setString(3, "");
 			}
-			if (user.getStore_name() != null) {
-				pStmt.setString(4, user.getStore_name());
+			if (user.getPhone_number() != null) {
+				pStmt.setString(4, user.getPhone_number());
 			} else {
 				pStmt.setString(4, "");
 			}
@@ -235,7 +235,7 @@ public class UsersDAO {
 		return result;
 	}
 
-	// 引数cardで指定された番号のレコードを削除し、成功したらtrueを返す
+	// 引数cardで指定された番号のレコードを削除し、成功したらtrueを返す　//全部消えるのでは
 	public boolean delete(UsersDTO user) {
 		Connection conn = null;
 		boolean result = false;
@@ -254,7 +254,7 @@ public class UsersDAO {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			pStmt.setString(1, user.getStore_name());		//numberは自動採番-->nullの可能性はない
+			pStmt.setString(1, user.getPhone_number());		//numberは自動採番-->nullの可能性はない
 
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
