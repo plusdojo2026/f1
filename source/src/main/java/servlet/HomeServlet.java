@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.FeaturedItemsDAO;
-import dto.FeaturedItemsDTO;
 import dao.RecipesDAO;
-import dto.RecipesDTO;
 import dao.RegistStoresDAO;
 import dao.StoresDAO;
+import dto.FeaturedItemsDTO;
+import dto.RecipesDTO;
 import dto.StoresDTO;
 
 
@@ -51,9 +51,15 @@ public class HomeServlet extends HttpServlet{
 		
 		for(int i = 0; i < cardList.size(); i++) {
 			DisplayDTO dto = new DisplayDTO();
-			dto.setStoreName
+			dto.setStoreName(storeList.get(i).getStore_name());
+			dto.setRecipeName(recipeList.get(i).getRecipe_name());
+			dto.setFeaturedItemName(itemList.get(i).getFeatured_item_name());
+			dto.setTotalPrice(itemList.get(i).getPrice());
+			dto.setShortPr(storeList.get(i).getStore_appeal_short());
+			cardList.add(dto);
 		}
 		
+		request.setAttribute("cardList", cardList);
 		// 検索結果をリクエストスコープに格納する
 		request.setAttribute("storeList", storeList);
 
