@@ -744,6 +744,15 @@ CREATE TABLE gains (
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
+
+UPDATE featured_items
+SET featured_item_name = '牛肉切り落とし'
+WHERE featured_item_name = '牛肉切り落し';
+
+UPDATE average_prices
+SET item_name = '牛肉切り落とし'
+WHERE item_name = '牛肉切り落し';
+
 DELETE ap
 FROM average_prices ap
 JOIN (
@@ -760,13 +769,6 @@ JOIN (
    AND ap.item_name = t.item_name
 WHERE ap.average_price_id <> t.keep_id;
 
-UPDATE featured_items
-SET featured_item_name = '牛肉切り落とし'
-WHERE featured_item_name = '牛肉切り落し';
-
-UPDATE average_prices
-SET item_name = '牛肉切り落とし'
-WHERE item_name = '牛肉切り落し';
 
 
 SELECT
