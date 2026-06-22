@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.UserSettingsDTO;
 import dto.UsersDTO;
 
 public class UsersDAO {
@@ -43,8 +44,8 @@ public class UsersDAO {
 			} else {
 				pStmt.setString(2, "%");
 			}
-			if (user.getPrefecture_name() != null) {
-				pStmt.setString(3, "%" + user.getPrefecture_name() + "%");
+			if (user.getPrefecture_id() != 0) {
+				pStmt.setString(3, "%" + user.getPrefecture_id() + "%");
 			} else {
 				pStmt.setString(3, "%");
 			}
@@ -67,7 +68,7 @@ public class UsersDAO {
 				UsersDTO UsersDTO = new UsersDTO(rs.getInt("user_id"),  
 						rs.getString("address"), 
 						rs.getString("password"), 
-						rs.getString("prefecture_name"), 
+						rs.getInt("prefecture_id"), 
 						rs.getString("phone_number"), 
 						rs.getString("meomo"));
 				userList.add(UsersDTO);
@@ -105,9 +106,9 @@ public class UsersDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/goodbuy?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "xVyQPJuerzK8LB4G");
+					"root", "password");
 			
 			// SQL文を準備する
 			String sql = "INSERT INTO users VALUES (0, ?, ?, ?, ?, ?)";
@@ -124,8 +125,8 @@ public class UsersDAO {
 			} else {
 				pStmt.setString(2, "");
 			}
-			if (user.getPrefecture_name() != null) {
-				pStmt.setString(3, user.getPrefecture_name());
+			if (user.getPrefecture_id() != 0) {
+				pStmt.setInt(3, user.getPrefecture_id());
 			} else {
 				pStmt.setString(3, "");
 			}
@@ -195,8 +196,8 @@ public class UsersDAO {
 			} else {
 				pStmt.setString(2, "");
 			}
-			if (user.getPrefecture_name() != null) {
-				pStmt.setString(3, user.getPrefecture_name());
+			if (user.getPrefecture_id() != 0) {
+				pStmt.setInt(3, user.getPrefecture_id());
 			} else {
 				pStmt.setString(3, "");
 			}
@@ -275,6 +276,52 @@ public class UsersDAO {
 			}
 		}
 
+		// 結果を返す
+		return result;
+	}
+	
+	//memoを更新し、成功したらtrueを返す
+	public boolean updateMemo(UserSettingsDTO userSettings) {
+		Connection conn = null;
+		boolean result = false;
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000", "f1", "xVyQPJuerzK8LB4G");
+			
+			// SQL文を準備する
+			String sql = "UPDATE user_settings SET memo=? WHERE user_id=?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			// SQL文を完成させる
+			if (userSettings.getMemo() != null) {
+				pStmt.setString(1, userSettings.getMemo());
+			} else {
+				pStmt.setString(1, "");
+			}
+			pStmt.setInt(2, 0);
+			
+			// SQL文を実行する
+			if (pStmt.executeUpdate() == 1) {
+				result = true;
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		// 結果を返す
 		return result;
 	}
