@@ -27,7 +27,7 @@ public class PrefecturesDAO {
 					"root", "xVyQPJuerzK8LB4G");
 			
 			// SQL文を準備する
-			String sql = "SELECT DISTINCT prefecture_name FROM prefectures WHERE prefecture_name IS NOT NULL ORDER BY prefecture_name ASC";
+			String sql = "SELECT DISTINCT prefecture_name FROM prefectures WHERE prefecture_name IS NOT NULL ORDER BY ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 				
 

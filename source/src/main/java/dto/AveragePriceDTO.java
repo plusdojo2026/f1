@@ -5,17 +5,17 @@ import java.time.LocalDate;
 
 public class AveragePriceDTO implements Serializable {
 	private int average_price_id;	//平均価格ID
-	private int product_id;			//商品ID
+	private int featured_item_id;//目玉商品ID
 	private int prefecture_id;		//都道府県ID
 	private int average_price;		//平均価格
 	private LocalDate record_date;	//更新された時間
 	
 	//コンストラクタ
-	public AveragePriceDTO(int average_price_id, int product_id, int prefecture_id, int average_price,
+	public AveragePriceDTO(int average_price_id, int featured_item_id, int prefecture_id, int average_price,
 			LocalDate record_date) {
 		super();
 		this.average_price_id = average_price_id;
-		this.product_id = product_id;
+		this.featured_item_id = featured_item_id;
 		this.prefecture_id = prefecture_id;
 		this.average_price = average_price;
 		this.record_date = record_date;
@@ -24,7 +24,7 @@ public class AveragePriceDTO implements Serializable {
 	public AveragePriceDTO() {
 		super();
 		this.average_price_id = 0;
-		this.product_id = 0;
+		this.featured_item_id = 0;
 		this.prefecture_id = 0;
 		this.average_price = 0;
 		this.record_date = null;
@@ -36,11 +36,11 @@ public class AveragePriceDTO implements Serializable {
 	public void setAverage_price_id(int average_price_id) {
 		this.average_price_id = average_price_id;
 	}
-	public int getProduct_id() {
-		return product_id;
+	public int getFeatured_item_id() {
+		return featured_item_id;
 	}
-	public void setProduct_id(int product_id) {
-		this.product_id = product_id;
+	public void setFeatured_item_id(int featured_item_id) {
+		this.featured_item_id = featured_item_id;
 	}
 	public int getPrefecture_id() {
 		return prefecture_id;
