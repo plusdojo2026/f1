@@ -23,7 +23,7 @@
 			</div>
 		</div>
 
-		<c:forEach var="e" items="${storeList}">
+		<c:forEach var="e" items="${cardList}">
 			<form id="search_result_form" method="POST"
 				action="/webapp/HomeServlet">
 
