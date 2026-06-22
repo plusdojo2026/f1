@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>ホーム</title>
     <link rel ="stylesheet" href="css/user.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
     <div id="top">
@@ -31,8 +32,9 @@
 			<div class="pass">パスワード</div>
           	<input type="password" name="passwprd" placeholder="32文字以内" class="box"  name="pw" id= "pw"><br>
           	<span style="color: red;" id="prefecture_error"></span><br>
-          	<div class="prefecture">都道府県(対応地域は順次拡大予定)</div>
-          	<select class="box" name="prefecture" id="prefectureBox">
+          	<div class="prefecture">都道府県</div>
+          	<div class="prefectureA">(対応地域は順次拡大予定)</div>
+          	<select class="box" name="prefecture_name" id="prefectureBox">
             	<option value="">選択してください</option>
             	<option value="15">新潟県</option>
             	<option value="37">香川県</option>
@@ -44,6 +46,13 @@
             	 -->
           	</select><br>
           	<input type="button" name="submit" value="位置情報で店舗を検索する" class="info"><br>
+          	<!--  地図API 
+          	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    		<style>#map { height: 250px; width: 50%; margin-left:auto; margin-right:auto;}</style>
+          	
+          	<div id="map"></div>
+          	-->
+          	
           	
           	<div id="content-15" class="content-area">
           		<label><input type="checkbox" name="phone_number" value="0252452533"> イオンとやの店</label><br>
@@ -71,7 +80,7 @@
           	</div>
           	
 			<input type="submit" name="submit" value="登録" class="reg" onclick="return confirm('登録します。よろしいですか？');"><br>
-			<a href="/webContent/LoginServlet" class="backLogin">ログイン画面へ戻る</a>
+			<a href="/f1/LoginServlet" class="backLogin">ログイン画面へ戻る</a>
 		</form>
 		</div>
 
@@ -134,7 +143,6 @@
 		  /*(都道府県)*/
 		  if (formObj.prefecture.value === ''){
 			  prefecture_errorMessageObj.textContent = '※都道府県を選択してください！';
-			  event.preventDefault(); /*選択されていない場合は送信を止める*/
 		}else{
 			prefecture_errorMessageObj.textContent ="";
 		}
