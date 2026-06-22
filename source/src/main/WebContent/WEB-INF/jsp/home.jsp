@@ -60,7 +60,7 @@
 					<img src="img/logo.png" alt="サイトロゴ">
 				</div>
 				<ul>
-					<li><a href="/f1/DetailServlet">店舗表示</a></li>
+					<li><a href="/f1/HomeServlet">店舗表示</a></li>
 					<li><a href="/f1/UserSettingServlet">ユーザー設定</a></li>
 					<li><a href="/f1/LoginServlet" onclick="return confirm('ログアウトします。よろしいですか？');">ログアウト</a></li>
 				</ul>
