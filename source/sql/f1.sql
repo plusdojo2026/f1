@@ -86,13 +86,70 @@ CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(32) NOT NULL,
-    prefecture_name VARCHAR(10)NOT NULL,
+    prefecture_id INT NOT NULL,
     phone_number VARCHAR(20),
-    memo text,
-    FOREIGN KEY(phone_number)
-REFERENCES stores(phone_number)
+    memo TEXT,
+    FOREIGN KEY (prefecture_id) REFERENCES prefectures(prefecture_id),
+    FOREIGN KEY (phone_number) REFERENCES stores(phone_number)
 );
 
+INSERT INTO users (
+    user_id,
+    email,
+    password,
+    prefecture_name,
+    phone_number,
+    memo
+)
+VALUES
+(
+    1,
+    'sato@example.com',
+    'pass1234',
+    '新潟県',
+    '0252452533',
+    'イオンとやの店をよく利用。牛乳と冷凍食品の価格をチェックしたい。'
+),
+(
+    2,
+    'tanaka@example.com',
+    'pass1234',
+    '新潟県',
+    '0252487707',
+    '原信南万代店とウオロクを比較したい。'
+),
+(
+    3,
+    'suzuki@example.com',
+    'pass1234',
+    '香川県',
+    '0878407350',
+    'ラ・ムー高松東店をメイン利用。安い日用品も確認したい。'
+),
+(
+    4,
+    'yamada@example.com',
+    'pass1234',
+    '香川県',
+    '0878211227',
+    'エースワンJR高松オルネ店をよく使う。'
+),
+(
+    5,
+    'kobayashi@example.com',
+    'pass1234',
+    '熊本県',
+    '0963125566',
+    'スーパーキッド熊本駅前店で食料品をよく買う。'
+),
+(
+    6,
+    'nakamura@example.com',
+    'pass1234',
+    '熊本県',
+    '0962276693',
+    'ハローデイアミュプラザくまもと店の惣菜をよく買う。'
+);
 
 CREATE TABLE featured_items (
     featured_item_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -415,11 +472,6 @@ VALUES
 ('0963426384','ヨーグルト','プリン',198,'2026-06-01','2026-06-30');
 
 
-
-
-
-
-
 CREATE TABLE average_prices (
     average_price_id INT AUTO_INCREMENT PRIMARY KEY,
     prefecture_id INT NOT NULL,
@@ -733,7 +785,39 @@ CREATE TABLE regist_stores (
     FOREIGN KEY (phone_number) REFERENCES stores(phone_number)
 );
 
+INSERT INTO regist_stores (
+    user_id,
+    phone_number
+)
+VALUES
+-- user 1
+(1, '0252452533'),
+(1, '0252812600'),
+(1, '0252487707'),
 
+-- user 2
+(2, '0252487707'),
+(2, '0252473155'),
+(2, '0252801400'),
+
+-- user 3
+(3, '0878407350'),
+(3, '0878437726'),
+(3, '0878433025'),
+
+-- user 4
+(4, '0878211227'),
+(4, '0878117001'),
+(4, '0878227498'),
+
+-- user 5
+(5, '0963125566'),
+(5, '0962771221'),
+
+-- user 6
+(6, '0962276693'),
+(6, '0963426384'),
+(6, '0963125566');
 
 CREATE TABLE gains (
     gain_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -744,6 +828,42 @@ CREATE TABLE gains (
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
+INSERT INTO gains (
+    user_id,
+    record_date,
+    gain_sum,
+    ap_count
+)
+VALUES
+-- user 1
+(1, '2026-06-01', 120, 1),
+(1, '2026-06-02', 260, 2),
+(1, '2026-06-03', 180, 0),
+
+-- user 2
+(2, '2026-06-01', 90, 0),
+(2, '2026-06-02', 210, 1),
+(2, '2026-06-03', 150, 0),
+
+-- user 3
+(3, '2026-06-01', 140, 3),
+(3, '2026-06-02', 320, 1),
+(3, '2026-06-03', 110, 0),
+
+-- user 4
+(4, '2026-06-01', 80, 0),
+(4, '2026-06-02', 190, 2),
+(4, '2026-06-03', 240, 0),
+
+-- user 5
+(5, '2026-06-01', 160, 3),
+(5, '2026-06-02', 300, 1),
+(5, '2026-06-03', 130, 1),
+
+-- user 6
+(6, '2026-06-01', 200, 2),
+(6, '2026-06-02', 340, 1),
+(6, '2026-06-03', 170, 0);
 
 UPDATE featured_items
 SET featured_item_name = '牛肉切り落とし'
