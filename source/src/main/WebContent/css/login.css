@@ -73,24 +73,22 @@ form{
 .button-area{
 	display: flex;
 	justify-content: center;
-	gap: 0px;
-	margin-top: 30px;
+	gap: 15px;
+	
 }
 .reset{
-  border-radius: 4px;
-  border-color: #ff4f34;
+  width: 6em;
+  border-color: #EA9C80;
   color: #ff4f34; 
   background-color: #ffc6bd;
 }
 
 .login{
-  border-radius: 4px;
+  width: 6em;
   border-color: #ffd501;
   color: #ffd501;  
   background-color: rgb(133, 133, 236);
   
-  position: relative;  
-  left: 65px;
 }
 
 
@@ -105,6 +103,7 @@ form{
     color: rgb(0, 0, 0);
     text-align: center;
     font-size: 14px;
+    
 }
 /* モバイル対応 */
 @media(max-width:767px){
