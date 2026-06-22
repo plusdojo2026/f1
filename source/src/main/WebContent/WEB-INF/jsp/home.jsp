@@ -30,18 +30,18 @@
 				<!-- 店舗名 -->
 				<div class="store_name">
 					<a href="storeDetail.jsp?number=${e.number}" class="button">
-						${e.storeName} </a>
+						${e.store_name} </a>
 				</div>
 
 				<!-- row（料理名・目玉商品名・合計金額） -->
 				<div class="row">
-					<div class="recipe_name">${e.recipeName}</div>
-					<div class="featured_item_name">${e.featuredItem}</div>
-					<div class="total_price">¥${e.totalPrice}</div>
+					<div class="recipe_name">${e.recipe_name}</div>
+					<div class="featured_item_name">${e.featured_item_name}</div>
+					<div class="total_price">¥${e.price}</div>
 				</div>
 
 				<!-- 店舗PR -->
-				<div class="store_appeal_short">${e.shortPr}</div>
+				<div class="store_appeal_short">${e.store_appeal_short}</div>
 			</form>
 		</c:forEach>
 
