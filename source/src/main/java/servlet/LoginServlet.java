@@ -8,8 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.IdPwDAO;
+import dto.LoginUserDTO;
 import dto.UsersDTO;
 
 @WebServlet("/LoginServlet")
@@ -37,9 +39,9 @@ public class LoginServlet extends HttpServlet {
 		// ログイン処理を行う
 		IdPwDAO iDao = new IdPwDAO();
 		if (iDao.isLoginOK(new UsersDTO(0,address,password,"","",""))) { // ログイン成功
-			// addressとpasswordをリクエストスコープに格納
-			request.setAttribute("address", address);
-			request.setAttribute("password", password);
+			// セッションスコープにIDを格納する
+			HttpSession session = request.getSession();
+			session.setAttribute("address", new LoginUserDTO(address));
 
 			// ログインページにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");

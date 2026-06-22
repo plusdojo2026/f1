@@ -4,15 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/webapp/css/login.css"> 
+<link rel="stylesheet" href="css/login.css"> 
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ログイン</title>
 </head>
 <body>
     <!--ヘッダー-->
     <header class="header">
-      <div class="hedder-logo">
-        <img src="images/image.png" alt="ロゴ">
+      <div class="header-logo">
+        <img src="img/image.png" alt="ロゴ">
       </div>
     </header>
     <!--ヘッダーここまで-->
@@ -22,32 +22,18 @@
 
     <!--新規登録へのリンク-->
     <div class=regist><a href="/WebContent/UserServlet">新規登録はこちら</a></div>
-      <!-- emailとpasswordp入力のテキストボックス -->
-      <table class="table">
-      <tr>
-        <td>
-        <div class="email">
-          <input type="text" name="email" placeholder="Email">
-        </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="pass">
-          <input type="password" name="pw" placeholder="Password">
-          </div>
-        </td>
-      </tr>
+      <!-- addressとpasswordp入力のテキストボックス -->
+      <div class="email">メールアドレス</div>
+          	<input type="text" name="address"  placeholder="Email" class="box" id= "address" ><br>
+			<div class="pass">パスワード</div>
+          	<input type="password" name="passwprd" placeholder="Password" class="box"  name="pw" id= "pw"><br>
+          	<span style="color: red;" id="prefecture_error"></span><br>
       <!-- リセット・ログインボタン -->
-      <tr>
-        <td colspan="2">
-          <input type="submit" name="reset" value="リセット" class="reset">
-          <input type="submit" name="login" value="ログイン" class="login">
-          <span id="error_message"></span>
-        <td>
-      </tr>
-    </table>
-     <p id="msg"></p>
+      <div class="button-area">
+      <input type="submit" name="reset" value="Reset" class="reset">
+      <input type="submit" name="login" value="Login" class="login">
+      </div>
+      <span style="color: red;" id="error_message"></span><br>
 </form>
 <!--フッター-->
     <footer class="footer">
@@ -61,22 +47,23 @@
     'use strict';
 
     document.getElementById('login_form').onsubmit = function(event){
-        let adress = document.getElementById('email').email.value;
+        let adress = document.getElementById('address').address.value;
         let pw = document.getElementById('pw').pw.value;
-        if(email === '' && pw === ''){
-            document.getElementById('msg').textContent = 'メールアドレスとパスワードを入力してください。';
+        let errorMessage = document.getElementById('error_message').error_message.value;
+        if(address === '' && pw === ''){
+            errorMessage.textContent = '※メールアドレスとパスワードを入力してください。';
             address.style.backgroundColor = '#FACAC8';
 		    pw.style.backgroundColor = '#FACAC8';
             event.preventDefault();
         }
-        else if(email === ''){
-            document.getElementById('msg').textContent = 'メールアドレスを入力してください。';
+        else if(address === ''){
+            errorMessage.textContent = '※メールアドレスを入力してください。';
             address.style.backgroundColor = '#FACAC8';
 		    pw.style.backgroundColor = '#fffdce';
             event.preventDefault();
         }
         else if(pw === ''){
-            document.getElementById('msg').textContent = 'パスワードを入力してください。';
+        	errorMessage.textContent = '※パスワードを入力してください。';
             address.style.backgroundColor = '#fffdce';
 		    pw.style.backgroundColor = '#FACAC8';
             event.preventDefault();
