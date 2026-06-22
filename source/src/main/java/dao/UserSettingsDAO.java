@@ -124,7 +124,7 @@ public class UserSettingsDAO {
 				} else {
 					pStmt.setString(1, "");
 				}
-				pStmt.setInt(2, 0);
+				pStmt.setInt(2, userSettings.getUser_id());
 				
 				// SQL文を実行する
 				if (pStmt.executeUpdate() == 1) {
