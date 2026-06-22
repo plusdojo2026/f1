@@ -17,6 +17,12 @@ img {
 
 #search_result_form {
 	margin-top: 15px;
+	background-color: #FAFAD2;
+	padding: 6px;
+	width: 80%;
+	margin: 0 auto;
+	border: 2px solid #D4AF37;
+	border-radius: 10px
 }
 
 /*メモ*/
@@ -57,15 +63,7 @@ img {
 	border-radius: 6px;
 	cursor: pointer;
 	margin-right: 0;
-}
-
-form {
-	background-color: #FAFAD2;
-	padding: 6px;
-	width: 80%;
-	margin: 0 auto;
-	border: 2px solid #D4AF37;
-	border-radius: 10px
+	margin-bottom: 15px;
 }
 
 /*店舗名*/
