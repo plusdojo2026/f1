@@ -57,7 +57,7 @@ public class UserServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String address = request.getParameter("address");
 		String password = request.getParameter("password");
-		String prefecture_name = request.getParameter("prefecture");
+		String prefecture_name = request.getParameter("prefecture_name");
 		String phone_number = request.getParameter("phone_number");
 		// 登録処理(メールアドレス・パスワード)
 		UsersDAO userDao = new UsersDAO();
