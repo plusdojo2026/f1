@@ -14,6 +14,7 @@
 		</h1>
 		<!--メイン-->
 		<h2>店舗表示</h2>
+		<form method="POST" action="/f1/HomeServlet">
 		<rabel for="memo">メモ</rabel>
 		<br>
 		<div class="memo-box">
@@ -22,6 +23,7 @@
 				<button class="update-button">更新</button>
 			</div>
 		</div>
+		</form>
 
 		<c:forEach var="e" items="${cardList}">
 			<form id="search_result_form" method="POST"
