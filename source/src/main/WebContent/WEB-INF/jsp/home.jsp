@@ -10,52 +10,40 @@
 	<div class="wrapper">
 		<!--ヘッダー-->
 		<h1 id="top">
-			<img src="img/image.png" width="150" height="130" alt="ロゴ"></a>
+			<img src="img/image.png" alt="ロゴ"></a>
 		</h1>
 		<!--メイン-->
 		<h2>店舗表示</h2>
 		<rabel for="memo">メモ</rabel>
 		<br>
-		<textarea name="memo"></textarea>
+		<div class="memo-box">
+			<textarea class="fixed-box" name="memo"></textarea>
+			<div class="button-area">
+				<button class="update-button">更新</button>
+			</div>
+		</div>
 
-		<p class="regist_store"></p>
-		<form class="" action="">
-			<div class="store_name">
-				<a href="marunaka.html" class="button">マルナカ円座店</a>
-			</div>
-			<div class="row">
-				<div class="cook_name">オムライス</div>
-				<div class="ingredients">卵、鶏肉、玉ねぎ</div>
-				<div class="total_price">¥532</div>
-			</div>
-			<div class="pr">毎週火曜！火曜市！</div>
-		</form>
+		<c:forEach var="e" items="${storeList}">
+			<form id="search_result_form" method="POST"
+				action="/webapp/HomeServlet">
 
-		<p class="regist_store"></p>
-		<form class="" action="">
-			<div class="store_name">
-				<a href="hallows.html" class="button">ハローズ円座店</a>
-			</div>
-			<div class="row">
-				<div class="cook_name">焼きそば</div>
-				<div class="ingredients">中華麺、豚肉、キャベツ</div>
-				<div class="total_price">¥610</div>
-			</div>
-			<div class="pr">まとめ買いが断然お得！！！</div>
-		</form>
+				<!-- 店舗名 -->
+				<div class="store_name">
+					<a href="storeDetail.jsp?number=${e.number}" class="button">
+						${e.storeName} </a>
+				</div>
 
-		<p class="regist_store"></p>
-		<form class="" action="">
-			<div class="store_name">
-				<a href="cosmos.html" class="button">コスモス円座店</a>
-			</div>
-			<div class="row">
-				<div class="cook_name">親子丼</div>
-				<div class="ingredients">卵、玉ねぎ、めんつゆ</div>
-				<div class="total_price">¥780</div>
-			</div>
-			<div class="pr">日用品がオススメ</div>
-		</form>
+				<!-- row（料理名・目玉商品名・合計金額） -->
+				<div class="row">
+					<div class="recipe_name">${e.recipeName}</div>
+					<div class="featured_item_name">${e.featuredItem}</div>
+					<div class="total_price">¥${e.totalPrice}</div>
+				</div>
+
+				<!-- 店舗PR -->
+				<div class="store_appeal_short">${e.shortPr}</div>
+			</form>
+		</c:forEach>
 
 		<div class="menu-wrapper">
 			<input type="checkbox" id="menu-toggle" hidden> <label
@@ -70,9 +58,9 @@
 					<img src="img/logo.png" alt="サイトロゴ">
 				</div>
 				<ul>
-					<li><a href="#">店舗表示</a></li>
-					<li><a href="#">ユーザー設定</a></li>
-					<li><a href="#" onclick="return confirm('ログアウトします。よろしいですか？');">ログアウト</a></li>
+					<li><a href="/f1/DetailServlet">店舗表示</a></li>
+					<li><a href="/f1/UserSettingServlet">ユーザー設定</a></li>
+					<li><a href="/f1/LoginServlet" onclick="return confirm('ログアウトします。よろしいですか？');">ログアウト</a></li>
 				</ul>
 			</nav>
 		</div>
