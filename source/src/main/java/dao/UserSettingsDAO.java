@@ -72,18 +72,13 @@ public class UserSettingsDAO {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000", "f1", "xVyQPJuerzK8LB4G");
 			
 			// SQL文を準備する
-			String sql = "UPDATE user_settings SET prefecture_id=?, favorite_store_id=?, memo=? WHERE user_id=?";
+			String sql = "UPDATE user_settings SET prefecture_id=?, favorite_store_id=?, WHERE user_id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
 			pStmt.setInt(1, userSettings.getPrefecture_id());
 			pStmt.setInt(2, userSettings.getFavorite_store_id());
-			if (userSettings.getMemo() != null) {
-				pStmt.setString(3, userSettings.getMemo());
-			} else {
-				pStmt.setString(3, null);
-				}
-			pStmt.setInt(4, userSettings.getUser_id());
+			pStmt.setInt(3, userSettings.getUser_id());
 			
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
@@ -106,4 +101,50 @@ public class UserSettingsDAO {
 		// 結果を返す
 		return result;
 	}
+	
+	//memoを更新し、成功したらtrueを返す
+		public boolean updateMemo(UserSettingsDTO userSettings) {
+			Connection conn = null;
+			boolean result = false;
+			
+			try {
+				// JDBCドライバを読み込む
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000", "f1", "xVyQPJuerzK8LB4G");
+				
+				// SQL文を準備する
+				String sql = "UPDATE user_settings SET memo=? WHERE user_id=?";
+				PreparedStatement pStmt = conn.prepareStatement(sql);
+				
+				// SQL文を完成させる
+				if (userSettings.getMemo() != null) {
+					pStmt.setString(1, userSettings.getMemo());
+				} else {
+					pStmt.setString(1, "");
+				}
+				pStmt.setInt(2, 0);
+				
+				// SQL文を実行する
+				if (pStmt.executeUpdate() == 1) {
+					result = true;
+					}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			// 結果を返す
+			return result;
+		}
 }
