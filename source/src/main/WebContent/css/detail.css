@@ -1,1 +1,153 @@
 @charset "UTF-8";
+
+html{
+    font-size: 16px;
+    font-family: sans-serif;
+    background-color: rgb(255, 255, 255);
+    margin: 0 auto 0 auto;
+    background-position: center;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    height: 100%;
+    margin: 0 0 0 0;
+}
+
+main{
+    margin: 0px auto 0px auto;
+    max-width: 2000px;
+    padding: 0 4% 0 4%;
+    min-height: 75vh;
+}
+
+img{
+    max-width: 100%;
+}
+
+.header-logo{
+  text-align: center;
+}
+
+.nav{
+  text-align: center;
+  border-bottom: 5px solid #ffd501;
+  
+}
+
+/*店舗名*/
+.store-name{
+    text-align: center;
+    color: #ffffff;
+    width: 90%;
+    max-width: 300px;
+    margin: 1% auto;
+    background-color: cornflowerblue;
+    border: 2px;
+    border-color: black;
+    border-radius: 10px;
+}
+
+/*店舗アピール（長）*/
+.appeal-long{
+    border: 2px solid #ffd501;
+    padding: 10px;
+}
+
+/*メモ*/
+.memo{
+  border-radius: 4px;
+  border-color: #ffd501;
+  background-color: #fffdce;
+  width: 100%;
+  height: 100px;
+}
+
+.memo-update{
+    text-align: end;
+}
+
+/*レシピ*/
+.recipe{
+    border: 2px solid #ffd501;
+    padding: 2px;
+}
+
+.recipe h3{
+    text-align: center;
+}
+
+/*目玉商品テーブル*/
+table{
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 600px;
+    border-collapse: collapse;
+}
+
+table th, table td{
+    padding: 8px 16px;
+}
+
+table th{
+    width: 150px;
+}
+
+.price{
+    text-align: right;
+}
+
+/* テーブルのスマホ用レイアウト */
+@media (max-width: 480px) {
+    table {
+        min-width: 100%; /* 画面幅に合わせる */
+    }
+
+    table th, table td {
+        padding: 5px;
+        font-size: 10px;
+    }
+
+    /* チェックボックスと商品名を縦並びに */
+    td input[type="checkbox"] {
+        margin-right: 8px;
+    }
+}
+
+/*代替ボタン*/
+.change-button{
+    text-align: end;
+}
+
+.change-items{
+    text-align: center;
+    border: 1px solid #ff0000;
+    border-radius: 4px;
+    max-width: 100px;
+    background-color: bisque;
+    padding: 5px 20px;
+}
+
+.change-recipe{
+    text-align: center;
+    border: 1px solid #0000ff;
+    border-radius: 4px;
+    max-width: 150px;
+    background-color: cornflowerblue;
+    padding: 5px 20px;
+}
+
+/*フッター*/
+.gotop{
+    text-align: center;
+    padding: 50px;
+}
+
+.copyright{
+    text-align: center;
+}
