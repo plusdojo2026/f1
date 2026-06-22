@@ -1,5 +1,7 @@
 package dao;
 //店舗の登録・削除を行うDAO
+
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,11 +12,13 @@ import java.util.List;
 
 import dto.RegistStoresDTO;
 
+
+
 public class RegistStoresDAO {
 
-	public List<RegistStoresDTO> select(RegistStoresDTO regist) {
+	public List<RegistStoresDTO> selectAll() {
 		Connection conn = null;
-		List<RegistStoresDTO> storelist = new ArrayList<RegistStoresDTO>();
+		List<RegistStoresDTO> storelist = new ArrayList<>();
 
 		try {
 			// JDBCドライバを読み込む
@@ -26,30 +30,17 @@ public class RegistStoresDAO {
 					"f1", "xVyQPJuerzK8LB4G");
 
 			// SQL文を準備する
-			String sql = "SELECT user_id, store_id FROM regist_stores"
-					+ "WHERE user_id LIKE ? AND phone_number LIKE ?";
+			String sql = "SELECT user_id, store_id FROM regist_stores";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
-			// SQL文を完成させる
-			if (regist.getUser_id() != 0) {
-				pStmt.setString(1, "%" + regist.getUser_id() + "%");
-			} else {
-				pStmt.setString(1, "%");
-			}
-			if (regist.getPhone_number() != null) {
-				pStmt.setString(2, "%" + regist.getPhone_number() + "%");
-			} else {
-				pStmt.setString(2, "%");
-			}
-			
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
-			
+
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
 				RegistStoresDTO dto = new RegistStoresDTO();
 				dto.setUser_id(rs.getInt("user_id"));
-				dto.setPhone_number(rs.getString("Phone_number"));
+				dto.setStore_id(rs.getInt("store_id"));
 				storelist.add(dto);
 			}
 
@@ -86,12 +77,12 @@ public class RegistStoresDAO {
 					"f1", "xVyQPJuerzK8LB4G");
 
 			// SQL文を準備する
-			String sql = "INSERT INTO regist_stores (user_id,phone_number) VALUES(?,?)";
+			String sql = "INSERT INTO regist_stores (user_id,store_id) VALUES(?,?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
 			pStmt.setInt(1, regist.getUser_id());
-			pStmt.setString(2, regist.getPhone_number());
+			pStmt.setInt(2, regist.getStore_id());
 
 			// SQL文を実行する
 			if(pStmt.executeUpdate() ==1) {
@@ -130,12 +121,12 @@ public class RegistStoresDAO {
 					"f1", "xVyQPJuerzK8LB4G");
 
 			// SQL文を準備する
-			String sql = "DELETE FROM regist_stores WHERE user_id=? AND phone_number=?";
+			String sql = "DELETE FROM regist_stores WHERE user_id=? AND store_id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
 			pStmt.setInt(1, regist.getUser_id());
-			pStmt.setString(2, regist.getPhone_number());
+			pStmt.setInt(2, regist.getStore_id());
 
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
