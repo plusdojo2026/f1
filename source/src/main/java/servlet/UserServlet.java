@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,9 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.PrefecturesDAO;
+import dao.RegistStoresDAO;
 import dao.UsersDAO;
-import dto.PrefecturesDTO;
 import dto.ResultDTO;
 import dto.UsersDTO;
 
@@ -32,14 +30,14 @@ public class UserServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		String  prefecture_name = request.getParameter("prefecture_name");
+		/*String  prefecture_name = request.getParameter("prefecture_name");
 		//都道府県をプルダウンに
 		PrefecturesDAO prefectureDao = new PrefecturesDAO();
 		List<PrefecturesDTO> prefectureList = prefectureDao.distinct(new PrefecturesDTO(0, prefecture_name));
 
 		// 検索結果をリクエストスコープに格納する
 		request.setAttribute("prefectureList", prefectureList);
-		
+		*/
 		// 新規登録ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user.jsp");
 		dispatcher.forward(request, response);
@@ -57,18 +55,57 @@ public class UserServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String address = request.getParameter("address");
 		String password = request.getParameter("password");
-		int prefecture_id = Integer.parseInt(request.getParameter("prefecture_id"));
-		String phone_number = request.getParameter("phone_number");
+		//int prefecture_id = Integer.parseInt(request.getParameter("prefecture_id"));
+		
+		//都道府県ID INT変換　ここから
+		String param = request.getParameter("prefecture_id");
+		int prefecture_id = 0; // デフォルト値
+
+		if (param != null && !param.trim().isEmpty()) {
+		    prefecture_id = Integer.parseInt(param);
+		}
+		UsersDTO user = new UsersDTO();
+		user.setPrefecture_id(prefecture_id);
+		//ここまで
+				
 		// 登録処理(メールアドレス・パスワード)
 		UsersDAO userDao = new UsersDAO();
-		if (userDao.insert(new UsersDTO(0, address, password, prefecture_id, phone_number, ""))) { // 登録成功
-			request.setAttribute("result", new ResultDTO("登録成功！", "レコードを登録しました。", "/WebContent/LoginServlet"));
+		if (userDao.insert(new UsersDTO(0, address, password, prefecture_id, ""))) { // 登録成功
+			request.setAttribute("result", new ResultDTO("登録成功！", "新規ユーザー登録しました。", "/f1/UserServlet"));
 		} else { // 登録失敗
-			request.setAttribute("result", new ResultDTO("登録失敗！", "レコードを登録できませんでした。", "/WebContent/LoginServlet"));
+			request.setAttribute("result", new ResultDTO("登録失敗！", "新規ユーザー登録できませんでした。", "/f1/UserServlet"));
 		}
 		
-		// ログインページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+		String[] phone_number = request.getParameterValues("phone_number");
+		//都道府県ID INT変換　ここから
+				/*String userId = request.getParameter("user_id");
+				int user_id = 0; // デフォルト値
+
+				if (userId != null && !param.trim().isEmpty()) {
+					user_id = Integer.parseInt(userId);
+				}
+				RegistStoresDTO regist = new RegistStoresDTO();
+				user.setUser_id(user_id);*/
+				//ここまで
+		
+		//何も登録されていない場合
+		if (phone_number != null) {
+			RegistStoresDAO registDao = new RegistStoresDAO();
+			//ループ処理で、配列から1店舗ずつ取り出す
+			for (String phoneNumber : phone_number) {
+				//空文字（選択したけど名前が空など）が紛れ込んでいないかチェック
+				if (phoneNumber != null && !phoneNumber.trim().isEmpty()) {
+					//1店舗ずつDAOの登録メソッドを呼び出す
+					registDao.insert(8 , phoneNumber);
+				}
+			}
+			request.setAttribute("result", new ResultDTO("登録成功！", "新規ユーザー登録及び、" + phone_number.length + "件の店舗登録処理が完了しました。", "/f1/UserServlet"));
+		} else {
+			request.setAttribute("result", new ResultDTO("登録失敗！", "登録する店舗が選択されていません。", "/f1/UserServlet"));
+		}
+		
+		// リザルトjspにフォワードする
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
 		dispatcher.forward(request, response);
 		
 	}

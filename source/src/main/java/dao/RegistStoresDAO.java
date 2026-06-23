@@ -72,7 +72,7 @@ public class RegistStoresDAO {
 	}
 
 	// regist_storesに登録する
-	public boolean insert(RegistStoresDTO regist) {
+	public boolean insert(int user_id, String phone_number) {
 		Connection conn = null;
 		boolean registResult = false;
 
@@ -81,17 +81,17 @@ public class RegistStoresDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/goodbuy?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"f1", "xVyQPJuerzK8LB4G");
+					"root", "password");
 
 			// SQL文を準備する
 			String sql = "INSERT INTO regist_stores (user_id,phone_number) VALUES(?,?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			pStmt.setInt(1, regist.getUser_id());
-			pStmt.setString(2, regist.getPhone_number());
+			pStmt.setInt(1, user_id);
+			pStmt.setString(2, phone_number);
 
 			// SQL文を実行する
 			if(pStmt.executeUpdate() ==1) {
@@ -127,7 +127,7 @@ public class RegistStoresDAO {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"f1", "xVyQPJuerzK8LB4G");
+					"root", "xVyQPJuerzK8LB4G");
 
 			// SQL文を準備する
 			String sql = "DELETE FROM regist_stores WHERE user_id=? AND phone_number=?";

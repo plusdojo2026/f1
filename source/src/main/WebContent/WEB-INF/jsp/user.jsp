@@ -77,7 +77,7 @@
           	<div id="content-43" class="content-area">
           		<p>登録する店舗を1つ選択してください</p>
           		<label><input type="checkbox" name="phone_number" value="0962276693"> ハローデイアミュプラザくまもと店</label><br>
-				<label><input type="checkbox" name="phone_number" value="0962271221"> ドラッグストアコスモス田崎店</label><br>
+				<label><input type="checkbox" name="phone_number" value="0962771221"> ドラッグストアコスモス田崎店</label><br>
 				<label><input type="checkbox" name="phone_number" value="0963125566"> スーパーキッド熊本駅前店</label><br>
 				<label><input type="checkbox" name="phone_number" value="0963426384"> KITANO ACEアミュプラザくまもと店</label><br>
           	</div>
