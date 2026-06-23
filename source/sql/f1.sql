@@ -87,10 +87,8 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(32) NOT NULL,
     prefecture_id INT NOT NULL,
-    phone_number VARCHAR(20),
     memo TEXT,
-    FOREIGN KEY (prefecture_id) REFERENCES prefectures(prefecture_id),
-    FOREIGN KEY (phone_number) REFERENCES stores(phone_number)
+    FOREIGN KEY (prefecture_id) REFERENCES prefectures(prefecture_id)
 );
 
 INSERT INTO users (
@@ -897,8 +895,6 @@ JOIN (
     ON ap.prefecture_id = t.prefecture_id
    AND ap.item_name = t.item_name
 WHERE ap.average_price_id <> t.keep_id;
-
-
 
 SELECT
     s.store_name,
