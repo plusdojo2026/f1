@@ -27,23 +27,23 @@ public class FeaturedItemsDAO {
 					"f1", "xVyQPJuerzK8LB4G");
 			
 			// 検索SQL文を準備する
-			String sql = "SELECT featured_item_id, store_id, price, featured_item_name, start_date, end_date, ap_name FROM featured_items "
-					+ "WHERE (featured_item_id = ? OR ?=0) AND (store_id = ? OR ?=0) ORDER BY featured_item_id";
+			String sql = "SELECT featured_item_id, phone_number, price, featured_item_name, start_date, end_date, ap_name FROM featured_items "
+					+ "WHERE (featured_item_id = ? OR ?=0) AND (phone_number = ? OR ?=0) ORDER BY featured_item_id";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
 			pStmt.setInt(1, featuredItems.getFeatured_item_id());
 			pStmt.setInt(2, featuredItems.getFeatured_item_id());
 			
-			pStmt.setString(3, featuredItems.getStore_id());
-			pStmt.setString(4, featuredItems.getStore_id());
+			pStmt.setString(3, featuredItems.getPhone_number());
+			pStmt.setString(4, featuredItems.getPhone_number());
 			
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 			
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
-				FeaturedItemsDTO fi = new FeaturedItemsDTO (rs.getInt("featured_item_id"), rs.getString("store_id"),
+				FeaturedItemsDTO fi = new FeaturedItemsDTO (rs.getInt("featured_item_id"), rs.getString("phone_number"),
 									  rs.getInt("price"), rs.getString("featured_item_name"), rs.getString("start_date"), rs.getString("end_date"), rs.getString("ap_name"));
 				itemList.add(fi);
 			}
