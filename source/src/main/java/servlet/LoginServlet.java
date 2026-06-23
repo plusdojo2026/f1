@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.IdPwDAO;
 import dto.LoginUserDTO;
+import dto.ResultDTO;
 import dto.UsersDTO;
 
 @WebServlet("/LoginServlet")
@@ -38,12 +39,18 @@ public class LoginServlet extends HttpServlet {
 
 		// ログイン処理を行う
 		IdPwDAO iDao = new IdPwDAO();
-		if (iDao.isLoginOK(new UsersDTO(0,address,password,"","",""))) { // ログイン成功
+		if (iDao.isLoginOK(new UsersDTO(0,address,password,0,"",""))) { // ログイン成功
 			// セッションスコープにIDを格納する
 			HttpSession session = request.getSession();
 			session.setAttribute("address", new LoginUserDTO(address));
+			
+			//ホームサーブレットにリダイレクトする
+			response.sendRedirect("/f1/HomeServlet");
+		}else { // ログイン失敗
+				// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
+				request.setAttribute("result", new ResultDTO("もう一度入力してください。", "AddressまたはPasswordに間違いがあります。", "/WebContent/LoginServlet"));
 
-			// ログインページにフォワードする
+			// 店舗表示ページにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
 			dispatcher.forward(request, response);
 		}
