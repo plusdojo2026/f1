@@ -61,7 +61,7 @@ public class HomeServlet extends HttpServlet{
 		RecipesDAO recipeDao = new RecipesDAO();
 		FeaturedItemsDAO featuredDao = new FeaturedItemsDAO();
 		//テーブルのデータ取得
-		List<StoresDTO> storeList = storeDao.select(new StoresDTO(0,"","","",""));
+		List<StoresDTO> storeList = storeDao.select(new StoresDTO("","","","",""));
 		List<RecipesDTO> recipeList = recipeDao.select(new RecipesDTO(0,"","",""));
 		List<FeaturedItemsDTO> itemList = featuredDao.select(new FeaturedItemsDTO(0,"",0,"","","",""));
 		//HomeDisplayDTOにまとめる
@@ -76,10 +76,18 @@ public class HomeServlet extends HttpServlet{
 			homedto.setStore_appeal_short(storeList.get(i).getStore_appeal_short());
 			cardList.add(homedto);
 		}
-		//店舗名、料理名、目玉商品、合計金額、店舗PRをカードリストに格納
+		
+		//合計金額を計算
+		int totalPrice = 0;
+		
+		
+		//店舗名、料理名、目玉商品、合計金額、店舗PRをカードリストに格納する
 		request.setAttribute("cardList", cardList);
 		// 検索結果をリクエストスコープに格納する
 		request.setAttribute("storeList", storeList);
+		//合計金額を格納する
+		request.setAttribute("totalPrice",totalPrice);
+		
 		//店舗表示ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
 		dispatcher.forward(request, response);
