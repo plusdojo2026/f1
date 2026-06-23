@@ -19,22 +19,21 @@
 <!--メイン-->
 <main>
 <form  id="login_form" method="POST" action="/f1/LoginServlet">
-
+ 
     <!--新規登録へのリンク-->
     <div class=regist><a href="/f1/UserServlet">新規登録はこちら</a></div>
       <!-- addressとpassword入力のテキストボックス -->
+      <span style="color: red;" id="error_message"></span><br>
       <div class="email">メールアドレス</div>
           	<input type="text" name="address"  placeholder="Email" class="box" id= "address" ><br>
 			<div class="pass">パスワード</div>
-          	<input type="password" name="password" placeholder="Password" class="box"  name="pw" id= "pw"><br>
-          	<span style="color: red;" id="prefecture_error"></span><br>
+          	<input type="password" name="password" placeholder="Password" class="box"  id= "password"><br>
+       
       <!-- リセット・ログインボタン -->
       <div class="button-area">
       <input type="reset" name="reset" value="Reset" class="reset">
       <input type="submit" name="login" value="Login" class="login">
       </div>
-      <span style="color: red;" id="error_message"></span><br>
-      <p id="msg"></p>
 </form>
 <!--フッター-->
     <footer class="footer">
@@ -44,27 +43,35 @@
 <script>
     'use strict';
 
-    document.getElementById('login_form').onsubmit = function(event){
-        let address = document.getElementById('login_form').address.value;
-        let pw = document.getElementById('login_form').pw.value;
-        let errorMessage = document.getElementById('login_form').error_message.value;
-        if(address === '' && pw === ''){
-        	document.getElementById('msg').textContent  = '※メールアドレスとパスワードを入力してください。';
+    	let formObj = document.getElementById('login_form');
+		let errorMessageObj = document.getElementById('error_message');
+		let address = document.getElementById('address');
+		let password = document.getElementById('password');
+		
+		formObj.onsubmit = function(event){
+        if(formObj.address.value === '' && formObj.password.value === ''){
+        	errorMessageObj.textContent  = '※メールアドレスとパスワードを入力してください!';
             address.style.backgroundColor = '#FACAC8';
-		    pw.style.backgroundColor = '#FACAC8';
+		    password.style.backgroundColor = '#FACAC8';
             event.preventDefault();
         }
-        else if(address === ''){
-        	document.getElementById('msg').textContent  = '※メールアドレスを入力してください。';
+        else if(formObj.address.value === ''){
+        	errorMessageObj.textContent  = '※メールアドレスを入力してください!';
             address.style.backgroundColor = '#FACAC8';
-		    pw.style.backgroundColor = '#fffdce';
+		    password.style.backgroundColor = '#fffdce';
             event.preventDefault();
         }
-        else if(pw === ''){
-        	document.getElementById('msg').textContent = '※パスワードを入力してください。';
+        else if(formObj.password.value === ''){
+        	errorMessageObj.textContent = '※パスワードを入力してください!';
             address.style.backgroundColor = '#fffdce';
-		    pw.style.backgroundColor = '#FACAC8';
+		    password.style.backgroundColor = '#FACAC8';
             event.preventDefault();
+        }
+        //古い警告を消す
+        else{
+        	errorMessageObj.textContent = '';
+        	address.style.backgroundColor = '#fffdce';
+        	password.style.backgroundColor = '#fffdce';
         }
       }
 </script>
