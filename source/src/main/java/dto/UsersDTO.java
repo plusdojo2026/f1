@@ -7,17 +7,15 @@ public class UsersDTO implements Serializable {
 	private String address;		//メールアドレス
 	private String password;	//パスワード
 	private int prefecture_id;  //都道府県ID
-	private String phone_number;		//店舗ID
 	private String memo;		//memo
 	
 	//ｺﾝｽﾄﾗｸﾀ
-	public UsersDTO(int user_id, String address, String password, int prefecture_id, String phone_number, String memo) {
+	public UsersDTO(int user_id, String address, String password, int prefecture_id, String memo) {
 	super();
 	this.user_id = user_id;
 	this.address = address;
 	this.password = password;
 	this.prefecture_id = prefecture_id;
-	this.phone_number = phone_number;
 	this.memo = memo;
 	}
 
@@ -27,7 +25,6 @@ public class UsersDTO implements Serializable {
 	this.address = "";
 	this.password = "";
 	this.prefecture_id = 0;
-	this.phone_number = "";
 	this.memo = "";
 	}
 
@@ -61,14 +58,6 @@ public class UsersDTO implements Serializable {
 
 	public void setPrefecture_id(int prefecture_id) {
 		this.prefecture_id = prefecture_id;
-	}
-
-	public String getPhone_number() {
-		return phone_number;
-	}
-
-	public void setPhone_number(String phone_number) {
-		this.phone_number = phone_number;
 	}
 
 	public String getMemo() {
