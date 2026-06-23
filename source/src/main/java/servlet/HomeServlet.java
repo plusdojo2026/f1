@@ -12,12 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.FeaturedItemsDAO;
 import dao.RecipesDAO;
 import dao.RegistStoresDAO;
 import dao.StoresDAO;
 import dao.UsersDAO;
-import dto.FeaturedItemsDTO;
 import dto.HomeDisplayDTO;
 import dto.RecipesDTO;
 import dto.StoresDTO;
@@ -32,23 +30,27 @@ public class HomeServlet extends HttpServlet{
 
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
+		if (session.getAttribute("address") == null) {
 			response.sendRedirect("/f1/LoginServlet");
 			return;
 		}
 		request.setCharacterEncoding("UTF-8");
+		String phoneNumber = request.getParameter("number");
 
 		//フォームからメモを受け取る
 		String memo = request.getParameter("memo");
-		//セッションからユーザーIDを取得
-		int userId = (int) session.getAttribute("id");
+		//セッションからアドレスを取得
+		String address = (String)session.getAttribute("address");
+		UsersDAO usersDao = new UsersDAO();
+		List<UsersDTO> usersList = usersDao.select(new UsersDTO(0, "", address, 0, "", ""));
+		UsersDTO user = usersList.get(0);
+		int userId = user.getUser_id();
 		//ユーザーIDとメモをDTOに格納
 		UsersDTO dto = new UsersDTO();
 		dto.setUser_id(userId);
 		dto.setMemo(memo);
 		//DAOを呼び出してメモを更新
-		UsersDAO dao = new UsersDAO();
-		dao.updateMemo(dto);
+		usersDao.updateMemo(dto);
 		doGet(request, response);
 	}
 
@@ -56,14 +58,14 @@ public class HomeServlet extends HttpServlet{
 			throws ServletException, IOException {
 
 		//DAOの作成
-		RegistStoresDAO registstoreDao = new RegistStoresDAO();
+		RegistStoresDAO registDao = new RegistStoresDAO();
 		StoresDAO storeDao = new StoresDAO();
-		RecipesDAO recipeDao = new RecipesDAO();
-		FeaturedItemsDAO featuredDao = new FeaturedItemsDAO();
+		RecipesDAO recipesDao = new RecipesDAO();
+		//FeaturedItemsDAO featuredDao = new FeaturedItemsDAO();
 		//テーブルのデータ取得
-		List<StoresDTO> storeList = storeDao.select(new StoresDTO("","","","",""));
-		List<RecipesDTO> recipeList = recipeDao.select(new RecipesDTO(0,"","",""));
-		List<FeaturedItemsDTO> itemList = featuredDao.select(new FeaturedItemsDTO(0,"",0,"","","",""));
+		List<StoresDTO> storeList = storeDao.select(new StoresDTO(phoneNumber,"","","",""));
+		List<RecipesDTO> recipeList = recipesDao.select(new RecipesDTO(recipeId,"","",""));
+		//List<FeaturedItemsDTO> itemList = featuredDao.select(new FeaturedItemsDTO(0,"",0,"","","",""));
 		//HomeDisplayDTOにまとめる
 		List<HomeDisplayDTO> cardList = new ArrayList<>();
 
@@ -71,15 +73,14 @@ public class HomeServlet extends HttpServlet{
 			HomeDisplayDTO homedto = new HomeDisplayDTO();
 			homedto.setStore_name(storeList.get(i).getStore_name());
 			homedto.setRecipe_name(recipeList.get(i).getRecipe_name());
-			homedto.setFeatured_item_name(itemList.get(i).getFeatured_item_name());
-			homedto.setPrice(itemList.get(i).getPrice());
+			//homedto.setFeatured_item_name(itemList.get(i).getFeatured_item_name());
+			//homedto.setPrice(itemList.get(i).getPrice());
 			homedto.setStore_appeal_short(storeList.get(i).getStore_appeal_short());
 			cardList.add(homedto);
 		}
 		
 		//合計金額を計算
 		int totalPrice = 0;
-		
 		
 		//店舗名、料理名、目玉商品、合計金額、店舗PRをカードリストに格納する
 		request.setAttribute("cardList", cardList);
