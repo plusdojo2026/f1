@@ -25,7 +25,7 @@ public class GainsDAO {
 					"f1", "xVyQPJuerzK8LB4G");
 			
 			// SQL文を準備する
-			String sql = "SELECT gain_id,user_id,record_date,gain_sum,ap_count FROM GainsDAO";
+			String sql = "SELECT gain_id,user_id,record_date,gain_sum,ap_count FROM GainsDTO";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
