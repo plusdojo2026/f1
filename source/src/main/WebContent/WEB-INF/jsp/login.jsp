@@ -18,10 +18,10 @@
     <!--ヘッダーここまで-->
 <!--メイン-->
 <main>
-<form  id="login_form" method="POST" action="/WebContent/LoginServlet">
+<form  id="login_form" method="POST" action="/f1/LoginServlet">
 
     <!--新規登録へのリンク-->
-    <div class=regist><a href="/WebContent/UserServlet">新規登録はこちら</a></div>
+    <div class=regist><a href="/f1/UserServlet">新規登録はこちら</a></div>
       <!-- addressとpassword入力のテキストボックス -->
       <div class="email">メールアドレス</div>
           	<input type="text" name="address"  placeholder="Email" class="box" id= "address" ><br>
@@ -34,6 +34,7 @@
       <input type="submit" name="login" value="Login" class="login">
       </div>
       <span style="color: red;" id="error_message"></span><br>
+      <p id="msg"></p>
 </form>
 <!--フッター-->
     <footer class="footer">
@@ -44,23 +45,23 @@
     'use strict';
 
     document.getElementById('login_form').onsubmit = function(event){
-        let adress = document.getElementById('address').value;
-        let pw = document.getElementById('pw').value;
-        let errorMessage = document.getElementById('error_message').value;
+        let address = document.getElementById('login_form').address.value;
+        let pw = document.getElementById('login_form').pw.value;
+        let errorMessage = document.getElementById('login_form').error_message.value;
         if(address === '' && pw === ''){
-            errorMessage.textContent = '※メールアドレスとパスワードを入力してください。';
+        	document.getElementById('msg').textContent  = '※メールアドレスとパスワードを入力してください。';
             address.style.backgroundColor = '#FACAC8';
 		    pw.style.backgroundColor = '#FACAC8';
             event.preventDefault();
         }
         else if(address === ''){
-            errorMessage.textContent = '※メールアドレスを入力してください。';
+        	document.getElementById('msg').textContent  = '※メールアドレスを入力してください。';
             address.style.backgroundColor = '#FACAC8';
 		    pw.style.backgroundColor = '#fffdce';
             event.preventDefault();
         }
         else if(pw === ''){
-        	errorMessage.textContent = '※パスワードを入力してください。';
+        	document.getElementById('msg').textContent = '※パスワードを入力してください。';
             address.style.backgroundColor = '#fffdce';
 		    pw.style.backgroundColor = '#FACAC8';
             event.preventDefault();
