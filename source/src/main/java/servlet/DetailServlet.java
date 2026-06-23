@@ -53,7 +53,7 @@ public class DetailServlet extends HttpServlet {
 		//まずセッションスコープからaddressを取得し、user_idを取得する
 		String address = (String)session.getAttribute("address");
 		UsersDAO usersDao = new UsersDAO();
-		List<UsersDTO> usersList = usersDao.select(new UsersDTO(0, "", address, 0, "", ""));
+		List<UsersDTO> usersList = usersDao.select(new UsersDTO(0, address, "", 0, ""));
 		UsersDTO user = usersList.get(0);
 		//int userId = user.getUser_id();
 

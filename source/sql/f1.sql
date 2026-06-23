@@ -96,7 +96,6 @@ INSERT INTO users (
     email,
     password,
     prefecture_id,
-    phone_number,
     memo
 )
 VALUES
@@ -105,7 +104,6 @@ VALUES
     'sato@example.com',
     'pass1234',
     15,
-    '0252452533',
     'イオンとやの店をよく利用。牛乳と冷凍食品の価格をチェックしたい。'
 ),
 (
@@ -113,7 +111,6 @@ VALUES
     'tanaka@example.com',
     'pass1234',
     15,
-    '0252487707',
     '原信南万代店とウオロクを比較したい。'
 ),
 (
@@ -121,7 +118,6 @@ VALUES
     'suzuki@example.com',
     'pass1234',
     37,
-    '0878407350',
     'ラ・ムー高松東店をメイン利用。安い日用品も確認したい。'
 ),
 (
@@ -129,7 +125,6 @@ VALUES
     'yamada@example.com',
     'pass1234',
     37,
-    '0878211227',
     'エースワンJR高松オルネ店をよく使う。'
 ),
 (
@@ -137,7 +132,6 @@ VALUES
     'kobayashi@example.com',
     'pass1234',
     43,
-    '0963125566',
     'スーパーキッド熊本駅前店で食料品をよく買う。'
 ),
 (
@@ -145,7 +139,6 @@ VALUES
     'nakamura@example.com',
     'pass1234',
     43,
-    '0962276693',
     'ハローデイアミュプラザくまもと店の惣菜をよく買う。'
 );
 
