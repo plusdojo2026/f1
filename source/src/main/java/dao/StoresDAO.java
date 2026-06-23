@@ -29,16 +29,16 @@ public class StoresDAO {
 					"f1", "xVyQPJuerzK8LB4G");
 
 			// 検索SQL文を準備する
-			String sql = "SELECT store_id, store_name, prefecture_id, store_appeal_short, store_appeal_long FROM stores "
-					+ "WHERE store_id = ? ";
+			String sql = "SELECT phone_number, store_name, prefecture_id, store_appeal_short, store_appeal_long FROM stores "
+					+ "WHERE phone_number = ? ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setInt(1, store.getStore_id());
+			pStmt.setString(1, store.getPhone_number());
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
 				StoresDTO storesDTO = new StoresDTO(
-						rs.getInt("store_id"), 
+						rs.getString("phone_number"), 
 						rs.getString("store_name"),
 						rs.getString("prefecture_id"),
 						rs.getString("store_appeal_short"),

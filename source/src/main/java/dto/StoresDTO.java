@@ -3,16 +3,16 @@ package dto;
 import java.io.Serializable;
 
 public class StoresDTO implements Serializable {
-	private int store_id; 		//店舗ID
+	private String phone_number; 	//電話番号
 	private String store_name;		//店舗名
 	private String prefecture_id;	//都道府県ID
 	private String store_appeal_short; //店舗アピール(短)
 	private String store_appeal_long;  //店舗アピール(長)
 
 	//ｺﾝｽﾄﾗｸﾀ
-	public StoresDTO(int store_id, String store_name, String prefecture_id, String store_appeal_short, String store_appeal_long) {
+	public StoresDTO(String phone_number, String store_name, String prefecture_id, String store_appeal_short, String store_appeal_long) {
 	super();
-	this.store_id = store_id;
+	this.phone_number = phone_number;
 	this.store_name = store_name;
 	this.prefecture_id = prefecture_id;
 	this.store_appeal_short = store_appeal_short;
@@ -20,19 +20,19 @@ public class StoresDTO implements Serializable {
 	}
 
 	public StoresDTO() {
-	this.store_id = 0;
+	this.phone_number = "";
 	this.store_name = "";
 	this.prefecture_id = "";
 	this.store_appeal_short = "";
 	this.store_appeal_long = "";
 	}
 
-	public int getStore_id() {
-		return store_id;
+	public String getPhone_number() {
+		return phone_number;
 	}
 
-	public void setStore_id(int store_id) {
-		this.store_id = store_id;
+	public void setPhone_number(String phone_number) {
+		this.phone_number = phone_number;
 	}
 
 	public String getStore_name() {
