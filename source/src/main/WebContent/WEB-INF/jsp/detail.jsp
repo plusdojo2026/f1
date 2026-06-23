@@ -43,10 +43,9 @@
             <div class="recipe">
             <h3><c:out value="recipeName"/></h3>
             <ul>
-                <li>卵 2個</li>
-                <li>ケチャップ 適量</li>
-                <li>白米 1合</li>
-                <li>上手く卵を割ってください</li>
+            	<c:forEach>
+                <li><c:out value="${recipe}"/></li>
+                </c:forEach>
             </ul>
             </div>
 
