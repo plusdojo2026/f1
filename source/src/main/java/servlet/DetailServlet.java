@@ -77,14 +77,19 @@ public class DetailServlet extends HttpServlet {
 		List<RecipesDTO> recipeList = recipesDao.select(new RecipesDTO(recipeId,"","",""));
 		List<FeaturedItemsDTO> itemList = featuredItemsDao.select(new FeaturedItemsDTO(0,phoneNumber,0,"","","",""));
 		//List<UsersDTO> userList2 = usersDao.select(new UsersDTO(userId,"","",0,"",""));
-		List<AveragePriceDTO> averagePriceList = averagePricesDao.select(new AveragePriceDTO(0,0,0,0,null));
+		
 		
 		// DTO が空の場合の対策
         StoresDTO store = storeList.isEmpty() ? new StoresDTO() : storeList.get(0);
         RecipesDTO recipe = recipeList.isEmpty() ? new RecipesDTO() : recipeList.get(0);
         FeaturedItemsDTO item = itemList.isEmpty() ? new FeaturedItemsDTO() : itemList.get(0);
-        AveragePriceDTO avg = averagePriceList.isEmpty() ? new AveragePriceDTO() : averagePriceList.get(0);
+        
 		
+        
+        int FeaturedItemId = item.getFeatured_item_id();
+        List<AveragePriceDTO> averagePriceList = averagePricesDao.select(new AveragePriceDTO(0,FeaturedItemId,0,0,null));
+        AveragePriceDTO avg = averagePriceList.isEmpty() ? new AveragePriceDTO() : averagePriceList.get(0);
+        
 		//DetailDisplayDTOにまとめる
 		List<DetailDisplayDTO> detailList = new ArrayList<>();
 		
