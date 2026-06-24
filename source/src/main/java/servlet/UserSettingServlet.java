@@ -31,7 +31,7 @@ public class UserSettingServlet extends HttpServlet {
 		request.setAttribute("prefectureList", prefectureList);
 		*/
 		// 新規登録ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userSetting.jsp");
 		dispatcher.forward(request, response);
 	}
 	
@@ -95,7 +95,7 @@ public class UserSettingServlet extends HttpServlet {
 		}
 		
 		// リザルトjspにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
 		dispatcher.forward(request, response);
 		
 	}

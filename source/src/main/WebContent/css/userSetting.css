@@ -49,6 +49,16 @@ form{
   background-color: #fffdce;
 }
 
+.email{
+  position: relative;  /*場所調整*/
+  right: 30px;    /* 左に動く */
+}
+
+.pass{
+  position: relative;
+  right: 45px;
+}
+
 .prefecture{
   position: relative;
   right: 55px;
@@ -79,6 +89,13 @@ form{
 	text-align: left;		/*block内の文字を左寄せ*/
 }
 
+.info{
+  margin: 10px;
+  border-radius: 4px;
+  border-color: #ff4f34;
+  color: #ff4f34; 
+  background-color: #ffc6bd;
+}
 
 .reg{
   border-radius: 4px;
@@ -90,7 +107,7 @@ form{
   left: 65px;
 }
 
-.backLogin{
+.backHome{
   position: relative;  /*場所調整*/
   right: 8rem;
 }
