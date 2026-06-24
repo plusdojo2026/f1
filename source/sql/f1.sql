@@ -854,7 +854,7 @@ VALUES
   api_id,
   api_key)
   
-  VALUES(1,'AQ.Ab8RN6L-WofRjwi51eDdqvvyPZ_tTvUkILj1umR4yX3bvFyINA');
+ VALUES(1,'AQ.Ab8RN6L-WofRjwi51eDdqvvyPZ_tTvUkILj1umR4yX3bvFyINA');
 
 
 DELETE ap
