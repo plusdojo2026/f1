@@ -1,34 +1,124 @@
 @charset "UTF-8";
 
-.container { max-width: 600px; margin: 20px auto; font-family: sans-serif; }
-
-/* スコア横並び */
-.score-container { display: flex; gap: 20px; margin-bottom: 20px; }
-.score-card { 
-    border: 1px solid #ccc; 
-    border-radius: 8px; 
-    padding: 20px; 
-    flex: 1; 
-    text-align: center; 
+html{
+    font-size: 16px;
+    font-family: sans-serif;
+    background-color: rgb(255, 255, 255);
+    margin: 0 auto 0 auto;	/* 中央揃え */
+    background-position: center; /* 中央に配置 */
 }
 
-.score-value { font-size: 24px; font-weight: bold; margin: 10px 0; }
-.count-value { color: red; font-weight: bold; margin-bottom: 10px; }
+*{
+    box-sizing: border-box;
+}
 
-/* 設定項目 */
-.form-row { margin: 15px 0; }
-.btn-save { background-color: #4a90e2; color: white; border: none; padding: 8px 20px; border-radius: 4px; cursor: pointer; }
-.btn-location { background-color: #ffccbc; border: 1px solid #ffab91; padding: 5px 10px; cursor: pointer; }
+body{
+    height: 100%;
+    margin: 0 0 0 0;
+}
 
-/* 黄色のボックス */
-.store-box { 
-    width: 100%; 
-    height: 150px; 
-    background-color: #fffff0; 
-    border: 1px solid #e1e1e1; 
-    border-radius: 8px; 
-    margin-top: 10px; 
+main{
+    margin: 0px auto 0px auto;
+    max-width: 2000px;
+    padding: 0 4% 0 4%;
+    min-height: 75vh; 		/*最低表示のサイズ(表示画面75%のサイズでmainを表示)*/
+}
+
+img{
+    max-width: 100%;
+}
+
+.hedder-logo{
+  text-align: center;
+}
+
+.nav{
+  text-align: center;
+  border-bottom: 5px solid #ffd501;
+  margin:25px;
+}
+
+/*main内*/
+form{
+  text-align: center;
+}
+
+.box{
+  border-radius: 4px;
+  border-color: #ffd501;
+  background-color: #fffdce;
+}
+
+.prefecture{
+  position: relative;
+  right: 55px;
+}
+.prefectureA{
+  font-size: 80%;
+  position: relative;
+  right: 15px;
+}
+
+#prefectureBox{
+	width:11rem;
+}
+
+/* 最初はコンテンツを非表示にしておく */
+.content-area {
+	display: none;
+	border-radius: 4px;
+	border-color: #ffd501;
+	background-color: #fffdce;
+}
+/* アクティブなコンテンツだけを表示 */
+.content-area.is-active {
+	display: block;
+	max-width: 50%;
+	margin-left:auto;	/*block化したものを中央に*/
+	margin-right:auto;
+	text-align: left;		/*block内の文字を左寄せ*/
 }
 
 
-.footer-save { text-align: right; margin-top: 20px; }
+.reg{
+  border-radius: 4px;
+  border-color: #ffd501;
+  color: #ffd501;  
+  background-color: rgb(133, 133, 236);
+  
+  position: relative;  
+  left: 65px;
+}
+
+.backLogin{
+  position: relative;  /*場所調整*/
+  right: 8rem;
+}
+
+/*フッター*/
+/*ページ上部に飛ぶ*/
+.gotop{
+    text-align:right;
+    position: fixed;    /*右下へ*/
+    bottom: 20px; 
+    right: 20px;  
+    width: 60px;
+    cursor: pointer;
+    z-index: 999;       /* 他の要素の下に隠れないようにする(Z軸 奥行操作) */
+}
+.copyright{
+    margin-top: 20px;
+    margin-bottom: 0;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: #ffd501;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-size: 14px;
+}
+
+
+/* モバイル対応 */
+@media(max-width:767px){
+
+}

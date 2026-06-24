@@ -96,7 +96,7 @@
             });
           	</script>
           	
-			<input type="submit" name="submit" value="登録" class="reg" onclick="return confirm('登録内容を変更します。よろしいですか？');"><br>
+			<input type="submit" name="submit" value="保存" class="reg" onclick="return confirm('登録内容を変更します。よろしいですか？');"><br>
 			<a href="/f1/HomeServlet" class="backLogin">ホーム画面へ戻る</a>
 		</form>
 		</div>
