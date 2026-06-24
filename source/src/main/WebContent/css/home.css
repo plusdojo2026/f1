@@ -84,7 +84,7 @@ a.button {
 	flex-wrap: wrap; /*フレックス対応*/
 }
 
-.recipe_name, .featured_item_name, .total_price {
+.recipe_name, .ingredients_name, .total_price {
 	border: 2px solid #D4AF37;
 	padding: 8px;
 	border-radius: 10px;
