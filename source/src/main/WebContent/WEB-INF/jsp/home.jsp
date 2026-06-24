@@ -20,7 +20,7 @@
 		<div class="memo-box">
 			<textarea class="fixed-box" name="memo"></textarea>
 			<div class="button-area">
-				<input type = "submit" class="update-button">更新</input>
+				<input type = "submit" class="update-button"></input>
 			</div>
 		</div>
 		</form>
