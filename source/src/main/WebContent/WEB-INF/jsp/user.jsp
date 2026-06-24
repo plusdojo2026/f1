@@ -28,9 +28,9 @@
         <form method="POST" action="/f1/UserServlet" id="regist_form">
         <span style="color: red;" id="error_message"></span><br>
 			<div class="email">メールアドレス</div>
-          	<input type="text" name="address"  placeholder="Email" class="box" id= "address" pattern="[A-Za-z0-9]+" title="英数字のみ入力してください" required><br>
+          	<input type="text" name="address"  placeholder="Email" class="box" id= "address" pattern="[A-Za-z0-9@.+-_]" title="英数字, @, ., +, -, _ のみ入力してください" required><br>
 			<div class="pass">パスワード</div>
-          	<input type="password" name="password" placeholder="32文字以内" class="box" id= "password" pattern="[A-Za-z0-9]+" title="英数字のみ入力してください" required><br>
+          	<input type="password" name="password" placeholder="32文字以内" class="box" id= "password" pattern="[A-Za-z0-9@.+-_]" title="英数字, @, ., +, -, _ のみ入力してください" required><br>
           	<span style="color: red;" id="prefecture_error"></span><br>
           	<div class="prefecture">都道府県</div>
           	<div class="prefectureA">(対応地域は順次拡大予定)</div>
