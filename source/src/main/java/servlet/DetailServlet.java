@@ -67,7 +67,7 @@ public class DetailServlet extends HttpServlet {
 			recipeId = Integer.parseInt(recipeIdStr);
 		}
 		
-		//検索処理を行う
+		//検索処理を行う(6/24修正はここから)
 		StoresDAO storesDao = new StoresDAO();
 		RecipesDAO recipesDao = new RecipesDAO();
 		FeaturedItemsDAO featuredItemsDao = new FeaturedItemsDAO();

@@ -1,5 +1,5 @@
 package gemini;
-//アップロード時にDB情報を書き換えることを忘れない
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
