@@ -16,7 +16,7 @@ public class ChangeItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	//Getメソッド
-		protected void doGet(HttpServletRequest request, HttpServletResponse response)
+		/*protected void doGet(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException {
 			// もしもログインしていなかったらログインサーブレットにリダイレクトする
 			HttpSession session = request.getSession();
@@ -24,7 +24,7 @@ public class ChangeItem extends HttpServlet {
 				response.sendRedirect("/f1/LoginServlet");
 				return;
 			}
-		}
+		}*/
 		
 		//Postメソッド
 		protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -32,7 +32,7 @@ public class ChangeItem extends HttpServlet {
 			// もしもログインしていなかったらログインサーブレットにリダイレクトする
 			HttpSession session = request.getSession();
 			if (session.getAttribute("address") == null) {
-				response.sendRedirect("/webapp/LoginServlet");
+				response.sendRedirect("/f1/LoginServlet");
 				return;
 			}
 			// リクエストパラメータを取得する
@@ -42,12 +42,10 @@ public class ChangeItem extends HttpServlet {
 			//レシピを再生成する
 			GeminiService gemini = new GeminiService();
 			try {
-				gemini.generateRecipe(phoneNumber);
+				int recipe_id = gemini.generateRecipe(phoneNumber);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			//データベースから取り出す
-			
+
 		}
 }
