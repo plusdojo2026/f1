@@ -84,7 +84,7 @@ VALUES
 
 CREATE TABLE users (
     user_id INT PRIMARY KEY,
-    email VARCHAR(100) NOT NULL UNIQUE,
+    address VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(32) NOT NULL,
     prefecture_id INT NOT NULL,
     memo TEXT,
@@ -93,7 +93,7 @@ CREATE TABLE users (
 
 INSERT INTO users (
     user_id,
-    email,
+    address,
     password,
     prefecture_id,
     memo
@@ -1005,26 +1005,6 @@ VALUES
   
  VALUES(1,'AQ.Ab8RN6L-WofRjwi51eDdqvvyPZ_tTvUkILj1umR4yX3bvFyINA');
 
-SELECT
-    s.store_name,
-    p.prefecture_name,
-    f.featured_item_id,
-    f.featured_item_name,
-    f.price AS featured_price,
-    a.average_price,
-    (a.average_price - f.price) AS gain,
-    f.start_date,
-    f.end_date,
-    a.record_date
-FROM featured_items f
-JOIN stores s
-    ON f.phone_number = s.phone_number
-JOIN prefectures p
-    ON s.prefecture_id = p.prefecture_id
-LEFT JOIN average_prices a
-    ON a.prefecture_id = s.prefecture_id
-   AND a.item_name = f.featured_item_name
-ORDER BY
-    p.prefecture_id,
-    s.store_name,
-    f.featured_item_name;
+create user 'f1'@'localhost'identified by'xVyQPJuerzK8LB4G';
+GRANT ALL PRIVILEGES ON f1.* TO 'f1'@'localhost';
+FLUSH PRIVILEGES;
