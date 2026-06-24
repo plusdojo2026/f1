@@ -67,13 +67,13 @@ public class DetailServlet extends HttpServlet {
 			recipeId = Integer.parseInt(recipeIdStr);
 		}
 		
-		//検索処理を行う(6/24修正はここから)
+		//検索処理を行う(6/24ingredientsDAOとDTOの追加修正はここから)
 		StoresDAO storesDao = new StoresDAO();
 		RecipesDAO recipesDao = new RecipesDAO();
 		FeaturedItemsDAO featuredItemsDao = new FeaturedItemsDAO();
 		AveragePricesDAO averagePricesDao = new AveragePricesDAO();
 		
-		List<StoresDTO> storeList = storesDao.select(new StoresDTO(phoneNumber,"","","",""));
+		List<StoresDTO> storeList = storesDao.select(new StoresDTO(phoneNumber,"",0,"",""));
 		List<RecipesDTO> recipeList = recipesDao.select(new RecipesDTO(recipeId,"","",""));
 		List<FeaturedItemsDTO> itemList = featuredItemsDao.select(new FeaturedItemsDTO(0,phoneNumber,0,"","","",""));
 		//List<UsersDTO> userList2 = usersDao.select(new UsersDTO(userId,"","",0,"",""));
