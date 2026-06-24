@@ -88,9 +88,9 @@ public class UsersDAO {
 		return userList;
 	}
 	
-	public boolean insert(UsersDTO user) {
+	public int insert(UsersDTO user) {
 		Connection conn = null;
-		boolean result = false;
+		int nextUserId = -1;
 		
 		try {
 			// JDBCドライバを読み込む
@@ -101,35 +101,51 @@ public class UsersDAO {
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			
+			//現在の最大user_idを取得
+			String maxSql = "SELECT COALESCE(MAX(user_id), 0) AS max_id FROM users";
+			PreparedStatement maxStmt = conn.prepareStatement(maxSql);
+			//データベースからデータを取得
+			ResultSet maxRs = maxStmt.executeQuery();
+			
+			if (maxRs.next()) {
+				nextUserId = maxRs.getInt("max_id") + 1;
+			} else {
+				nextUserId = 1;
+			}
+			maxRs.close();
+			maxStmt.close();
+			
 			// SQL文を準備する
-			String sql = "INSERT INTO users VALUES (0, ?, ?, ?, ?)";
+			String sql = "INSERT INTO users VALUES (?, ?, ?, ?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
+			pStmt.setInt(1, nextUserId);
 			if (user.getAddress() != null) {
-				pStmt.setString(1, user.getAddress());
-			} else {
-				pStmt.setString(1, "");
-			}
-			if (user.getPassword() != null) {
-				pStmt.setString(2, user.getPassword());
+				pStmt.setString(2, user.getAddress());
 			} else {
 				pStmt.setString(2, "");
 			}
-			if (user.getPrefecture_id() != 0) {
-				pStmt.setInt(3, user.getPrefecture_id());
+			if (user.getPassword() != null) {
+				pStmt.setString(3, user.getPassword());
 			} else {
 				pStmt.setString(3, "");
 			}
-			if (user.getMemo() != null) {
-				pStmt.setString(4, user.getMemo());
+			if (user.getPrefecture_id() != 0) {
+				pStmt.setInt(4, user.getPrefecture_id());
 			} else {
 				pStmt.setString(4, "");
 			}
+			if (user.getMemo() != null) {
+				pStmt.setString(5, user.getMemo());
+			} else {
+				pStmt.setString(5, "");
+			}
+			
 			
 			// SQL文を実行する
-			if (pStmt.executeUpdate() == 1) {		//1レコード更新できた-->true
-				result = true;
+			if (pStmt.executeUpdate() != 1) {
+				nextUserId = -1;
 			}
 	            
 		} catch (SQLException e) {
@@ -148,7 +164,7 @@ public class UsersDAO {
 		}
 
 		// 結果を返す
-		return result;
+		return nextUserId;
 	}
 	
 	// 引数cardで指定されたレコードを更新し、成功したらtrueを返す

@@ -1,5 +1,5 @@
 package dto;
-
+//本クラスはhome.jspのための専用DTOです
 import java.io.Serializable;
 
 public class HomeDisplayDTO implements Serializable {
