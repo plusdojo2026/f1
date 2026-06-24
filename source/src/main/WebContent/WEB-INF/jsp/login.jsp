@@ -25,9 +25,9 @@
       <!-- addressとpassword入力のテキストボックス -->
       <span style="color: red;" id="error_message"></span><br>
       <div class="email">メールアドレス</div>
-          	<input type="text" name="address"  placeholder="Email" class="box" id= "address" ><br>
+          	<input type="text" name="address"  placeholder="Email" class="box" id= "address" pattern="[A-Za-z0-9@.+_]{1,100}" title="英数字, @, ., +, _ のみ,100文字以内で入力してください"><br>
 			<div class="pass">パスワード</div>
-          	<input type="password" name="password" placeholder="Password" class="box"  id= "password"><br>
+          	<input type="password" name="password" placeholder="Password" class="box"  id= "password" pattern="[A-Za-z0-9@.+_]{1,32}" title="英数字, @, ., +, _ のみ,32文字以内で入力してください"><br>
        
       <!-- リセット・ログインボタン -->
       <div class="button-area">
