@@ -14,7 +14,7 @@
         <div id="top">
         <header class="header">
             <div class="header-logo">
-            <a href="home...."><!--homeへ戻るリンクに書き換える-->
+            <a href="/HomeServlet"><!--homeへ戻るリンクに書き換える-->
                 <img src="img/logo.png" width="150" height="130" alt="ロゴ">
             </a>
             </div>
@@ -41,10 +41,10 @@
 
             <!--レシピ-->
             <div class="recipe">
-            <h3><c:out value="recipeName"/></h3>
+            <h3><c:out value="${recipeName}"/></h3>
             <ul>
-            	<c:forEach>
-                <li><c:out value="${recipe}"/></li>
+            	<c:forEach items="${itemList}">
+                <li><c:out value="${r}"/></li>
                 </c:forEach>
             </ul>
             </div>
@@ -58,7 +58,7 @@
                     <th>都道府県相場</th>
                     <th>お得金額</th>
                 </tr>
-                <c:forEach>
+                <c:forEach var="r" items="${recipeList}">
                 <tr>
                     <td><input type="checkbox" name="featuredItems" value=""><c:out value="${featured_item_name}"/></td>
                     <td class="price item_price"><c:out value="${price}"/>円</td>
