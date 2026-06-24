@@ -1,5 +1,5 @@
 package gemini;
-
+//アップロード時にDB情報を書き換えることを忘れない
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -13,9 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GeminiService {
-	//フィールド
+	
     private final HttpClient httpClient = HttpClient.newHttpClient();
-    private final String apiKey = System.getenv("GEMINI_API_KEY");
 
     // DB接続情報
     private final String url = "jdbc:mysql://localhost:3306/yourdb?useSSL=false&characterEncoding=UTF-8";
@@ -24,7 +23,7 @@ public class GeminiService {
     
     //リクエスト、パース、DB保存をまとめて実行するメソッド（各Servletでこれを呼び出す）
     public void generateRecipe(String phone_number) throws Exception {
-
+    	
         //店舗IDで目玉商品を取得
         List<String> items = getFeaturedItems(phone_number);
 
@@ -44,7 +43,22 @@ public class GeminiService {
         insertIngredients(recipeId, parsed.ingredients);
     }
     
-    //以下上記のメソッドの内容
+    //APIキーテーブルからAPIキーを取得
+	private String getApiKey() throws Exception {
+
+	    String sql = "SELECT api_name FROM API WHERE api_id = '1'";
+
+	    try (Connection conn = DriverManager.getConnection(url, user, pass);
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next()) {
+	            return rs.getString("api_name");
+	        }
+	    }
+	    throw new Exception("Gemini APIキーがDBに存在しません");
+	}
+    
     //店舗IDで目玉商品を取得
     private List<String> getFeaturedItems(String phone_number) throws Exception {
         List<String> list = new ArrayList<>();
@@ -79,9 +93,12 @@ public class GeminiService {
                 + "【材料リスト】" + list;
     }
 
-    //Gemini API 呼び出し
+    //GeminiAPI呼び出し
     private String sendPrompt(String prompt) throws Exception {
-
+    	
+    	//APIキーをテーブルから取得する
+    	String apiKey = getApiKey();
+    	
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(URI.create("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + apiKey))
                 .header("Content-Type", "application/json")
