@@ -49,11 +49,11 @@
           	
           	<div id="content-15" class="content-area">
           		<p>登録する店舗を1つ選択してください</p>
-          		<label><input type="radio" name="phone_number" value="0252452533"> イオンとやの店</label><br>
-				<label><input type="radio" name="phone_number" value="0252473455"> 原信柴竹山店</label><br>
-				<label><input type="radio" name="phone_number" value="0252487707"> 原信柴南万代店</label><br>
-				<label><input type="radio" name="phone_number" value="0252801400"> マルイ女池店</label><br>
-				<label><input type="radio" name="phone_number" value="0252812600"> ウオロク出来島店</label><br>
+          		<label><input type="checkbox" name="phone_number" value="0252452533"> イオンとやの店</label><br>
+				<label><input type="checkbox" name="phone_number" value="0252473455"> 原信柴竹山店</label><br>
+				<label><input type="checkbox" name="phone_number" value="0252487707"> 原信柴南万代店</label><br>
+				<label><input type="checkbox" name="phone_number" value="0252801400"> マルイ女池店</label><br>
+				<label><input type="checkbox" name="phone_number" value="0252812600"> ウオロク出来島店</label><br>
           	</div>
           	
           	<div id="content-37" class="content-area">
