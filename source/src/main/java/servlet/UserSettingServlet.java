@@ -1,10 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.GainsDAO;
-import dto.GainsDTO;
+import dao.RegistStoresDAO;
+import dao.UsersDAO;
+import dto.ResultDTO;
+import dto.UsersDTO;
 
 @WebServlet("/UserSettingServlet")
 public class UserSettingServlet extends HttpServlet {
@@ -23,91 +21,83 @@ public class UserSettingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		// DAO取得
-		GainsDAO dao = new GainsDAO();
+		request.setCharacterEncoding("UTF-8");
+		/*String  prefecture_name = request.getParameter("prefecture_name");
+		//都道府県をプルダウンに
+		PrefecturesDAO prefectureDao = new PrefecturesDAO();
+		List<PrefecturesDTO> prefectureList = prefectureDao.distinct(new PrefecturesDTO(0, prefecture_name));
 
-		GainsDTO param = new GainsDTO();
-		param.setRecord_date(null);
-
-		List<GainsDTO> list = dao.select(param);
-
-		// null対策
-		if (list == null) {
-		    list = new ArrayList<GainsDTO>();
-		}
-
-		// 集計用
-		Map<String, GainsDTO> monthlyMap = new LinkedHashMap<String, GainsDTO>();
-		Map<Integer, GainsDTO> yearlyMap = new LinkedHashMap<Integer, GainsDTO>();
-
-		for (GainsDTO g : list) {
-
-		    // 日付チェック
-		    if (g.getRecord_date() == null || g.getRecord_date().length() < 7) {
-		        continue;
-		    }
-
-		    String date = g.getRecord_date();
-
-		    String[] parts = date.split("-");
-		    if (parts.length < 2) continue;
-
-		    String year = parts[0];
-		    String month = parts[1];
-
-		    //月を2桁に統一
-		    if (month.length() == 1) {
-		        month = "0" + month;
-		    }
-
-		    // ---------- 月別 ----------
-		    String key = year + "-" + month;
-
-		    if (!monthlyMap.containsKey(key)) {
-		        GainsDTO m = new GainsDTO();
-		        m.setRecord_date(key);
-		        m.setGain_sum(0);
-		        m.setAp_count(0);
-		        monthlyMap.put(key, m);
-		    }
-
-
-		    GainsDTO m = monthlyMap.get(key);
-
-		    int gain = g.getGain_sum();
-		    int count = g.getAp_count();
-
-		    m.setGain_sum(m.getGain_sum() + gain);
-		    m.setAp_count(m.getAp_count() + count);
-
-
-		    // ---------- 年別 ----------
-		    int y = Integer.parseInt(year);
-
-		    if (!yearlyMap.containsKey(y)) {
-		        GainsDTO yr = new GainsDTO();
-		        yr.setRecord_date(year);   // ← 年をセット
-		        yr.setGain_sum(0);
-		        yr.setAp_count(0);
-		        yearlyMap.put(y, yr);
-		    }
-
-		    GainsDTO yr = yearlyMap.get(y);
-		    yr.setGain_sum(yr.getGain_sum() + gain);
-		    yr.setAp_count(yr.getAp_count() + count);
-		}
-
-		// Listに変換
-		List<GainsDTO> monthlyList = new ArrayList<GainsDTO>(monthlyMap.values());
-		List<GainsDTO> yearlyList = new ArrayList<GainsDTO>(yearlyMap.values());
-
-		// JSPへ渡す
-		request.setAttribute("monthlyList", monthlyList);
-		request.setAttribute("yearlyList", yearlyList);
-
-		// 最後にフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/summary.jsp");
+		// 検索結果をリクエストスコープに格納する
+		request.setAttribute("prefectureList", prefectureList);
+		*/
+		// 新規登録ページにフォワードする
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user.jsp");
 		dispatcher.forward(request, response);
+	}
+	
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// リクエストパラメータを取得する
+		request.setCharacterEncoding("UTF-8");
+		//int prefecture_id = Integer.parseInt(request.getParameter("prefecture_id"));
+		
+		//都道府県ID INT変換　ここから
+		String param = request.getParameter("prefecture_id");
+		int prefecture_id = 0; // デフォルト値
+
+		if (param != null && !param.trim().isEmpty()) {
+		    prefecture_id = Integer.parseInt(param);
+		}
+		UsersDTO user = new UsersDTO();
+		user.setPrefecture_id(prefecture_id);
+		//ここまで
+				
+		// 登録処理(メールアドレス・パスワード)
+		UsersDAO userDao = new UsersDAO();
+		if (userDao.update(new UsersDTO(0, "", "" , prefecture_id, ""))) { // 登録成功
+			request.setAttribute("result", new ResultDTO("更新成功！", "更新完了しました。", "/f1/HomeServlet"));
+		} else { // 登録失敗
+			request.setAttribute("result", new ResultDTO("更新失敗！", "更新できませんでした。", "/f1/HomeServlet"));
+		}
+		
+		String[] phone_number = request.getParameterValues("phone_number");
+		//都道府県ID INT変換　ここから
+				/*String userId = request.getParameter("user_id");
+				int user_id = 0; // デフォルト値
+
+				if (userId != null && !param.trim().isEmpty()) {
+					user_id = Integer.parseInt(userId);
+				}
+				RegistStoresDTO regist = new RegistStoresDTO();
+				user.setUser_id(user_id);*/
+				//ここまで
+		
+		//何も登録されていない場合
+		if (phone_number != null) {
+			RegistStoresDAO registDao = new RegistStoresDAO();
+			//ループ処理で、配列から1店舗ずつ取り出す
+			for (String phoneNumber : phone_number) {
+				//空文字（選択したけど名前が空など）が紛れ込んでいないかチェック
+				if (phoneNumber != null && !phoneNumber.trim().isEmpty()) {
+					//1店舗ずつDAOの登録メソッドを呼び出す
+					registDao.insert(8 , phoneNumber);
+				}
+			}
+			request.setAttribute("result", new ResultDTO("更新成功！", "更新完了及び、" + phone_number.length + "件の店舗登録処理が完了しました。", "/f1/UserServlet"));
+		} else {
+			request.setAttribute("result", new ResultDTO("更新失敗！", "更新する店舗が選択されていません。", "/f1/UserSettingServlet"));
+		}
+		
+		// リザルトjspにフォワードする
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
+		dispatcher.forward(request, response);
+		
 	}
 }
 	
