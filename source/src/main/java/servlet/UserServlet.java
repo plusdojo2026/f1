@@ -70,25 +70,15 @@ public class UserServlet extends HttpServlet {
 				
 		// 登録処理(メールアドレス・パスワード)
 		UsersDAO userDao = new UsersDAO();
-		if (userDao.insert(new UsersDTO(0, address, password, prefecture_id, ""))) { // 登録成功
-			request.setAttribute("result", new ResultDTO("登録成功！", "新規ユーザー登録しました。", "/f1/UserServlet"));
+		int userid = userDao.insert(new UsersDTO(0, address, password, prefecture_id, ""));
+		if (userid > 0) { // 登録成功
+			request.setAttribute("result", new ResultDTO("登録成功！", "新規ユーザー登録しました。 user_id=" + userid, "/f1/UserServlet"));
 		} else { // 登録失敗
 			request.setAttribute("result", new ResultDTO("登録失敗！", "新規ユーザー登録できませんでした。", "/f1/UserServlet"));
 		}
 		
 		String[] phone_number = request.getParameterValues("phone_number");
-		//都道府県ID INT変換　ここから
-				/*String userId = request.getParameter("user_id");
-				int user_id = 0; // デフォルト値
 
-				if (userId != null && !param.trim().isEmpty()) {
-					user_id = Integer.parseInt(userId);
-				}
-				RegistStoresDTO regist = new RegistStoresDTO();
-				user.setUser_id(user_id);*/
-				//ここまで
-		
-		//何も登録されていない場合
 		if (phone_number != null) {
 			RegistStoresDAO registDao = new RegistStoresDAO();
 			//ループ処理で、配列から1店舗ずつ取り出す
@@ -96,10 +86,10 @@ public class UserServlet extends HttpServlet {
 				//空文字（選択したけど名前が空など）が紛れ込んでいないかチェック
 				if (phoneNumber != null && !phoneNumber.trim().isEmpty()) {
 					//1店舗ずつDAOの登録メソッドを呼び出す
-					registDao.insert(8 , phoneNumber);
+					registDao.insert(userid , phoneNumber);
 				}
 			}
-			request.setAttribute("result", new ResultDTO("登録成功！", "新規ユーザー登録及び、" + phone_number.length + "件の店舗登録処理が完了しました。", "/f1/UserServlet"));
+			request.setAttribute("result", new ResultDTO("登録成功！", "新規ユーザー登録が完了しました。", "/f1/UserServlet"));
 		} else {
 			request.setAttribute("result", new ResultDTO("登録失敗！", "登録する店舗が選択されていません。", "/f1/UserServlet"));
 		}

@@ -28,9 +28,9 @@
         <form method="POST" action="/f1/UserServlet" id="regist_form">
         <span style="color: red;" id="error_message"></span><br>
 			<div class="email">メールアドレス</div>
-          	<input type="text" name="address"  placeholder="Email" class="box" id= "address" ><br>
+          	<input type="text" name="address"  placeholder="Email" class="box" id= "address" pattern="[A-Za-z0-9@.+-_]" title="英数字, @, ., +, -, _ のみ入力してください" required><br>
 			<div class="pass">パスワード</div>
-          	<input type="password" name="password" placeholder="32文字以内" class="box" id= "password"><br>
+          	<input type="password" name="password" placeholder="32文字以内" class="box" id= "password" pattern="[A-Za-z0-9@.+-_]" title="英数字, @, ., +, -, _ のみ入力してください" required><br>
           	<span style="color: red;" id="prefecture_error"></span><br>
           	<div class="prefecture">都道府県</div>
           	<div class="prefectureA">(対応地域は順次拡大予定)</div>
@@ -56,11 +56,11 @@
           	
           	<div id="content-15" class="content-area">
           		<p>登録する店舗を1つ選択してください</p>
-          		<label><input type="radio" name="phone_number" value="0252452533"> イオンとやの店</label><br>
-				<label><input type="radio" name="phone_number" value="0252473455"> 原信柴竹山店</label><br>
-				<label><input type="radio" name="phone_number" value="0252487707"> 原信柴南万代店</label><br>
-				<label><input type="radio" name="phone_number" value="0252801400"> マルイ女池店</label><br>
-				<label><input type="radio" name="phone_number" value="0252812600"> ウオロク出来島店</label><br>
+          		<label><input type="checkbox" name="phone_number" value="0252452533"> イオンとやの店</label><br>
+				<label><input type="checkbox" name="phone_number" value="0252473155"> 原信柴竹山店</label><br>
+				<label><input type="checkbox" name="phone_number" value="0252487707"> 原信柴南万代店</label><br>
+				<label><input type="checkbox" name="phone_number" value="0252801400"> マルイ女池店</label><br>
+				<label><input type="checkbox" name="phone_number" value="0252812600"> ウオロク出来島店</label><br>
           	</div>
           	
           	<div id="content-37" class="content-area">
