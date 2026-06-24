@@ -8,7 +8,7 @@ public class TestGemini {
 		// TODO 自動生成されたメソッド・スタブ
 
         // テスト用の電話番号（DBに存在する phone_number を指定）
-        String testPhoneNumber = "09012345678";
+        String testPhoneNumber = "0252452533";
 
         GeminiService service = new GeminiService();
 

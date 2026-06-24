@@ -17,9 +17,9 @@ public class GeminiService {
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
     // DB接続情報
-    private final String url = "jdbc:mysql://localhost:3306/yourdb?useSSL=false&characterEncoding=UTF-8";
-    private final String user = "root";
-    private final String pass = "password";
+    private final String url = "jdbc:mysql://localhost:3306/cosmos?characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B9&rewriteBatchedStatements=true";
+    private final String user = "f1";
+    private final String pass = "xVyQPJuerzK8LB4G";
     
     //リクエスト、パース、DB保存をまとめて実行するメソッド（各Servletでこれを呼び出す）
     public void generateRecipe(String phone_number) throws Exception {
@@ -46,14 +46,14 @@ public class GeminiService {
     //APIキーテーブルからAPIキーを取得
 	private String getApiKey() throws Exception {
 
-	    String sql = "SELECT api_name FROM API WHERE api_id = '1'";
+	    String sql = "SELECT api_key FROM API WHERE api_id = '1'";
 
 	    try (Connection conn = DriverManager.getConnection(url, user, pass);
 	         PreparedStatement ps = conn.prepareStatement(sql)) {
 
 	        ResultSet rs = ps.executeQuery();
 	        if (rs.next()) {
-	            return rs.getString("api_name");
+	            return rs.getString("api_key");
 	        }
 	    }
 	    throw new Exception("Gemini APIキーがDBに存在しません");
@@ -133,7 +133,7 @@ public class GeminiService {
 
         for (String line : text.split("\n")) {
             if (line.startsWith("recipe_name=")) {
-                p.recipe_name = line.substring(5).replace("'", "");
+                p.recipe_name = line.substring(12).replace("'", "");
             } else if (line.startsWith("ingredient=")) {
                 p.ingredients.add(line.substring(11).replace("'", ""));
             } else if (line.startsWith("recipe=")) {
@@ -153,13 +153,14 @@ public class GeminiService {
     //レシピテーブルに保存
     private int insertRecipe(String phone_number, String recipe_name, String recipe) throws Exception {
 
-        String sql = "INSERT INTO recipes (recipe_name, recipe) VALUES (?, ?)";
+        String sql = "INSERT INTO recipes (phone_number, recipe_name, recipe) VALUES (?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(url, user, pass);
              PreparedStatement pStmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-            pStmt.setString(1, recipe_name);
-            pStmt.setString(2, recipe);
+        	pStmt.setString(1, phone_number);
+            pStmt.setString(2, recipe_name);
+            pStmt.setString(3, recipe);
             pStmt.executeUpdate();
 
             ResultSet rs = pStmt.getGeneratedKeys();
