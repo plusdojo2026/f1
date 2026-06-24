@@ -22,7 +22,7 @@ public class GeminiService {
     private final String pass = "xVyQPJuerzK8LB4G";
     
     //リクエスト、パース、DB保存をまとめて実行するメソッド（各Servletでこれを呼び出す）
-    public void generateRecipe(String phone_number) throws Exception {
+    public int generateRecipe(String phone_number) throws Exception {
     	
         //店舗IDで目玉商品を取得
         List<String> items = getFeaturedItems(phone_number);
@@ -41,6 +41,9 @@ public class GeminiService {
 
         //材料テーブルに保存
         insertIngredients(recipeId, parsed.ingredients);
+        
+        //Servletにrecipe_idを返す
+        return recipeId;
     }
     
     //APIキーテーブルからAPIキーを取得
