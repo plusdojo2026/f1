@@ -11,7 +11,7 @@ public class FeaturedItemsDAOTest {
 		for (FeaturedItemsDTO featured : featuredItems) {
 			//表示項目は調整可能
 			System.out.println("目玉商品ID：" + featured.getFeatured_item_id());
-			System.out.println("電話番号：" + featured.getStore_id());
+			System.out.println("電話番号：" + featured.getPhone_number());
 			System.out.println("価格：" + featured.getPrice());
 			System.out.println("目玉商品名：" + featured.getFeatured_item_name());
 			System.out.println();

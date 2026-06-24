@@ -67,9 +67,10 @@ public class UserServlet extends HttpServlet {
 		UsersDTO user = new UsersDTO();
 		user.setPrefecture_id(prefecture_id);
 		//ここまで
-				
+
 		// 登録処理(メールアドレス・パスワード)
 		UsersDAO userDao = new UsersDAO();
+		
 		int userid = userDao.insert(new UsersDTO(0, address, password, prefecture_id, ""));
 		if (userid > 0) { // 登録成功
 			request.setAttribute("result", new ResultDTO("登録成功！", "新規ユーザー登録しました。 user_id=" + userid, "/f1/UserServlet"));
@@ -78,7 +79,7 @@ public class UserServlet extends HttpServlet {
 		}
 		
 		String[] phone_number = request.getParameterValues("phone_number");
-
+	
 		if (phone_number != null) {
 			RegistStoresDAO registDao = new RegistStoresDAO();
 			//ループ処理で、配列から1店舗ずつ取り出す
@@ -93,7 +94,6 @@ public class UserServlet extends HttpServlet {
 		} else {
 			request.setAttribute("result", new ResultDTO("登録失敗！", "登録する店舗が選択されていません。", "/f1/UserServlet"));
 		}
-		
 		// リザルトjspにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
 		dispatcher.forward(request, response);

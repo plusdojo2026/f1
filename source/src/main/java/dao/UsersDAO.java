@@ -23,9 +23,9 @@ public class UsersDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/goodbuy?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "xVyQPJuerzK8LB4G");
+					"root", "password");
 
 			// SQL文を準備する
 			String sql = "SELECT user_id, address, password, prefecture_id, memo FROM users "
@@ -177,9 +177,9 @@ public class UsersDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/goodbuy?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "xVyQPJuerzK8LB4G");
+					"root", "password");
 
 			// SQL文を準備する
 			String sql = "UPDATE users SET address=?, password=?, prefecture_name=?, memo=?";
@@ -242,9 +242,9 @@ public class UsersDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/goodbuy?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "xVyQPJuerzK8LB4G");
+					"root", "password");
 
 			// SQL文を準備する
 			String sql = "DELETE FROM Users WHERE store_name=?";
@@ -321,6 +321,46 @@ public class UsersDAO {
 		// 結果を返す
 		return result;
 	}
+	/*
+	public boolean isAddressCheck(String address) {
+		Connection conn = null;
+		boolean result = false;
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/goodbuy?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000", "root", "password");
+			
+			// SQL文を準備する
+			String sql = "SELECT COUNT(*) FROM users WHERE address = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+            pStmt.setString(1, address);
+            
+            ResultSet rs = pStmt.executeQuery();
+                if (rs.next()) {
+                    // カウントが0より大きければ「存在する」
+                    result =  rs.getInt(1) > 0;
+        		}
+    		} catch (SQLException e) {
+    			e.printStackTrace();
+    		} catch (ClassNotFoundException e) {
+    			e.printStackTrace();
+    		} finally {
+    			// データベースを切断
+    			if (conn != null) {
+    				try {
+    					conn.close();
+    				} catch (SQLException e) {
+    					e.printStackTrace();
+    				}
+    			}
+    		}
+    		// 結果を返す
+    		return result;
+    	}
+	*/
 	
 }
 

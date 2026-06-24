@@ -5,12 +5,12 @@ import java.io.Serializable;
 public class StoresDTO implements Serializable {
 	private String phone_number; 	//電話番号
 	private String store_name;		//店舗名
-	private String prefecture_id;	//都道府県ID
+	private int prefecture_id;	//都道府県ID
 	private String store_appeal_short; //店舗アピール(短)
 	private String store_appeal_long;  //店舗アピール(長)
 
 	//ｺﾝｽﾄﾗｸﾀ
-	public StoresDTO(String phone_number, String store_name, String prefecture_id, String store_appeal_short, String store_appeal_long) {
+	public StoresDTO(String phone_number, String store_name, int prefecture_id, String store_appeal_short, String store_appeal_long) {
 	super();
 	this.phone_number = phone_number;
 	this.store_name = store_name;
@@ -22,7 +22,7 @@ public class StoresDTO implements Serializable {
 	public StoresDTO() {
 	this.phone_number = "";
 	this.store_name = "";
-	this.prefecture_id = "";
+	this.prefecture_id = 0;
 	this.store_appeal_short = "";
 	this.store_appeal_long = "";
 	}
@@ -43,11 +43,11 @@ public class StoresDTO implements Serializable {
 		this.store_name = store_name;
 	}
 
-	public String getPrefecture_id() {
+	public int getPrefecture_id() {
 		return prefecture_id;
 	}
 
-	public void setPrefecture_id(String prefecture_id) {
+	public void setPrefecture_id(int prefecture_id) {
 		this.prefecture_id = prefecture_id;
 	}
 	public String getStore_appeal_short() {
