@@ -787,23 +787,6 @@ VALUES
   
  VALUES(1,'AQ.Ab8RN6L-WofRjwi51eDdqvvyPZ_tTvUkILj1umR4yX3bvFyINA');
 
-
-DELETE ap
-FROM average_prices ap
-JOIN (
-    SELECT
-        prefecture_id,
-        item_name,
-        MIN(average_price_id) AS keep_id
-    FROM average_prices
-    WHERE prefecture_id = 43
-    GROUP BY prefecture_id, item_name
-    HAVING COUNT(*) > 1
-) t
-    ON ap.prefecture_id = t.prefecture_id
-   AND ap.item_name = t.item_name
-WHERE ap.average_price_id <> t.keep_id;
-
 SELECT
     s.store_name,
     p.prefecture_name,
