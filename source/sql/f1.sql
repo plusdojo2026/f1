@@ -1,3 +1,14 @@
+DROP TABLE API;
+DROP TABLE gains;
+DROP TABLE regist_stores;
+DROP TABLE ingredients;
+DROP TABLE recipes;
+DROP TABLE average_prices;
+DROP TABLE featured_items;
+DROP TABLE users;
+DROP TABLE stores;
+DROP TABLE prefectures;
+
 CREATE TABLE prefectures (
     prefecture_id INT AUTO_INCREMENT PRIMARY KEY,
     prefecture_name VARCHAR(10) NOT NULL
@@ -465,7 +476,7 @@ VALUES
 CREATE TABLE average_prices (
     average_price_id INT AUTO_INCREMENT PRIMARY KEY,
     prefecture_id INT NOT NULL,
-    item_name VARCHAR(100) NOT NULL,
+    featured_item_name VARCHAR(100) NOT NULL,
     average_price INT NOT NULL,
     record_date DATE NOT NULL,
     FOREIGN KEY (prefecture_id) REFERENCES prefectures(prefecture_id)
@@ -473,7 +484,7 @@ CREATE TABLE average_prices (
 
 INSERT INTO average_prices (
     prefecture_id,
-    item_name,
+    featured_item_name,
     average_price,
     record_date
 )
@@ -544,7 +555,7 @@ VALUES
 
 INSERT INTO average_prices (
     prefecture_id,
-    item_name,
+   featured_item_name,
     average_price,
     record_date
 )
@@ -623,7 +634,7 @@ VALUES
 
 INSERT INTO average_prices (
     prefecture_id,
-    item_name,
+    featured_item_name,
     average_price,
     record_date
 )
@@ -1004,7 +1015,3 @@ VALUES
   api_key)
   
  VALUES(1,'AQ.Ab8RN6L-WofRjwi51eDdqvvyPZ_tTvUkILj1umR4yX3bvFyINA');
-
-create user 'f1'@'localhost'identified by'xVyQPJuerzK8LB4G';
-GRANT ALL PRIVILEGES ON f1.* TO 'f1'@'localhost';
-FLUSH PRIVILEGES;

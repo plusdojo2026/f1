@@ -1,0 +1,10 @@
+DROP TABLE API;
+DROP TABLE gains;
+DROP TABLE regist_stores;
+DROP TABLE ingredients;
+DROP TABLE recipes;
+DROP TABLE average_prices;
+DROP TABLE featured_items;
+DROP TABLE users;
+DROP TABLE stores;
+DROP TABLE prefectures;
