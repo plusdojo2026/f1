@@ -28,9 +28,10 @@
         <form method="POST" action="/f1/UserServlet" id="regist_form">
         <span style="color: red;" id="error_message"></span><br>
 			<div class="email">メールアドレス</div>
-          	<input type="text" name="address"  placeholder="Email" class="box" id= "address" pattern="[A-Za-z0-9@.+-_]" title="英数字, @, ., +, -, _ のみ入力してください" required><br>
+			<!-- 一部記号を制限100文字まで -->
+          	<input type="text" name="address"  placeholder="Email" class="box" id= "address" pattern="[A-Za-z0-9@.+_]{1,100}" title="英数字, @, ., +, _ のみ,100文字以内で入力してください"><br>
 			<div class="pass">パスワード</div>
-          	<input type="password" name="password" placeholder="32文字以内" class="box" id= "password" pattern="[A-Za-z0-9@.+-_]" title="英数字, @, ., +, -, _ のみ入力してください" required><br>
+          	<input type="password" name="password" placeholder="32文字以内" class="box" id= "password" pattern="[A-Za-z0-9@.+_]{1,32}" title="英数字, @, ., +, _ のみ,32文字以内で入力してください"><br>
           	<span style="color: red;" id="prefecture_error"></span><br>
           	<div class="prefecture">都道府県</div>
           	<div class="prefectureA">(対応地域は順次拡大予定)</div>
@@ -48,11 +49,8 @@
           	<input type="button" name="submit" value="位置情報で店舗を検索する" class="info"><br>
           	<!--  地図API 
           	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    		<style>#map { height: 250px; width: 50%; margin-left:auto; margin-right:auto;}</style>
           	
-          	<div id="map"></div>
-          	-->
-          	
+          	<div id="map"></div> -->
           	
           	<div id="content-15" class="content-area">
           		<p>登録する店舗を1つ選択してください</p>
