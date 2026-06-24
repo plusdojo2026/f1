@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>ユーザー設定</title>
-    <link rel="stylesheet" type="text/css" href="userSetting.css">
+    <link rel="stylesheet" type="text/css" href="css/userSetting.css">
 </head>
 <body>
 <body>
@@ -96,8 +96,8 @@
             });
           	</script>
           	
-			<input type="submit" name="submit" value="登録" class="reg" onclick="return confirm('登録内容を変更します。よろしいですか？');"><br>
-			<a href="/f1/HomeServlet" class="backLogin">ホーム画面へ戻る</a>
+			<input type="submit" name="submit" value="保存" class="reg" onclick="return confirm('登録内容を変更します。よろしいですか？');"><br>
+			<a href="/f1/HomeServlet" class="backHome">ホーム画面へ戻る</a>
 		</form>
 		</div>
 
