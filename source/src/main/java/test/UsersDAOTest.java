@@ -20,11 +20,11 @@ public class UsersDAOTest {
 		UsersDAO userDao = new UsersDAO();
 		// select()のテスト1
 		System.out.println("---------- select()のテスト1 ----------");
-		List<UsersDTO> userListSel1 = userDao.select(new UsersDTO(0, "", "", 0, ""));
+		List<UsersDTO> userListSel1 = userDao.select(new UsersDTO(0, "sato@example.com", "", 0, ""));
 		UsersDAOTest.showAllData(userListSel1);
 		// select()のテスト2
 		System.out.println("---------- select()のテスト2 ----------");
-		List<UsersDTO> userListSel2 = userDao.select(new UsersDTO(0, "", "", 0, ""));
+		List<UsersDTO> userListSel2 = userDao.select(new UsersDTO(0, "tanaka@example.com", "", 0, ""));
 		UsersDAOTest.showAllData(userListSel2);
 	
 		System.out.println("---------- insert()のテスト ----------");

@@ -24,7 +24,8 @@ public class UsersDAO {
 
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/goodbuy?"
-					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true"
+					+ "&allowPublicKeyRetrieval=true",
 					"root", "password");
 
 			// SQL文を準備する
@@ -63,7 +64,7 @@ public class UsersDAO {
 						rs.getString("address"), 
 						rs.getString("password"), 
 						rs.getInt("prefecture_id"), 
-						rs.getString("meomo"));
+						rs.getString("memo"));
 				userList.add(UsersDTO);
 			}
 		} catch (SQLException e) {
@@ -182,7 +183,7 @@ public class UsersDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "UPDATE users SET address=?, password=?, prefecture_name=?, memo=?";
+			String sql = "UPDATE users SET address=?, password=?, prefecture_id=?, memo=? WHERE user_id = ?";
 			
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
@@ -207,7 +208,7 @@ public class UsersDAO {
 			} else {
 				pStmt.setString(4, "");
 			}
-			
+			pStmt.setInt(5, user.getUser_id());
 
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {	//1レコード更新できた-->true
