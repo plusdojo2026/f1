@@ -38,6 +38,13 @@ img{
   margin:25px;
 }
 
+#map { 
+  height: 200px;       /* 高さを200ピクセルにする */
+  width: 50%;          /* 横幅を画面（親要素）の半分のサイズにする */
+  margin-left: auto;   /* 左側の余白を自動調整する */
+  margin-right: auto;  /* 右側の余白を自動調整する */
+}
+
 /*main内*/
 form{
   text-align: center;
