@@ -18,7 +18,7 @@
     <!--ヘッダーここまで-->
 <!--メイン-->
 <main>
-<form  id="login_form" method="POST" action="/f1/LoginServlet">
+<form method="POST" action="/f1/LoginServlet" id="login_form">
  
     <!--新規登録へのリンク-->
     <div class=regist><a href="/f1/UserServlet">新規登録はこちら</a></div>

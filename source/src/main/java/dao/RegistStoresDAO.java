@@ -133,12 +133,11 @@ public class RegistStoresDAO {
 					"f1", "xVyQPJuerzK8LB4G");
 
 			// SQL文を準備する
-			String sql = "DELETE FROM regist_stores WHERE user_id=? AND phone_number=?";
+			String sql = "DELETE FROM regist_stores WHERE user_id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
 			pStmt.setInt(1, regist.getUser_id());
-			pStmt.setString(2, regist.getPhone_number());
 
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {

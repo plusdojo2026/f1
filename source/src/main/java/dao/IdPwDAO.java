@@ -10,9 +10,9 @@ import dto.UsersDTO;
 
 public class IdPwDAO {
 	// 引数で指定されたidpwでログイン成功ならtrueを返す
-	public boolean isLoginOK(UsersDTO user) {
+	public int isLoginOK(UsersDTO user) {
 		Connection conn = null;
-		boolean loginResult = false;
+		int user_id = -1;
 
 		try {
 			// JDBCドライバを読み込む
@@ -25,7 +25,7 @@ public class IdPwDAO {
 					"f1", "xVyQPJuerzK8LB4G");
 
 			// SELECT文を準備する
-			String sql = "SELECT count(*) FROM UsersDTO WHERE address=? AND password=?";
+			String sql = "SELECT user_id FROM users WHERE address=? AND password=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, user.getAddress());
 			pStmt.setString(2, user.getPassword());
@@ -33,17 +33,16 @@ public class IdPwDAO {
 			// SELECT文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 
-			// ユーザーIDとパスワードが一致するユーザーがいれば結果をtrueにする
-			rs.next();
-			if (rs.getInt("count(*)") == 1) {
-				loginResult = true;
+			// 一致するuser_idを見つける
+			if (rs.next()) {
+				user_id = rs.getInt("user_id");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			loginResult = false;
+			user_id = -1;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			loginResult = false;
+			user_id = -1;
 		} finally {
 			// データベースを切断
 			if (conn != null) {
@@ -51,12 +50,12 @@ public class IdPwDAO {
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
-					loginResult = false;
+					user_id = -1;
 				}
 			}
 		}
 
 		// 結果を返す
-		return loginResult;
+		return user_id;
 	}
 }

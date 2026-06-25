@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.RegistStoresDAO;
 import dao.UsersDAO;
+import dto.RegistStoresDTO;
 import dto.ResultDTO;
 import dto.UsersDTO;
 
@@ -58,27 +60,27 @@ public class UserSettingServlet extends HttpServlet {
 		user.setPrefecture_id(prefecture_id);
 		//ここまで
 				
-		// 登録処理(メールアドレス・パスワード)
+		// 登録処理(都道府県)
 		UsersDAO userDao = new UsersDAO();
+		
 		if (userDao.update(new UsersDTO(0, "", "" , prefecture_id, ""))) { // 登録成功
 			request.setAttribute("result", new ResultDTO("更新成功！", "更新完了しました。", "/f1/HomeServlet"));
 		} else { // 登録失敗
 			request.setAttribute("result", new ResultDTO("更新失敗！", "更新できませんでした。", "/f1/HomeServlet"));
 		}
 		
+		//ログイン時に格納したuser_idを取得,選択した店舗の電話番号を取得
+		HttpSession session = request.getSession();
+		Integer userid = (Integer) session.getAttribute("user_id");
 		String[] phone_number = request.getParameterValues("phone_number");
-		//都道府県ID INT変換　ここから
-				/*String userId = request.getParameter("user_id");
-				int user_id = 0; // デフォルト値
-
-				if (userId != null && !param.trim().isEmpty()) {
-					user_id = Integer.parseInt(userId);
-				}
-				RegistStoresDTO regist = new RegistStoresDTO();
-				user.setUser_id(user_id);*/
-				//ここまで
 		
-		//何も登録されていない場合
+		//登録店舗更新(削除→登録)
+		RegistStoresDAO deleteRegist = new RegistStoresDAO();
+		RegistStoresDTO deleteNumber = new RegistStoresDTO();
+		deleteNumber.setUser_id(userid);
+		deleteRegist.delete(deleteNumber);
+		
+		//新しく店舗登録
 		if (phone_number != null) {
 			RegistStoresDAO registDao = new RegistStoresDAO();
 			//ループ処理で、配列から1店舗ずつ取り出す
@@ -86,7 +88,7 @@ public class UserSettingServlet extends HttpServlet {
 				//空文字（選択したけど名前が空など）が紛れ込んでいないかチェック
 				if (phoneNumber != null && !phoneNumber.trim().isEmpty()) {
 					//1店舗ずつDAOの登録メソッドを呼び出す
-					registDao.insert(8 , phoneNumber);
+					registDao.insert(userid , phoneNumber);
 				}
 			}
 			request.setAttribute("result", new ResultDTO("更新成功！", "更新完了及び、" + phone_number.length + "件の店舗登録処理が完了しました。", "/f1/UserServlet"));

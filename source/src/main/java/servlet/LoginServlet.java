@@ -21,6 +21,12 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		//もし「Login」ボタンが押された結果、GETが届いているなら、POSTに丸投げ
+		if (request.getParameter("login") != null) {
+	        doPost(request, response);
+	        return;
+	    }
 		// ログインページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 		dispatcher.forward(request, response);
@@ -39,20 +45,22 @@ public class LoginServlet extends HttpServlet {
 
 		// ログイン処理を行う
 		IdPwDAO iDao = new IdPwDAO();
-		if (iDao.isLoginOK(new UsersDTO(0,address,password,0,""))) { // ログイン成功
+		int userid = (iDao.isLoginOK(new UsersDTO(0,address,password,0,"")));
+		if (userid > 0){ // ログイン成功
 			// セッションスコープにIDを格納する
 			HttpSession session = request.getSession();
+			session.setAttribute("user_id",userid );
 			session.setAttribute("address", new LoginUserDTO(address));
 			
 			//ホームサーブレットにリダイレクトする
 			response.sendRedirect("/f1/HomeServlet");
 		}else { // ログイン失敗
-				// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
-				request.setAttribute("result", new ResultDTO("もう一度入力してください。", "AddressまたはPasswordに間違いがあります。", "/WebContent/LoginServlet"));
-
-			// 店舗表示ページにフォワードする
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
+			// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
+			request.setAttribute("result", new ResultDTO("もう一度入力してください。", "AddressまたはPasswordに間違いがあります。", "/f1/LoginServlet"));
+			// リザルトjspにフォワードする
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
 			dispatcher.forward(request, response);
 		}
+		
 	}
 }
