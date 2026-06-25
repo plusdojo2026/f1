@@ -22,11 +22,6 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		//もし「Login」ボタンが押された結果、GETが届いているなら、POSTに丸投げ
-		if (request.getParameter("login") != null) {
-	        doPost(request, response);
-	        return;
-	    }
 		// ログインページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 		dispatcher.forward(request, response);
