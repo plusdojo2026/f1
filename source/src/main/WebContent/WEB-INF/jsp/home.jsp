@@ -20,14 +20,14 @@
 		<div class="memo-box">
 			<textarea class="fixed-box" name="memo"></textarea>
 			<div class="button-area">
-				<button class="update-button">更新</button>
+				<input type = "submit" class="update-button"></input>
 			</div>
 		</div>
 		</form>
 
 		<c:forEach var="e" items="${cardList}">
-			<form id="search_result_form" method="POST"
-				action="/webapp/HomeServlet">
+			<form id="search_result_form" method="GET"
+				action="/f1/HomeServlet">
 
 				<!-- 店舗名 -->
 				<div class="store_name">
@@ -35,10 +35,10 @@
 						${e.store_name} </a>
 				</div>
 
-				<!-- row（料理名・目玉商品名・合計金額） -->
+				<!-- row（料理名・材料名・合計金額） -->
 				<div class="row">
 					<div class="recipe_name">${e.recipe_name}</div>
-					<div class="featured_item_name">${e.featured_item_name}</div>
+					<div class="ingredients_name">${e.ingredients_name}</div>
 					<div class="total_price">¥${e.price}</div>
 				</div>
 
