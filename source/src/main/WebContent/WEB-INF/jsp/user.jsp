@@ -53,7 +53,7 @@
           	<div id="map"></div> -->
           	
           	<div id="content-15" class="content-area">
-          		<p>登録する店舗を1つ選択してください</p>
+          		<p>登録する店舗を1つ以上選択してください</p>
           		<label><input type="checkbox" name="phone_number" value="0252452533"> イオンとやの店</label><br>
 				<label><input type="checkbox" name="phone_number" value="0252473155"> 原信柴竹山店</label><br>
 				<label><input type="checkbox" name="phone_number" value="0252487707"> 原信柴南万代店</label><br>
@@ -62,7 +62,7 @@
           	</div>
           	
           	<div id="content-37" class="content-area">
-          		<p>登録する店舗を1つ選択してください</p>
+          		<p>登録する店舗を1つ以上選択してください</p>
           		<label><input type="checkbox" name="phone_number" value="0878117001"> マルナカサンポート店</label><br>
 				<label><input type="checkbox" name="phone_number" value="0878211227"> エースワン JR高松オルネ店</label><br>
 				<label><input type="checkbox" name="phone_number" value="0878227498"> マルナカ通町店</label><br>
@@ -73,7 +73,7 @@
           	</div>
           	
           	<div id="content-43" class="content-area">
-          		<p>登録する店舗を1つ選択してください</p>
+          		<p>登録する店舗を1つ以上選択してください</p>
           		<label><input type="checkbox" name="phone_number" value="0962276693"> ハローデイアミュプラザくまもと店</label><br>
 				<label><input type="checkbox" name="phone_number" value="0962771221"> ドラッグストアコスモス田崎店</label><br>
 				<label><input type="checkbox" name="phone_number" value="0963125566"> スーパーキッド熊本駅前店</label><br>

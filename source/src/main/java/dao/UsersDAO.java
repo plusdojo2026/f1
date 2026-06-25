@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.UserSettingsDTO;
 import dto.UsersDTO;
 
 public class UsersDAO {
@@ -99,7 +98,8 @@ public class UsersDAO {
 			
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
-					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true"
+					+ "&allowPublicKeyRetrieval=true",
 					"f1", "xVyQPJuerzK8LB4G");
 			
 			//現在の最大user_idを取得
@@ -179,7 +179,8 @@ public class UsersDAO {
 
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
-					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true"
+					+ "&allowPublicKeyRetrieval=true",
 					"f1", "xVyQPJuerzK8LB4G");
 
 			// SQL文を準備する
@@ -278,7 +279,7 @@ public class UsersDAO {
 	}*/
 	
 	//memoを更新し、成功したらtrueを返す
-	public boolean updateMemo(UserSettingsDTO userSettings) {
+	public boolean updateMemo(UsersDTO usersDTO) {
 		Connection conn = null;
 		boolean result = false;
 		
@@ -287,19 +288,22 @@ public class UsersDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000", "f1", "xVyQPJuerzK8LB4G");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true"
+					+ "&allowPublicKeyRetrieval=true",
+					"f1", "xVyQPJuerzK8LB4G");
 			
 			// SQL文を準備する
-			String sql = "UPDATE user_settings SET memo=? WHERE user_id=?";
+			String sql = "UPDATE users SET memo=? WHERE user_id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
-			if (userSettings.getMemo() != null) {
-				pStmt.setString(1, userSettings.getMemo());
+			if (usersDTO.getMemo() != null) {
+				pStmt.setString(1, usersDTO.getMemo());
 			} else {
 				pStmt.setString(1, "");
 			}
-			pStmt.setInt(2, 0);
+			pStmt.setInt(2, usersDTO.getUser_id());
 			
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {

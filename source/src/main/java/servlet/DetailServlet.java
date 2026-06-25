@@ -30,7 +30,7 @@ public class DetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	//Getメソッド
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	/*protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
@@ -38,17 +38,17 @@ public class DetailServlet extends HttpServlet {
 			response.sendRedirect("/f1/LoginServlet");
 			return;
 		}
-	}
+	}*/
 	
 	//Postメソッド
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		if (session.getAttribute("address") == null) {
-			response.sendRedirect("/webapp/LoginServlet");
+		/*if (session.getAttribute("address") == null) {
+			response.sendRedirect("/f1/LoginServlet");
 			return;
-		}
+		}*/
 
 		//まずセッションスコープからaddressを取得し、user_idを取得する
 		String address = (String)session.getAttribute("address");
