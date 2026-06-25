@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +27,10 @@ public class HomeServlet extends HttpServlet{
 //			response.sendRedirect("/f1/LoginServlet");
 //			return;
 //		}
+//	
+//		// リクエストパラメータを取得する
+//		request.setCharacterEncoding("UTF-8");
+//		String phoneNumber = request.getParameter("phone_number");
 //		
 //		GeminiService gemini = new GeminiService();
 //		try {
@@ -85,7 +90,7 @@ public class HomeServlet extends HttpServlet{
 //		request.setAttribute("totalPrice",totalPrice);
 //
 //		//店舗表示ページにフォワードする
-//		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
+//		RequestDispatcher dispatcher = request.getRequestDispatcher("/f1/jsp/home.jsp");
 //		dispatcher.forward(request, response);
 //	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -110,7 +115,8 @@ public class HomeServlet extends HttpServlet{
 		dto.setMemo(memo);
 		usersDao.updateMemo(dto);
 
-
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/f1/jsp/home.jsp");
+		dispatcher.forward(request, response);
 	}
 }
 
