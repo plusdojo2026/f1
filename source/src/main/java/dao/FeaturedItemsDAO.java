@@ -113,6 +113,39 @@ public class FeaturedItemsDAO {
 		// 結果を返す
 		return result;
 	}
+	
+	public List<FeaturedItemsDTO> selectByStoreId(String phoneNumber) {
+	    List<FeaturedItemsDTO> list = new ArrayList<>();
+
+	    String sql = "SELECT * FROM featured_items WHERE phone_number = ?";
+
+	    try (
+	        Connection conn = DriverManager.getConnection(
+	            "jdbc:mysql://localhost:3306/f1?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true",
+	            "f1", "xVyQPJuerzK8LB4G"
+	        );
+	        PreparedStatement pStmt = conn.prepareStatement(sql)
+	    ) {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+
+	        pStmt.setString(1, phoneNumber);
+	        ResultSet rs = pStmt.executeQuery();
+
+	        while (rs.next()) {
+	            FeaturedItemsDTO dto = new FeaturedItemsDTO();
+	            dto.setFeatured_item_id(rs.getInt("featured_item_id"));
+	            dto.setFeatured_item_name(rs.getString("featured_item_name"));
+	            dto.setPrice(rs.getInt("price"));
+	            list.add(dto);
+	        }
+
+	    } catch (SQLException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+
+	    return list;
+	}
+
 }
 
 
