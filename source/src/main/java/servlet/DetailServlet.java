@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -17,7 +16,6 @@ import dao.FeaturedItemsDAO;
 import dao.RecipesDAO;
 import dao.StoresDAO;
 import dao.UsersDAO;
-import dto.AveragePriceDTO;
 import dto.DetailDisplayDTO;
 import dto.FeaturedItemsDTO;
 import dto.RecipesDTO;
@@ -55,7 +53,6 @@ public class DetailServlet extends HttpServlet {
 		UsersDAO usersDao = new UsersDAO();
 		List<UsersDTO> usersList = usersDao.select(new UsersDTO(0, address, "", 0, ""));
 		UsersDTO user = usersList.get(0);
-		//int userId = user.getUser_id();
 
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
@@ -67,7 +64,7 @@ public class DetailServlet extends HttpServlet {
 			recipeId = Integer.parseInt(recipeIdStr);
 		}
 		
-		//検索処理を行う(6/24ingredientsDAOとDTOの追加修正はここから)
+		//DAOのインスタンスを生成
 		StoresDAO storesDao = new StoresDAO();
 		RecipesDAO recipesDao = new RecipesDAO();
 		FeaturedItemsDAO featuredItemsDao = new FeaturedItemsDAO();
@@ -76,38 +73,40 @@ public class DetailServlet extends HttpServlet {
 		List<StoresDTO> storeList = storesDao.select(new StoresDTO(phoneNumber,"",0,"",""));
 		List<RecipesDTO> recipeList = recipesDao.select(new RecipesDTO(recipeId,"","",""));
 		List<FeaturedItemsDTO> itemList = featuredItemsDao.select(new FeaturedItemsDTO(0,phoneNumber,0,"","","",""));
-		//List<UsersDTO> userList2 = usersDao.select(new UsersDTO(userId,"","",0,"",""));
 		
+		//1件の詳細データを入れるDTO
+		DetailDisplayDTO detail = new DetailDisplayDTO();
 		
-		// DTO が空の場合の対策
-        StoresDTO store = storeList.isEmpty() ? new StoresDTO() : storeList.get(0);
-        RecipesDTO recipe = recipeList.isEmpty() ? new RecipesDTO() : recipeList.get(0);
-        FeaturedItemsDTO item = itemList.isEmpty() ? new FeaturedItemsDTO() : itemList.get(0);
-        
+		//店舗情報
+		StoresDTO store = storeList.isEmpty() ? new StoresDTO() : storeList.get(0);
+		detail.setStore_name(store.getStore_name());
+		detail.setStore_appeal_long(store.getStore_appeal_long());
 		
-        
-        int FeaturedItemId = item.getFeatured_item_id();
-        List<AveragePriceDTO> averagePriceList = averagePricesDao.select(new AveragePriceDTO(0,FeaturedItemId,0,0,null));
-        AveragePriceDTO avg = averagePriceList.isEmpty() ? new AveragePriceDTO() : averagePriceList.get(0);
-        
-		//DetailDisplayDTOにまとめる
-		List<DetailDisplayDTO> detailList = new ArrayList<>();
+		//ユーザーメモ
+		detail.setMemo(user.getMemo());
 		
-		DetailDisplayDTO dto = new DetailDisplayDTO();
-		dto.setStore_name(store.getStore_name());
-		dto.setStore_appeal_long(store.getStore_appeal_long());
-		dto.setMemo(user.getMemo());
-		dto.setRecipe_name(recipe.getRecipe_name());
-		dto.setRecipe(recipe.getRecipe());
-		dto.setFeatured_item_name(item.getFeatured_item_name());
-		dto.setAverage_price(avg.getAverage_price());
-		detailList.add(dto);
+		//レシピ情報
+		RecipesDTO recipe = recipeList.isEmpty() ? new RecipesDTO() : recipeList.get(0);
+		detail.setRecipe_name(recipe.getRecipe_name());
+		detail.setRecipe(recipe.getRecipe());
 		
-		//まとめたデータをリクエストスコープに格納する
-		request.setAttribute("detailList", detailList);
+		//レシピ材料（複数）
+		request.setAttribute("itemList", itemList);
+
+		//必要目玉商品（複数）ここは宮崎さんに合わせて書き直す
+		List<FeaturedItemsDTO> featuredItems = featuredItemsDao.selectl(recipeId);
+		request.setAttribute("featuredItems", featuredItems);
+
+		//その他の目玉商品（複数）
+		List<FeaturedItemsDTO> otherItems = featuredItemsDao.selectByStoreId(phoneNumber);
+		request.setAttribute("otherItems", otherItems);
+
+		//detailは1件だけ渡す
+		request.setAttribute("detailList", detail);
 		
-		//詳細表示ページにフォワードする
+		//JSPへフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/detail.jsp");
 		dispatcher.forward(request, response);
+        
 	}
 }

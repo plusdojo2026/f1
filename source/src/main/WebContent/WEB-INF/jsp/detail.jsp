@@ -27,29 +27,29 @@
         <!--メイン-->
         <main>
         	
-            <h1 class="store-name"><c:out value="${storeName}"/></h1>
+            <h1 class="store-name"><c:out value="${detailList.store_name}"/></h1>
 
             <!--店舗アピール（長）-->
-            <p class="appeal-long"><c:out value="${storeAppealLong}"/></p>
+            <p class="appeal-long"><c:out value="${detailList.store_appeal_long}"/></p>
 
             <!--メモ欄-->
             <form method="post" action="">
             <label for="memo">メモ</label><br>
-            <textarea name="memo" class="memo"><c:out value="${memo}"/></textarea>
+            <textarea name="memo" class="memo"><c:out value="${detailList.memo}"/></textarea>
             <p class="memo-update"><input type="submit" value="更新" onclick="return confirm('メモを更新します。よろしいですか？');" ></p>
             </form>
 
             <!--レシピ-->
             <div class="recipe">
-            <h3><c:out value="${recipeName}"/></h3>
+            <h3><c:out value="${detailList.recipe_name}"/></h3>
             <ul>
-            	<c:forEach items="${itemList}">
-                <li><c:out value="${r}"/></li>
+            	<c:forEach var="item" items="${itemList}">
+                <li><c:out value="${item.featured_item_name}"/></li>
                 </c:forEach>
             </ul>
             </div>
 
-            <form method="post" action="" class="">
+            <form action="ChangeItemServlet" method="post">
             <table class="featuredItems">
                 <!--代替レシピのためのチェックボックスあり-->
                 <tr>
@@ -58,11 +58,11 @@
                     <th>都道府県相場</th>
                     <th>お得金額</th>
                 </tr>
-                <c:forEach var="r" items="${recipeList}">
+                <c:forEach var="detail" items="${detailList.featuredItems}">
                 <tr>
-                    <td><input type="checkbox" name="featuredItems" value=""><c:out value="${featured_item_name}"/></td>
-                    <td class="price item_price"><c:out value="${price}"/>円</td>
-                    <td class="price average_price"><c:out value="${average_price}"/>円</td>
+                    <td><input type="checkbox" name="featuredItems" value="${detail.featured_item_id}"><c:out value="${detail.featured_item_name}"/></td>
+                    <td class="price item_price"><c:out value="${detail.price}"/>円</td>
+                    <td class="price average_price"><c:out value="${detail.average_price}"/>円</td>
                     <td class="price gain"></td> <!-- gainはJavaScriptで計算した値を表示する -->
                 </tr>
                 </c:forEach>
@@ -70,8 +70,8 @@
             
             <!--代替ボタン-->
             <p class="change-button">
-                <input type="submit" value="代替商品" onclick="return confirm('チェックした商品を代替します。よろしいですか？');" class="change-items">
-                <input type="submit" value="代替レシピ" onclick="return confirm('代替レシピを表示します。よろしいですか？');" class="change-recipe">
+                <!-- <input type="submit" value="代替商品" onclick="return confirm('チェックした商品を代替します。よろしいですか？');" class="change-items">-->
+                <input type="submit" value="代替レシピ" onclick="return confirm('代替レシピを表示します。よろしいですか？');" class="change-recipe" action="/">
             </p>
             </form>
 
@@ -83,11 +83,11 @@
                     <th>都道府県相場</th>
                     <th>お得金額</th>
                 </tr>
-                <c:forEach>
+                <c:forEach var="detail" items="${detailList}">
                 <tr>
-                    <td><c:out value="${featured_item_name}"/></td>
-                    <td class="price item_price"><c:out value="${price}"/>円</td>
-                    <td class="price average_price"><c:out value="${average_price}"/>円</td>
+                    <td><c:out value="${detail.featured_item_name}"/></td>
+                    <td class="price item_price"><c:out value="${detail.price}"/>円</td>
+                    <td class="price average_price"><c:out value="${detail.average_price}"/>円</td>
                     <td class="price gain"></td>
                 </tr>
                 </c:forEach>
