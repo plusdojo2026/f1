@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,21 +26,21 @@
 		</div>
 		</form>
 
-		<c:forEach var="e" items="${storedList}">
+		<c:forEach var="e" items="${storesList}">
 			<form id="search_result_form" method="GET"
 				action="/f1/HomeServlet">
 
 				<!-- 店舗名 -->
 				<div class="store_name">
-					<a href="storeDetail.jsp?number=${e.number}" class="button">
+					<a href="/f1/DetailServlet?phone_number=${e.phone_number}" class="button">
 						${e.store_name} </a>
 				</div>
 
 				<!-- row（料理名・材料名・合計金額） -->
 				<div class="row">
-					<div class="recipe_name">${e.recipe_name}</div>
-					<div class="ingredients_name">${e.ingredients_name}</div>
-					<div class="total_price">¥${e.price}</div>
+<%-- 					<div class="recipe_name">${e.recipe_name}</div> --%>
+<%-- 					<div class="ingredients_name">${e.ingredients_name}</div> --%>
+<%-- 					<div class="total_price">¥${e.price}</div> --%>
 				</div>
 
 				<!-- 店舗PR -->

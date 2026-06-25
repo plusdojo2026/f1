@@ -42,8 +42,9 @@ public class HomeServlet extends HttpServlet{
 		String phoneNumber = request.getParameter("phone_number");
 		
 		StoresDAO storeDao = new StoresDAO();
-		List<StoresDTO> storeList = storeDao.selectstores();
-		List<RegistStoresDTO> storeList = registDao.select(new RegistStoresDTO(0, phoneNumbe
+		List<StoresDTO> storesList = storeDao.selectstores(usersList.get(0));
+		request.setAttribute("storesList", storesList);
+		
 		
 //		GeminiService gemini = new GeminiService();
 //		try {
