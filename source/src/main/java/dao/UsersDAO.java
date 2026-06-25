@@ -179,7 +179,8 @@ public class UsersDAO {
 
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
-					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true"
+					+ "&allowPublicKeyRetrieval=true",
 					"f1", "xVyQPJuerzK8LB4G");
 
 			// SQL文を準備する
@@ -287,7 +288,10 @@ public class UsersDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000", "f1", "xVyQPJuerzK8LB4G");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true"
+					+ "&allowPublicKeyRetrieval=true",
+					"f1", "xVyQPJuerzK8LB4G");
 			
 			// SQL文を準備する
 			String sql = "UPDATE users SET memo=? WHERE user_id=?";

@@ -22,8 +22,9 @@ public class IngredientsDAO {
 
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
-					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true", "f1",
-					"xVyQPJuerzK8LB4G");
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true"
+					+ "&allowPublicKeyRetrieval=true",
+					"f1", "xVyQPJuerzK8LB4G");
 
 			// SQL文を準備する
 			String sql = "SELECT f.featured_item_id, f.price, r.recipe_name, i.ingredients_name " + "FROM (recipes r "

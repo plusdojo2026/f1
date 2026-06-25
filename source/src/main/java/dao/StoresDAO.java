@@ -25,7 +25,8 @@ public class StoresDAO {
 
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
-					+ "useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true"
+					+ "&allowPublicKeyRetrieval=true",
 					"f1", "xVyQPJuerzK8LB4G");
 
 			// 検索SQL文を準備する

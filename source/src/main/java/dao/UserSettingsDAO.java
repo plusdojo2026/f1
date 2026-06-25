@@ -22,7 +22,10 @@ public class UserSettingsDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000", "f1", "xVyQPJuerzK8LB4G");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true"
+					+ "&allowPublicKeyRetrieval=true",
+					"f1", "xVyQPJuerzK8LB4G");
 			
 			// 検索SQL文を準備する
 			String sql = "SELECT user_id, prefecture_id, favorite_store_id, memo FROM user_settings WHERE user_id=?";
@@ -69,7 +72,10 @@ public class UserSettingsDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000", "f1", "xVyQPJuerzK8LB4G");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true"
+					+ "&allowPublicKeyRetrieval=true",
+					"f1", "xVyQPJuerzK8LB4G");
 			
 			// SQL文を準備する
 			String sql = "UPDATE user_settings SET prefecture_id=?, favorite_store_id=?, WHERE user_id=?";
@@ -112,7 +118,10 @@ public class UserSettingsDAO {
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				
 				// データベースに接続する
-				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000", "f1", "xVyQPJuerzK8LB4G");
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/f1?"
+						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true"
+						+ "&allowPublicKeyRetrieval=true",
+						"f1", "xVyQPJuerzK8LB4G");
 				
 				// SQL文を準備する
 				String sql = "UPDATE user_settings SET memo=? WHERE user_id=?";
