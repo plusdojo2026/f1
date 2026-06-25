@@ -15,7 +15,7 @@ import dto.LoginUserDTO;
 import dto.ResultDTO;
 import dto.UsersDTO;
 
-@WebServlet("")
+@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
