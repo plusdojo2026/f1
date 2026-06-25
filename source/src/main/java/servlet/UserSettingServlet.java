@@ -24,19 +24,10 @@ public class UserSettingServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		/*String  prefecture_name = request.getParameter("prefecture_name");
-		//都道府県をプルダウンに
-		PrefecturesDAO prefectureDao = new PrefecturesDAO();
-		List<PrefecturesDTO> prefectureList = prefectureDao.distinct(new PrefecturesDTO(0, prefecture_name));
 
-		// 検索結果をリクエストスコープに格納する
-		request.setAttribute("prefectureList", prefectureList);
-		*/
-		// 新規登録ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userSetting.jsp");
 		dispatcher.forward(request, response);
 	}
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
@@ -76,9 +67,9 @@ public class UserSettingServlet extends HttpServlet {
 		
 		//登録店舗更新(削除→登録)
 		RegistStoresDAO deleteRegist = new RegistStoresDAO();
-		RegistStoresDTO deleteNumber = new RegistStoresDTO();
-		deleteNumber.setUser_id(userid);
-		deleteRegist.delete(deleteNumber);
+		RegistStoresDTO userId = new RegistStoresDTO();
+		userId.setUser_id(userid);
+		deleteRegist.delete(userId);
 		
 		//新しく店舗登録
 		if (phone_number != null) {
