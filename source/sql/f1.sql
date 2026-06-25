@@ -1,3 +1,5 @@
+create database f1;
+
 DROP TABLE API;
 DROP TABLE gains;
 DROP TABLE regist_stores;

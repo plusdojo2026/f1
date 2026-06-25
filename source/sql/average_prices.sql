@@ -1,7 +1,7 @@
 CREATE TABLE average_prices (
     average_price_id INT AUTO_INCREMENT PRIMARY KEY,
     prefecture_id INT NOT NULL,
-    item_name VARCHAR(100) NOT NULL,
+    featured_item_name VARCHAR(100) NOT NULL,
     average_price INT NOT NULL,
     record_date DATE NOT NULL,
     FOREIGN KEY (prefecture_id) REFERENCES prefectures(prefecture_id)
@@ -9,7 +9,7 @@ CREATE TABLE average_prices (
 
 INSERT INTO average_prices (
     prefecture_id,
-    item_name,
+    featured_item_name,
     average_price,
     record_date
 )
