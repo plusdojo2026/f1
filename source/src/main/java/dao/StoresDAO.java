@@ -67,7 +67,7 @@ public class StoresDAO {
 	// 引数user_idで指定されたレコードを検索し、取得したデータのリストを返す
 	public List<StoresDTO> selectstores(UsersDTO usersDTO) {
 		Connection conn = null;
-		List<StoresDTO> storeList = new ArrayList<>();
+		List<StoresDTO> storesList = new ArrayList<>();
 
 		try {
 			// JDBCドライバを読み込む
@@ -99,7 +99,7 @@ public class StoresDAO {
 						rs.getInt("prefecture_id"),
 						rs.getString("store_appeal_short"),
 						rs.getString("store_appeal_long"));
-				storeList.add(storesDTO);
+				storesList.add(storesDTO);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -117,7 +117,7 @@ public class StoresDAO {
 		}
 
 		// 結果を返す
-		return storeList;
+		return storesList;
 	}
 }
 
