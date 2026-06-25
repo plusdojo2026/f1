@@ -18,14 +18,14 @@
 		<rabel for="memo">メモ</rabel>
 		<br>
 		<div class="memo-box">
-			<textarea class="fixed-box" name="memo"></textarea>
+			<textarea class="fixed-box" name="memo">${usersList[0].memo}</textarea>
 			<div class="button-area">
 				<input type = "submit" class="update-button"></input>
 			</div>
 		</div>
 		</form>
 
-		<c:forEach var="e" items="${cardList}">
+		<c:forEach var="e" items="${storedList}">
 			<form id="search_result_form" method="GET"
 				action="/f1/HomeServlet">
 

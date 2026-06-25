@@ -11,27 +11,40 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.StoresDAO;
 import dao.UsersDAO;
+import dto.LoginUserDTO;
+import dto.StoresDTO;
 import dto.UsersDTO;
 
 @WebServlet("/HomeServlet")
 public class HomeServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-//			throws ServletException, IOException {
-//
-//		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("address") == null) {
-//			response.sendRedirect("/f1/LoginServlet");
-//			return;
-//		}
-//	
-//		// リクエストパラメータを取得する
-//		request.setCharacterEncoding("UTF-8");
-//		String phoneNumber = request.getParameter("phone_number");
-//		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// もしもログインしていなかったらログインサーブレットにリダイレクトする
+		HttpSession session = request.getSession();
+		if (session.getAttribute("address") == null) {
+			response.sendRedirect("/f1/LoginServlet");
+			return;
+		}
+		
+		// セッションスコープからアドレスを取得する
+		LoginUserDTO loginUserDTO = (LoginUserDTO)session.getAttribute("address");
+		UsersDAO usersDAO = new UsersDAO();
+		List<UsersDTO> usersList = usersDAO.selectmemo(loginUserDTO);
+		request.setAttribute("usersList", usersList);
+		
+		// リクエストパラメータを取得する
+		request.setCharacterEncoding("UTF-8");
+		String phoneNumber = request.getParameter("phone_number");
+		
+		StoresDAO storeDao = new StoresDAO();
+		List<StoresDTO> storeList = storeDao.selectstores();
+		List<RegistStoresDTO> storeList = registDao.select(new RegistStoresDTO(0, phoneNumbe
+		
 //		GeminiService gemini = new GeminiService();
 //		try {
 //			//レシピ生成メソッドを実行し、recipe_idを受け取る
@@ -89,10 +102,10 @@ public class HomeServlet extends HttpServlet{
 //		request.setAttribute("storeList", storeList);
 //		request.setAttribute("totalPrice",totalPrice);
 //
-//		//店舗表示ページにフォワードする
-//		RequestDispatcher dispatcher = request.getRequestDispatcher("/f1/jsp/home.jsp");
-//		dispatcher.forward(request, response);
-//	}
+		//店舗表示ページにフォワードする
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
+		dispatcher.forward(request, response);
+	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -103,7 +116,9 @@ public class HomeServlet extends HttpServlet{
 
 		//セッションからユーザー情報を取得
 		HttpSession session = request.getSession();
-		String address = (String)session.getAttribute("address");
+		LoginUserDTO loginUserDTO = (LoginUserDTO)session.getAttribute("address");
+		String address =loginUserDTO.getId();
+		
 		UsersDAO usersDao = new UsersDAO();
 		List<UsersDTO> usersList = usersDao.select(new UsersDTO(0, address,"", 0, ""));
 		UsersDTO user = usersList.get(0);
@@ -114,8 +129,14 @@ public class HomeServlet extends HttpServlet{
 		dto.setUser_id(user.getUser_id());
 		dto.setMemo(memo);
 		usersDao.updateMemo(dto);
+		
+		UsersDAO usersDAO = new UsersDAO();
+		usersList = usersDAO.selectmemo(loginUserDTO);
+		request.setAttribute("usersList", usersList);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/f1/jsp/home.jsp");
+
+		//店舗表示ページにフォワードする
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
 		dispatcher.forward(request, response);
 	}
 }

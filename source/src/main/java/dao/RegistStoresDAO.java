@@ -27,7 +27,7 @@ public class RegistStoresDAO {
 					"f1", "xVyQPJuerzK8LB4G");
 
 			// SQL文を準備する
-			String sql = "SELECT user_id, phone_number FROM regist_stores"
+			String sql = "SELECT user_id, phone_number FROM regist_stores "
 					+ "WHERE user_id LIKE ? AND phone_number LIKE ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
