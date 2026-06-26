@@ -63,7 +63,7 @@ public class ChangeRecipe {
 				
 				
 				//結果をJSPに渡す（List名を書き直す）
-				request.setAttribute("List", List);
+				request.setAttribute("rpList", rpList);
 			    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/detail.jsp");
 			    dispatcher.forward(request, response);
 				

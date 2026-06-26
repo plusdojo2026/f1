@@ -27,16 +27,16 @@
         <!--メイン-->
         <main>
         	
-            <h1 class="store-name"><c:out value="${detailList.store_name}"/></h1>
+            <h1 class="store-name"><c:out value="${storeList.store_name}"/></h1>
 
             <!--店舗アピール（長）-->
-            <p class="appeal-long"><c:out value="${detailList.store_appeal_long}"/></p>
+            <p class="appeal-long"><c:out value="${storeList.store_appeal_long}"/></p>
 
             <!--メモ欄-->
-            <form method="post" action="">
+            <form method="post" action="/f1/DetailServlet">
             <label for="memo">メモ</label><br>
-            <textarea name="memo" class="memo"><c:out value="${detailList.memo}"/></textarea>
-            <p class="memo-update"><input type="submit" value="更新" onclick="return confirm('メモを更新します。よろしいですか？');" ></p>
+            <textarea name="memo" class="memo"><c:out value="${usersList.memo}"/></textarea>
+            <p class="memo-update"><input type="submit" value="更新" onclick="return confirm('メモを更新します。よろしいですか？');"></p>
             </form>
 
             <!--レシピ-->

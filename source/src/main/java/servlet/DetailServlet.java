@@ -54,7 +54,7 @@ public class DetailServlet extends HttpServlet {
 
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-		String phoneNumber = request.getParameter("number");
+		String phoneNumber = request.getParameter("phone_number");
 		String memo = request.getParameter("memo");
 		//recipe_idをInt型に変換
 		String recipeIdStr = request.getParameter("recipe_id");
