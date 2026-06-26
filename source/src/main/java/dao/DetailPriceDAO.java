@@ -26,7 +26,7 @@ public class DetailPriceDAO {
 					"f1", "xVyQPJuerzK8LB4G");
 
 			// SQL文を準備する
-			String sql = "SELECT f.featured_item_name, f.price, ap.average_price FROM stores s JOIN featured_items f ON s.phone_number = f.phone_number LEFT JOIN average_prices ap ON s.prefecture_id = ap.prefecture_id AND f.featured_item_name = ap.featured_item_name WHERE s.phone_number = ?";
+			String sql = "SELECT s.phone_number, f.featured_item_name, f.price, ap.average_price FROM stores s JOIN featured_items f ON s.phone_number = f.phone_number LEFT JOIN average_prices ap ON s.prefecture_id = ap.prefecture_id AND f.featured_item_name = ap.featured_item_name WHERE s.phone_number = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる

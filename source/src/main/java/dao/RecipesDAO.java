@@ -13,7 +13,7 @@ import dto.RecipesDTO;
 
 public class RecipesDAO {
 	//// 引数recipesで指定されたレコードを検索し、取得したデータのリストを返す
-	public List<RecipesDTO> select(RecipesDTO recipes) {
+	public List<RecipesDTO> select(String phoneNumber) {
 		Connection conn = null;
 		List<RecipesDTO> recipeList = new ArrayList<RecipesDTO>();
 
@@ -32,7 +32,7 @@ public class RecipesDAO {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			pStmt.setString(1, recipes.getPhone_number());
+			pStmt.setString(1, phoneNumber);
 
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
