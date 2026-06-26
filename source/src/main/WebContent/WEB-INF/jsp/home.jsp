@@ -15,7 +15,7 @@
 		</h1>
 		<!--メイン-->
 		<h2>店舗表示</h2>
-		<form method="POST" action="/f1/HomeServlet">
+		<form method="POST" action="/f1/MemoServlet">
 			<rabel for="memo">メモ</rabel>
 			<br>
 			<div class="memo-box">
