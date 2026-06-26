@@ -89,14 +89,17 @@ a.button {
 	border-radius: 10px;
 	text-align: center;
 	min-width: 120px;
-	margin-top: 15px;
+	margin: 15px auto 0;
 	background-color: white;
+	width: 300px;
 }
 
 .store_appeal_short {
 	border: 2px solid #D4AF37;
 	padding: 8px;
-	margin-top: 15px;
+	margin: 15px auto 0;
+	text-align: center;
+	width: 300px;
 	border-radius: 10px;
 	background-color: white;
 }
