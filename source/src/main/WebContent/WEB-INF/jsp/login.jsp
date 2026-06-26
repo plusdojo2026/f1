@@ -6,15 +6,17 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/login.css"> 
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ログイン</title>
+<title>GoodBuy | ログイン</title>
 </head>
 <body>
+    <div id="top">
     <!--ヘッダー-->
     <header class="header">
       <div class="header-logo">
         <img src="img/image.png" alt="ロゴ">
       </div>
-    </header>
+	</header>
+    </div>
     <!--ヘッダーここまで-->
 <!--メイン-->
 <main>
