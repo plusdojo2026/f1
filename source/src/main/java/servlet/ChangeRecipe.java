@@ -59,10 +59,10 @@ public class ChangeRecipe {
 
 				}
 				
-				//かっこの外にGeminiもしくはDBからとってきたデータを詰める処理を書く
+				//この下にGeminiもしくはDBからとってきたデータを詰める処理を書く
 				
 				
-				//結果をJSPに渡す
+				//結果をJSPに渡す（List名を書き直す）
 				request.setAttribute("List", List);
 			    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/detail.jsp");
 			    dispatcher.forward(request, response);
