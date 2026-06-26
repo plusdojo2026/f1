@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,14 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.IngredientsDAO;
+import dao.RecipesDAO;
 import dao.StoresDAO;
 import dao.UsersDAO;
+import dto.IngredientsDTO;
 import dto.LoginUserDTO;
+import dto.RecipesDTO;
 import dto.StoresDTO;
 import dto.UsersDTO;
 
 @WebServlet("/HomeServlet")
-public class HomeServlet extends HttpServlet{
+public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -30,23 +35,42 @@ public class HomeServlet extends HttpServlet{
 			response.sendRedirect("/f1/LoginServlet");
 			return;
 		}
-		
+
 		// セッションスコープからアドレスを取得する
-		LoginUserDTO loginUserDTO = (LoginUserDTO)session.getAttribute("address");
+		LoginUserDTO loginUserDTO = (LoginUserDTO) session.getAttribute("address");
 		UsersDAO usersDAO = new UsersDAO();
 		List<UsersDTO> usersList = usersDAO.selectmemo(loginUserDTO);
 		request.setAttribute("usersList", usersList);
-		
+
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-		String phoneNumber = request.getParameter("phone_number");
-		
+
 		StoresDAO storeDao = new StoresDAO();
 		List<StoresDTO> storesList = storeDao.selectstores(usersList.get(0));
 		request.setAttribute("storesList", storesList);
+
+		RecipesDAO recipesDAO = new RecipesDAO();
+		List<RecipesDTO> recipesList = new ArrayList();
 		
+		IngredientsDAO ingredientsDao = new IngredientsDAO();
+		List<List> ingredientsListList = new ArrayList();
 		
-//		GeminiService gemini = new GeminiService();
+		String phoneNumber = "";
+		
+		for (StoresDTO storesDTO : storesList) {
+			phoneNumber = storesDTO.getPhone_number();
+			
+			RecipesDTO recipesDTO = recipesDAO.selectrecipes(phoneNumber).get(0);
+			recipesList.add(recipesDTO);
+			List<IngredientsDTO> ingredientsList = ingredientsDao.select(
+					phoneNumber, recipesDTO.getRecipe_id());
+			ingredientsListList.add(ingredientsList);
+		}
+		request.setAttribute("recipesList", recipesList);
+		request.setAttribute("ingredientsListList", ingredientsListList);
+
+
+////		GeminiService gemini = new GeminiService();
 //		try {
 //			//レシピ生成メソッドを実行し、recipe_idを受け取る
 //				int recipe_id = gemini.generateRecipe(phoneNumber);
@@ -59,20 +83,10 @@ public class HomeServlet extends HttpServlet{
 //		if (recipeIdStr !=null && !recipeIdStr.isEmpty()) {
 //			recipeId = Integer.parseInt(recipeIdStr);
 //		}
-//
-//
-//		//DAOの作成
-//		RegistStoresDAO registDao = new RegistStoresDAO();
-//		StoresDAO storeDao = new StoresDAO();
-//		RecipesDAO recipesDao = new RecipesDAO();
-//		IngredientsDAO ingredientsDao = new IngredientsDAO();
-//		FeaturedItemsDAO featuredDao = new FeaturedItemsDAO();
+
 //
 //		//テーブルのデータ取得
-//		List<StoresDTO> storeList = storeDao.select(new StoresDTO(phoneNumber,"","","",""));
-//		List<RegistStoresDTO> storeList = registDao.select(new RegistStoresDTO(0, phoneNumber));
-//		List<RecipesDTO> recipeList = recipesDao.select(new RecipesDTO(recipeId,"","",""));
-//		List<FeaturedItemsDTO> featuredList = featuredDao.select(new FeaturedItemsDTO(0,phoneNumber,0,"","","",""));
+
 //		List<IngredientsDTO> ingredientsList = ingredientsDao.select(new IngredientsDTO());
 //		//HomeDisplayDTOにまとめる
 //		List<HomeDisplayDTO> cardList = new ArrayList<>();
@@ -99,46 +113,44 @@ public class HomeServlet extends HttpServlet{
 //			totalPrice += i.getPrice();;
 //		}
 //
-//		request.setAttribute("cardList", cardList);
-//		request.setAttribute("storeList", storeList);
+
 //		request.setAttribute("totalPrice",totalPrice);
-//
-		//店舗表示ページにフォワードする
+
+		// 店舗表示ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
 		dispatcher.forward(request, response);
 	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		//フォームから受け取る
+		// フォームから受け取る
 		String phoneNumber = request.getParameter("number");
 		String memo = request.getParameter("memo");
 
-		//セッションからユーザー情報を取得
+		// セッションからユーザー情報を取得
 		HttpSession session = request.getSession();
-		LoginUserDTO loginUserDTO = (LoginUserDTO)session.getAttribute("address");
-		String address =loginUserDTO.getId();
-		
+		LoginUserDTO loginUserDTO = (LoginUserDTO) session.getAttribute("address");
+		String address = loginUserDTO.getId();
+
 		UsersDAO usersDao = new UsersDAO();
-		List<UsersDTO> usersList = usersDao.select(new UsersDTO(0, address,"", 0, ""));
+		List<UsersDTO> usersList = usersDao.select(new UsersDTO(0, address, "", 0, ""));
 		UsersDTO user = usersList.get(0);
 		int userId = user.getUser_id();
 
-		//メモ更新
+		// メモ更新
 		UsersDTO dto = new UsersDTO();
 		dto.setUser_id(user.getUser_id());
 		dto.setMemo(memo);
 		usersDao.updateMemo(dto);
-		
+
 		UsersDAO usersDAO = new UsersDAO();
 		usersList = usersDAO.selectmemo(loginUserDTO);
 		request.setAttribute("usersList", usersList);
 
-
-		//店舗表示ページにフォワードする
+		// 店舗表示ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
 		dispatcher.forward(request, response);
 	}
 }
-
