@@ -68,20 +68,23 @@ public class DetailServlet extends HttpServlet {
 		List<StoresDTO> storeList = storesDao.select(new StoresDTO(phoneNumber,"",0,"",""));
 		request.setAttribute("storeList", storeList);
 		
-		//ユーザーメモの表示と更新
+		//ユーザーメモ更新
 		UsersDTO dto = new UsersDTO();
 		dto.setUser_id(user.getUser_id());
 		dto.setMemo(memo);
 		usersDao.updateMemo(dto);
 		
+		//ユーザーメモ検索
 		UsersDAO usersDAO = new UsersDAO();
 		usersList = usersDAO.selectmemo(loginUserDTO);
+		
+		//リクエストパラメータに格納
 		request.setAttribute("usersList", usersList);
 		
 		//レシピ関連情報 ここ宮崎さん
 		
 		
-		//目玉商品一覧と値段と平均価格　この3点セットで実行　お手本
+		//目玉商品一覧と値段と平均価格
 		DetailPriceDAO detailDAO = new DetailPriceDAO();
 		List<DetailPriceDTO> dpList = detailDAO.select(new DetailPriceDTO(phoneNumber, "", 0, 0));
 		request.setAttribute("dpList", dpList);

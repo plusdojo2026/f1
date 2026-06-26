@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import dao.RecipesDAO;
 import dto.RecipesDTO;
-import gemini.GeminiBusyException;
 import gemini.GeminiService;
 
 public class ChangeRecipe {
@@ -40,31 +40,30 @@ public class ChangeRecipe {
 				
 				//レシピを再生成する
 				GeminiService gemini = new GeminiService();
+				Integer recipeId = null;
 				try {
-					int recipeId = gemini.generateRecipe(phoneNumber);
-					
-				} catch (GeminiBusyException e) {
-		            /*このかっこの中にDBにアクセスしてデータを取り出す処理を書く*/
-		            
+					recipeId = gemini.generateRecipe(phoneNumber);
+				//もしGeminiAPIの問題で生成に失敗したら、DBにrecipe_idを取得しに行く
+				} catch (Exception e) {
+		            RecipesDAO Rdao = new RecipesDAO();
+		            RecipesDTO Rdto = new RecipesDTO();
+		            Rdto.setPhone_number(phoneNumber);
+
+		            List<RecipesDTO> list = Rdao.select(Rdto);
+
+		            //最新のrecipe_idを取得する
+		            if (!list.isEmpty()) {
+		                //listはrecipe_id昇順で返ってくるので、一番最後の要素を使う
+		                recipeId = list.get(list.size() - 1).getRecipe_id();
+		            }
+
 				}
 				
 				//かっこの外にGeminiもしくはDBからとってきたデータを詰める処理を書く
-				//以下要修正
 				
-	            RecipesDTO recipe = new RecipesDTO();
-				recipe.getRecipe_name();
-		        //この下に追加したDAO、DTOをもとにDBからデータを取り寄せるプログラムを作成。名前を仮にComplexDAOとする
-				
-				//DTOを作成して検索条件をセット
-				ComplexDTO coDTO = new ComplexDTO();
-				coDTO.set/*ここからDTOの中身をもとに作成*/
-				
-				//DAOにDTOを渡す
-				ComplexDAO coDao = new ComplexDAO();
-				List<ComplexDTO> coList = coDao.select(coDTO);
 				
 				//結果をJSPに渡す
-				request.setAttribute("coList", coList);
+				request.setAttribute("List", List);
 			    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/detail.jsp");
 			    dispatcher.forward(request, response);
 				
