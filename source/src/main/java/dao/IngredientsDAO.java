@@ -27,14 +27,20 @@ public class IngredientsDAO {
 					"f1", "xVyQPJuerzK8LB4G");
 
 			// SQL文を準備する
-			String sql = "SELECT f.featured_item_id, f.price, r.recipe_name, i.ingredients_name " + "FROM (recipes r "
+			String sql = "SELECT f.featured_item_id, f.price, r.recipe_id, r.recipe_name, i.ingredients_name "
+					+ "FROM (recipes r "
 					+ "INNER JOIN ingredients i ON r.recipe_id = i.recipe_id) "
 					+ "LEFT JOIN featured_items f ON f.featured_item_name = i.ingredients_name "
-					+ "WHERE f.phone_number = ? " + "AND featured_item_name "
-					+ "IN(SELECT ingredients_name FROM ingredients WHERE recipe_id = ?)";
+					+ "WHERE f.phone_number = ? "
+					+ "AND r.recipe_id = ? "
+					+ "AND featured_item_name "
+					+ "IN(SELECT ingredients_name FROM ingredients) "
+					+ "AND f.end_date >= current_date;";
 			PreparedStatement ps = conn.prepareStatement(sql);
+			
 			ps.setString(1, phone_number);
 			ps.setInt(2, recipe_id);
+			
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = ps.executeQuery();
 
