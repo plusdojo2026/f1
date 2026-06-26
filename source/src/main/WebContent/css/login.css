@@ -45,6 +45,12 @@ img{
   text-align: center;
 }
 
+.nav{
+  text-align: center;
+  border-bottom: 5px solid #ffd501;
+  margin:25px;
+}
+
 /*main内*/
 form{
   text-align: center;

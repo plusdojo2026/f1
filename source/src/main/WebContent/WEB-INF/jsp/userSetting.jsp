@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>>GoodBuy | ユーザー設定</title>
+    <title>GoodBuy | ユーザー設定</title>
     <link rel="stylesheet" type="text/css" href="css/userSetting.css">
 </head>
 <body>
