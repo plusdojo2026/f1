@@ -41,7 +41,7 @@ img {
 	border-radius: 6px;
 	background-color: #FAFAD2;
 	width: 80%;
-	height: 170px;
+	height: 100px;
 	padding: 10px;
 	box-sizing: border-box;
 }
@@ -80,7 +80,7 @@ a.button {
 	display: flex;
 	gap: 10px;
 	justify-content: center;
-	flex-wrap: wrap; /*フレックス対応*/
+	 flex-direction: column;
 }
 
 .recipe_name, .ingredients_name, .total_price {
