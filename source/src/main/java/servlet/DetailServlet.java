@@ -11,14 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.AveragePricesDAO;
-import dao.FeaturedItemsDAO;
-import dao.RecipesDAO;
+import dao.DetailPriceDAO;
 import dao.StoresDAO;
 import dao.UsersDAO;
-import dto.DetailDisplayDTO;
-import dto.FeaturedItemsDTO;
-import dto.RecipesDTO;
+import dto.DetailPriceDTO;
+import dto.LoginUserDTO;
 import dto.StoresDTO;
 import dto.UsersDTO;
 
@@ -49,7 +46,8 @@ public class DetailServlet extends HttpServlet {
 		}*/
 
 		//まずセッションスコープからaddressを取得し、user_idを取得する
-		String address = (String)session.getAttribute("address");
+		LoginUserDTO loginUserDTO = (LoginUserDTO)session.getAttribute("address");
+		String address =loginUserDTO.getId();
 		UsersDAO usersDao = new UsersDAO();
 		List<UsersDTO> usersList = usersDao.select(new UsersDTO(0, address, "", 0, ""));
 		UsersDTO user = usersList.get(0);
@@ -57,6 +55,7 @@ public class DetailServlet extends HttpServlet {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 		String phoneNumber = request.getParameter("number");
+		String memo = request.getParameter("memo");
 		//recipe_idをInt型に変換
 		String recipeIdStr = request.getParameter("recipe_id");
 		int recipeId = 0;
@@ -64,45 +63,28 @@ public class DetailServlet extends HttpServlet {
 			recipeId = Integer.parseInt(recipeIdStr);
 		}
 		
-		//DAOのインスタンスを生成
-		StoresDAO storesDao = new StoresDAO();
-		RecipesDAO recipesDao = new RecipesDAO();
-		FeaturedItemsDAO featuredItemsDao = new FeaturedItemsDAO();
-		AveragePricesDAO averagePricesDao = new AveragePricesDAO();
-		
-		List<StoresDTO> storeList = storesDao.select(new StoresDTO(phoneNumber,"",0,"",""));
-		List<RecipesDTO> recipeList = recipesDao.select(new RecipesDTO(recipeId,"","",""));
-		List<FeaturedItemsDTO> itemList = featuredItemsDao.select(new FeaturedItemsDTO(0,phoneNumber,0,"","","",""));
-		
-		//1件の詳細データを入れるDTO
-		DetailDisplayDTO detail = new DetailDisplayDTO();
-		
 		//店舗情報
-		StoresDTO store = storeList.isEmpty() ? new StoresDTO() : storeList.get(0);
-		detail.setStore_name(store.getStore_name());
-		detail.setStore_appeal_long(store.getStore_appeal_long());
+		StoresDAO storesDao = new StoresDAO();
+		List<StoresDTO> storeList = storesDao.select(new StoresDTO(phoneNumber,"",0,"",""));
+		request.setAttribute("storeList", storeList);
 		
-		//ユーザーメモ
-		detail.setMemo(user.getMemo());
+		//ユーザーメモの表示と更新
+		UsersDTO dto = new UsersDTO();
+		dto.setUser_id(user.getUser_id());
+		dto.setMemo(memo);
+		usersDao.updateMemo(dto);
 		
-		//レシピ情報
-		RecipesDTO recipe = recipeList.isEmpty() ? new RecipesDTO() : recipeList.get(0);
-		detail.setRecipe_name(recipe.getRecipe_name());
-		detail.setRecipe(recipe.getRecipe());
+		UsersDAO usersDAO = new UsersDAO();
+		usersList = usersDAO.selectmemo(loginUserDTO);
+		request.setAttribute("usersList", usersList);
 		
-		//レシピ材料（複数）
-		request.setAttribute("itemList", itemList);
-
-		//必要目玉商品（複数）ここは宮崎さんに合わせて書き直す
-		List<FeaturedItemsDTO> featuredItems = featuredItemsDao.selectl(recipeId);
-		request.setAttribute("featuredItems", featuredItems);
-
-		//その他の目玉商品（複数）
-		List<FeaturedItemsDTO> otherItems = featuredItemsDao.selectByStoreId(phoneNumber);
-		request.setAttribute("otherItems", otherItems);
-
-		//detailは1件だけ渡す
-		request.setAttribute("detailList", detail);
+		//レシピ関連情報 ここ宮崎さん
+		
+		
+		//目玉商品一覧と値段と平均価格　この3点セットで実行　お手本
+		DetailPriceDAO detailDAO = new DetailPriceDAO();
+		List<DetailPriceDTO> dpList = detailDAO.select(new DetailPriceDTO(phoneNumber, "", 0, 0));
+		request.setAttribute("dpList", dpList);
 		
 		//JSPへフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/detail.jsp");
