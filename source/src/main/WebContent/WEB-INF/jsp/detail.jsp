@@ -7,7 +7,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>詳細表示 | GoodBuy</title>
-        <link rel="stylesheet" href="detail.css">
+        <link rel="stylesheet" href="css/detail.css">
     </head>
     <body>
         <!--ヘッダー-->
@@ -15,7 +15,7 @@
         <header class="header">
             <div class="header-logo">
             <a href="/HomeServlet"><!--homeへ戻るリンクに書き換える-->
-                <img src="img/logo.png" width="150" height="130" alt="ロゴ">
+                <img src="img/image.png" width="150" height="130" alt="ロゴ">
             </a>
             </div>
             <nav class="nav">
@@ -27,29 +27,29 @@
         <!--メイン-->
         <main>
         	
-            <h1 class="store-name"><c:out value="${storeList.store_name}"/></h1>
+            <h1 class="store-name"><c:out value="${storeList[0].store_name}"/></h1>
 
             <!--店舗アピール（長）-->
-            <p class="appeal-long"><c:out value="${storeList.store_appeal_long}"/></p>
+            <p class="appeal-long"><c:out value="${storeList[0].store_appeal_long}"/></p>
 
             <!--メモ欄-->
             <form method="post" action="/f1/DetailServlet">
             <label for="memo">メモ</label><br>
-            <textarea name="memo" class="memo"><c:out value="${usersList.memo}"/></textarea>
+            <textarea name="memo" class="memo"><c:out value="${usersList[0].memo}"/></textarea>
             <p class="memo-update"><input type="submit" value="更新" onclick="return confirm('メモを更新します。よろしいですか？');"></p>
             </form>
 
             <!--レシピ-->
             <div class="recipe">
-            <h3><c:out value="${detailList.recipe_name}"/></h3>
+            <h3><c:out value="${detailList[0].recipe_name}"/></h3>
             <ul>
-            	<c:forEach var="item" items="${itemList}">
+            	<c:forEach var="item" items="${dpList}">
                 <li><c:out value="${item.featured_item_name}"/></li>
                 </c:forEach>
             </ul>
             </div>
 
-            <form action="ChangeItemServlet" method="post">
+            <form>
             <table class="featuredItems">
                 <!--代替レシピのためのチェックボックスあり-->
                 <tr>
@@ -58,11 +58,11 @@
                     <th>都道府県相場</th>
                     <th>お得金額</th>
                 </tr>
-                <c:forEach var="detail" items="${detailList.featuredItems}">
+                <c:forEach var="dp" items="${dpList}">
                 <tr>
-                    <td><input type="checkbox" name="featuredItems" value="${detail.featured_item_id}"><c:out value="${detail.featured_item_name}"/></td>
-                    <td class="price item_price"><c:out value="${detail.price}"/>円</td>
-                    <td class="price average_price"><c:out value="${detail.average_price}"/>円</td>
+                    <td><input type="checkbox" name="featuredItems" value="${dp.featured_item_id}"><c:out value="${detail.featured_item_name}"/></td>
+                    <td class="price item_price"><c:out value="${dp.price}"/>円</td>
+                    <td class="price average_price"><c:out value="${dp.average_price}"/>円</td>
                     <td class="price gain"></td> <!-- gainはJavaScriptで計算した値を表示する -->
                 </tr>
                 </c:forEach>
@@ -83,11 +83,11 @@
                     <th>都道府県相場</th>
                     <th>お得金額</th>
                 </tr>
-                <c:forEach var="detail" items="${detailList}">
+                <c:forEach var="dp" items="${dpList}">
                 <tr>
-                    <td><c:out value="${detail.featured_item_name}"/></td>
-                    <td class="price item_price"><c:out value="${detail.price}"/>円</td>
-                    <td class="price average_price"><c:out value="${detail.average_price}"/>円</td>
+                    <td><c:out value="${dpList}"/></td>
+                    <td class="price item_price"><c:out value="${dp.price}"/>円</td>
+                    <td class="price average_price"><c:out value="${dp.average_price}"/>円</td>
                     <td class="price gain"></td>
                 </tr>
                 </c:forEach>

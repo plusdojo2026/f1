@@ -25,7 +25,7 @@ public class DetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	//Getメソッド
-	/*protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
@@ -33,17 +33,56 @@ public class DetailServlet extends HttpServlet {
 			response.sendRedirect("/f1/LoginServlet");
 			return;
 		}
-	}*/
-	
+			//まずセッションスコープからaddressを取得し、user_idを取得する
+			LoginUserDTO loginUserDTO = (LoginUserDTO)session.getAttribute("address");
+			String address =loginUserDTO.getId();
+			UsersDAO usersDao = new UsersDAO();
+			List<UsersDTO> usersList = usersDao.select(new UsersDTO(0, address, "", 0, ""));
+			UsersDTO user = usersList.get(0);
+			
+			// リクエストパラメータを取得する
+			request.setCharacterEncoding("UTF-8");
+			String phoneNumber = request.getParameter("phone_number");
+			String memo = request.getParameter("memo");
+			//recipe_idをInt型に変換
+			String recipeIdStr = request.getParameter("recipe_id");
+			int recipeId = 0;
+			if (recipeIdStr !=null && !recipeIdStr.isEmpty()) {
+				recipeId = Integer.parseInt(recipeIdStr);
+			}
+				
+			
+			//店舗情報
+			StoresDAO storesDao = new StoresDAO();
+			List<StoresDTO> storeList = storesDao.select(new StoresDTO(phoneNumber,"",0,"",""));
+			request.setAttribute("storeList", storeList);
+			
+			//ユーザーメモ検索
+			UsersDAO usersDAO = new UsersDAO();
+			usersList = usersDAO.selectmemo(loginUserDTO);
+			
+			//リクエストパラメータに格納
+			request.setAttribute("usersList", usersList);
+			
+			//レシピ関連情報 ここ宮崎さん
+			
+			
+			//目玉商品一覧と値段と平均価格
+			DetailPriceDAO detailDAO = new DetailPriceDAO();
+			List<DetailPriceDTO> dpList = detailDAO.select(new DetailPriceDTO(phoneNumber, "", 0, 0));
+			request.setAttribute("dpList", dpList);
+			
+			//JSPへフォワード
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/detail.jsp");
+			dispatcher.forward(request, response);
+			
+		
+	}
 	//Postメソッド
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// もしもログインしていなかったらログインサーブレットにリダイレクトする
+		
 		HttpSession session = request.getSession();
-		/*if (session.getAttribute("address") == null) {
-			response.sendRedirect("/f1/LoginServlet");
-			return;
-		}*/
 
 		//まずセッションスコープからaddressを取得し、user_idを取得する
 		LoginUserDTO loginUserDTO = (LoginUserDTO)session.getAttribute("address");
@@ -54,44 +93,14 @@ public class DetailServlet extends HttpServlet {
 
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-		String phoneNumber = request.getParameter("phone_number");
-		String memo = request.getParameter("memo");
-		//recipe_idをInt型に変換
-		String recipeIdStr = request.getParameter("recipe_id");
-		int recipeId = 0;
-		if (recipeIdStr !=null && !recipeIdStr.isEmpty()) {
-			recipeId = Integer.parseInt(recipeIdStr);
-		}
 		
-		//店舗情報
-		StoresDAO storesDao = new StoresDAO();
-		List<StoresDTO> storeList = storesDao.select(new StoresDTO(phoneNumber,"",0,"",""));
-		request.setAttribute("storeList", storeList);
+		String memo = request.getParameter("memo");
 		
 		//ユーザーメモ更新
 		UsersDTO dto = new UsersDTO();
 		dto.setUser_id(user.getUser_id());
 		dto.setMemo(memo);
 		usersDao.updateMemo(dto);
-		
-		//ユーザーメモ検索
-		UsersDAO usersDAO = new UsersDAO();
-		usersList = usersDAO.selectmemo(loginUserDTO);
-		
-		//リクエストパラメータに格納
-		request.setAttribute("usersList", usersList);
-		
-		//レシピ関連情報 ここ宮崎さん
-		
-		
-		//目玉商品一覧と値段と平均価格
-		DetailPriceDAO detailDAO = new DetailPriceDAO();
-		List<DetailPriceDTO> dpList = detailDAO.select(new DetailPriceDTO(phoneNumber, "", 0, 0));
-		request.setAttribute("dpList", dpList);
-		
-		//JSPへフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/detail.jsp");
-		dispatcher.forward(request, response);
         
 	}
 }

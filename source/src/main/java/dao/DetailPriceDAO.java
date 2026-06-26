@@ -13,7 +13,7 @@ import dto.DetailPriceDTO;
 public class DetailPriceDAO {
 	public List<DetailPriceDTO> select(DetailPriceDTO detailPrice) {
 		Connection conn = null;
-		List<DetailPriceDTO> DetailPriceList = new ArrayList<DetailPriceDTO>();
+		List<DetailPriceDTO> dpList = new ArrayList<DetailPriceDTO>();
 
 		try {
 			// JDBCドライバを読み込む
@@ -37,14 +37,14 @@ public class DetailPriceDAO {
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
 				DetailPriceDTO av = new DetailPriceDTO(rs.getString("phone_number"),rs.getString("featured_item_name"),rs.getInt("price"),rs.getInt("average_price"));
-							DetailPriceList.add(av);
+				dpList.add(av);
 						}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			DetailPriceList = null;
+			dpList = null;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			DetailPriceList = null;
+			dpList = null;
 		} finally {
 			// データベースを切断
 			if (conn != null) {
@@ -52,11 +52,11 @@ public class DetailPriceDAO {
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
-					DetailPriceList = null;
+					dpList = null;
 				}
 			}
 		}
 		// 結果を返す
-		return DetailPriceList;
+		return dpList;
 }
 }
