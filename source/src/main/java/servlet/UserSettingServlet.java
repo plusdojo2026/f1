@@ -23,6 +23,13 @@ public class UserSettingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		// もしもログインしていなかったらログインサーブレットにリダイレクトする
+		HttpSession session = request.getSession();
+		if (session.getAttribute("address") == null) {
+			response.sendRedirect("/f1/LoginServlet");
+			return;
+		}
+		
 		request.setCharacterEncoding("UTF-8");
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userSetting.jsp");
@@ -82,13 +89,13 @@ public class UserSettingServlet extends HttpServlet {
 					registDao.insert(userid , phoneNumber);
 				}
 			}
-			request.setAttribute("result", new ResultDTO("更新成功！", "更新完了及び、" + phone_number.length + "件の店舗登録処理が完了しました。", "/f1/UserServlet"));
+			request.setAttribute("result", new ResultDTO("更新成功！", "更新完了及び、" + phone_number.length + "件の店舗登録処理が完了しました。", "/f1/HomeServlet"));
 		} else {
 			request.setAttribute("result", new ResultDTO("更新失敗！", "更新する店舗が選択されていません。", "/f1/UserSettingServlet"));
 		}
 		
 		// リザルトjspにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
 		dispatcher.forward(request, response);
 		
 	}

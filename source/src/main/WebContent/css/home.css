@@ -16,11 +16,10 @@ img {
 }
 
 #search_result_form {
-	margin-top: 15px;
+	margin: 15px auto 25px auto;
 	background-color: #FAFAD2;
 	padding: 6px;
 	width: 80%;
-	margin: 0 auto;
 	border: 2px solid #D4AF37;
 	border-radius: 10px
 }
