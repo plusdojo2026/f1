@@ -14,7 +14,7 @@
         <div id="top">
         <header class="header">
             <div class="header-logo">
-            <a href="/HomeServlet"><!--homeへ戻るリンクに書き換える-->
+            <a href="/f1/HomeServlet"><!--homeへ戻るリンクに書き換える-->
                 <img src="img/image.png" width="150" height="130" alt="ロゴ">
             </a>
             </div>
@@ -41,11 +41,11 @@
 
             <!--レシピ-->
             <div class="recipe">
-            <h3><c:out value="${detailList[0].recipe_name}"/></h3>
+            <h3><c:out value="${recipe.recipe_name}"/></h3>
             <ul>
-            	<c:forEach var="item" items="${dpList}">
-                <li><c:out value="${item.featured_item_name}"/></li>
-                </c:forEach>
+            	
+                <li><c:out value="${recipe.recipe}"/></li>
+                
             </ul>
             </div>
 
@@ -58,11 +58,12 @@
                     <th>都道府県相場</th>
                     <th>お得金額</th>
                 </tr>
-                <c:forEach var="dp" items="${dpList}">
+                <!--レシピに必要な目玉商品-->
+                <c:forEach var="in" items="${ingredientsList}">
                 <tr>
-                    <td><input type="checkbox" name="featuredItems" value="${dp.featured_item_id}"><c:out value="${detail.featured_item_name}"/></td>
-                    <td class="price item_price"><c:out value="${dp.price}"/>円</td>
-                    <td class="price average_price"><c:out value="${dp.average_price}"/>円</td>
+                    <td><input type="checkbox" name="featuredItems"><c:out value="${in.ingredients_name}"/></td>
+                    <td class="price item_price"><c:out value="${in.price}"/>円</td>
+                    <td class="price average_price">円</td>
                     <td class="price gain"></td> <!-- gainはJavaScriptで計算した値を表示する -->
                 </tr>
                 </c:forEach>
@@ -76,7 +77,7 @@
             </form>
 
             <!--そのほかの目玉商品-->
-            <table>
+            <table class="featuredItems">
                 <tr>
                     <th>目玉商品一覧</th>
                     <th>価格</th>
@@ -85,7 +86,7 @@
                 </tr>
                 <c:forEach var="dp" items="${dpList}">
                 <tr>
-                    <td><c:out value="${dpList}"/></td>
+                    <td><c:out value="${dp.featured_item_name}"/></td>
                     <td class="price item_price"><c:out value="${dp.price}"/>円</td>
                     <td class="price average_price"><c:out value="${dp.average_price}"/>円</td>
                     <td class="price gain"></td>
