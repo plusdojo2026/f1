@@ -46,7 +46,7 @@
             	</c:forEach>
             	 -->
           	</select><br>
-          	<input type="button" name="submit" value="位置情報で店舗を検索する" class="info"><br>
+          	<!--  <input type="button" name="submit" value="位置情報で店舗を検索する" class="info"><br>-->
           	<!--  地図API 
           	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
           	
