@@ -81,7 +81,7 @@
 					<a href="#top"><img id="trap" src="img/gotop.svg"
 						alt="ページトップへ戻る"></a>
 				</div>
-				<p class="copyright">&copy; All rights reserved.</p>
+				<p class="copyright">&copy; COSMOS All rights reserved.</p>
 			</footer>
 </body>
 </html>

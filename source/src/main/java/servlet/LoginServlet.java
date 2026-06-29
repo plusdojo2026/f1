@@ -15,7 +15,7 @@ import dto.LoginUserDTO;
 import dto.ResultDTO;
 import dto.UsersDTO;
 
-@WebServlet("/LoginServlet")
+@WebServlet("")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("/f1/HomeServlet");
 		}else { // ログイン失敗
 			// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
-			request.setAttribute("result", new ResultDTO("もう一度入力してください。", "AddressまたはPasswordに間違いがあります。", "/f1/LoginServlet"));
+			request.setAttribute("result", new ResultDTO("もう一度入力してください。", "AddressまたはPasswordに間違いがあります。", "/f1/"));
 			// リザルトjspにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
 			dispatcher.forward(request, response);
