@@ -20,7 +20,7 @@
     <!--ヘッダーここまで-->
 <!--メイン-->
 <main>
-<form method="POST" action="/f1/LoginServlet" id="login_form">
+<form method="POST" action="/f1/" id="login_form">
  
     <!--新規登録へのリンク-->
     <div class=regist><a href="/f1/UserServlet">新規登録はこちら</a></div>
@@ -39,7 +39,7 @@
 </form>
 <!--フッター-->
     <footer class="footer">
-    <p class="copyright">&copy;  All rights reserved.</p>
+    <p class="copyright">&copy; COSMOS All rights reserved.</p>
     </footer>
 </main>
 <script>

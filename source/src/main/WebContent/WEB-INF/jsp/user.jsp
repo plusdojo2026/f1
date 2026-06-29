@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>GoodBuy | 新規ユーザー登録</title>
     <link rel ="stylesheet" href="css/user.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
     <div id="top">
@@ -102,7 +101,7 @@
           	</script>
           	
 			<input type="submit" name="submit" value="登録" class="reg" onclick="return confirm('登録します。よろしいですか？');"><br>
-			<a href="/f1/LoginServlet" class="backLogin">ログイン画面へ戻る</a>
+			<a href="/f1" class="backLogin">ログイン画面へ戻る</a>
 		</form>
 		</div>
 
@@ -112,7 +111,7 @@
       <div class="gotop">
         <a href="#top"><img id = "trap" src="img/gotop.svg" alt="ページトップへ戻る"></a>
       </div>
-      <p class="copyright">&copy;  All rights reserved.</p>
+      <p class="copyright">&copy; COSMOS All rights reserved.</p>
     </footer>
     <!--フッターここまで-->
     <script>

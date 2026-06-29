@@ -34,7 +34,7 @@ public class DetailServlet extends HttpServlet {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
 		if (session.getAttribute("address") == null) {
-			response.sendRedirect("/f1/LoginServlet");
+			response.sendRedirect("/f1/");
 			return;
 		}
 			//まずセッションスコープからaddressを取得し、user_idを取得する
