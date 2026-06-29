@@ -18,14 +18,14 @@ public class TestGemini {
 		Integer recipeId = null;
 		try {
 			recipeId = gemini.generateRecipe(testPhoneNumber);
-			 //System.out.println(recipeId);
+			System.out.println(recipeId);
 		//もしGeminiAPIの問題で生成に失敗したら、DBにrecipe_idを取得しに行く
 		} catch (Exception e) {
             RecipesDAO Rdao = new RecipesDAO();
             RecipesDTO Rdto = new RecipesDTO();
             Rdto.setPhone_number(testPhoneNumber);
 
-            List<RecipesDTO> list = Rdao.select(Rdto);
+            List<RecipesDTO> list = Rdao.selectTest(Rdto);
 
             //最新のrecipe_idを取得する
             if (!list.isEmpty()) {
