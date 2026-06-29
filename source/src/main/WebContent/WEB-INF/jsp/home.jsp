@@ -21,7 +21,7 @@
 			<div class="memo-box">
 				<textarea class="fixed-box" name="memo">${usersList[0].memo}</textarea>
 				<div class="button-area">
-					<input type="submit" class="update-button"></input>
+					<input type="submit" class="update-button" value="更新"></input>
 				</div>
 			</div>
 		</form>
