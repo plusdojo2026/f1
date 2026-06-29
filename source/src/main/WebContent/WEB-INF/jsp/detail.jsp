@@ -69,14 +69,14 @@
                 </c:forEach>
             </table>
             
-            <form method=post action="/f1/ChangeRecipeServlet">
+            <!--<form method=post action="/f1/ChangeRecipeServlet">-->
             <!--代替ボタン-->
             <p class="change-button">
             	<input type="hidden" name="phone_number" value="${storeList[0].phone_number}">
                 <!-- <input type="submit" value="${user.phone_number}" onclick="return confirm('チェックした商品を代替します。よろしいですか？');" class="change-items">-->
                 <input type="submit" value="代替レシピ" onclick="return confirm('代替レシピを表示します。よろしいですか？');" class="change-recipe">
             </p>
-            </form>
+            
 
             <!--そのほかの目玉商品-->
             <table class="featuredItems">
