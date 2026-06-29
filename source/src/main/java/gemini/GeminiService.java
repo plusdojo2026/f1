@@ -32,7 +32,7 @@ public class GeminiService {
 
         //GeminiAPI呼び出し
         String answer = sendPrompt(prompt);
-
+        
         //パースしてname/ingredients/recipeに分解
         ParsedRecipe parsed = parseRecipe(answer);
 
@@ -49,7 +49,7 @@ public class GeminiService {
     //APIキーテーブルからAPIキーを取得
 	private String getApiKey() throws Exception {
 
-	    String sql = "SELECT api_key FROM API WHERE api_id = '1'";
+	    String sql = "SELECT api_key FROM API WHERE api_id = '1';";
 
 	    try (Connection conn = DriverManager.getConnection(url, user, pass);
 	         PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -66,7 +66,7 @@ public class GeminiService {
     private List<String> getFeaturedItems(String phone_number) throws Exception {
         List<String> list = new ArrayList<>();
 
-        String sql = "SELECT featured_item_name FROM featured_items WHERE phone_number = ?";
+        String sql = "SELECT featured_item_name FROM featured_items WHERE phone_number = ?;";
 
         try (Connection conn = DriverManager.getConnection(url, user, pass);
              PreparedStatement pStmt = conn.prepareStatement(sql)) {

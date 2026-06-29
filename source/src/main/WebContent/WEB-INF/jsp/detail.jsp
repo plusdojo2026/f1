@@ -33,7 +33,7 @@
             <p class="appeal-long"><c:out value="${storeList[0].store_appeal_long}"/></p>
 
             <!--メモ欄-->
-            <form method="post" action="/f1/DetailServlet">
+            <form method="post" action="/f1/MemoServlet">
             <label for="memo">メモ</label><br>
             <textarea name="memo" class="memo"><c:out value="${usersList[0].memo}"/></textarea>
             <p class="memo-update"><input type="submit" value="更新" onclick="return confirm('メモを更新します。よろしいですか？');"></p>
@@ -49,7 +49,7 @@
             </ul>
             </div>
 
-            <form>
+            
             <table class="featuredItems">
                 <!--代替レシピのためのチェックボックスあり-->
                 <tr>
@@ -69,10 +69,12 @@
                 </c:forEach>
             </table>
             
+            <form method=post action="/f1/ChangeRecipeServlet">
             <!--代替ボタン-->
             <p class="change-button">
-                <!-- <input type="submit" value="代替商品" onclick="return confirm('チェックした商品を代替します。よろしいですか？');" class="change-items">-->
-                <input type="submit" value="代替レシピ" onclick="return confirm('代替レシピを表示します。よろしいですか？');" class="change-recipe" action="/">
+            	<input type="hidden" name="phone_number" value="${storeList[0].phone_number}">
+                <!-- <input type="submit" value="${user.phone_number}" onclick="return confirm('チェックした商品を代替します。よろしいですか？');" class="change-items">-->
+                <input type="submit" value="代替レシピ" onclick="return confirm('代替レシピを表示します。よろしいですか？');" class="change-recipe">
             </p>
             </form>
 
